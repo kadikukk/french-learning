@@ -4,6 +4,7 @@ import { compose } from 'recompose';
 import withAuthorization from '../session/withAuthorization';
 import withFirebase from '../firebase/withFirebase';
 import Messages from '../message/Messages.jsx';
+import { FormattedMessage } from 'react-intl';
 
 class HomePage extends Component {
   constructor(props) {
@@ -29,7 +30,7 @@ class HomePage extends Component {
   render() {
     return (
       <div>
-        <h1>Home Page</h1>
+        <h1><FormattedMessage id="homePage.title"/></h1>
         <p>The Home Page is accessible by every signed in user.</p>
 
         <Messages users={this.state.users} />
