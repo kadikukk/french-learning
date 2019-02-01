@@ -47,8 +47,8 @@ class Chapters extends React.Component {
 
   renderLoader() {
     return (
-      <div style={{ width: '100%', margin: 'auto', marginTop: '20px' }}>
-        <CircularProgress size={60} style={{ marginLeft: '50%' }} />
+      <div style={{ width: '100%', margin: 'auto', marginTop: '20px', textAlign: 'center' }}>
+        <CircularProgress size={60} thickness={7} />
       </div>
     );
   }
@@ -95,8 +95,12 @@ class Chapters extends React.Component {
 
 Chapters.propTypes = {
   firebase: PropTypes.object.isRequired,
-  chapters: PropTypes.array.isRequired,
+  chapters: PropTypes.array,
   fetching: PropTypes.bool.isRequired
+};
+
+Chapters.defaultProps = {
+  chapters: null
 };
 
 export default withFirebase(Chapters);

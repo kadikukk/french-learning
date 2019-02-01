@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { sortBy, compose, toLower, prop } from 'ramda';
 
 import withFirebase from '../firebase/withFirebase';
 import Chapters from './Chapters.jsx';
+
+const sortByName = sortBy(compose(toLower, prop('name')));
 
 class ChaptersContainer extends React.Component {
   constructor(props) {
@@ -25,8 +28,7 @@ class ChaptersContainer extends React.Component {
     this.setState({ fetching: true });
     this.props.firebase
       .chapters()
-      .orderByChild('createdAt')
-      .on('value', snapshot => {
+      .on('value', (snapshot) => {
         const chapterObject = snapshot.val();
 
         if (chapterObject) {
@@ -36,7 +38,7 @@ class ChaptersContainer extends React.Component {
           }));
 
           this.setState({
-            chapters: chapterList,
+            chapters: sortByName(chapterList),
             fetching: false
           });
         } else {
