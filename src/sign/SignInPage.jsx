@@ -91,7 +91,7 @@ class SignInFormBase extends React.Component {
             <div className="row">
               <div className="col s12" style={{ textAlign: 'right' }}>
                 <RaisedButton
-                  label={<FormattedMessage id="signIn.cancel" />}
+                  label={<FormattedMessage id="general.cancel" />}
                   onClick={() => window.history.back()}
                   style={{ marginRight: '20px' }}
                 />
