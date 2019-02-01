@@ -12,10 +12,12 @@ class AppBar extends React.Component {
     return (
       <AuthUserContext.Consumer>
         {authUser => authUser ? (
-          <FlatButton
-            label={<FormattedMessage id="appBar.signOut" />}
-            onClick={this.props.firebase.doSignOut}
-          />)
+          <Link to="/">
+            <FlatButton
+              label={<FormattedMessage id="appBar.signOut" />}
+              onClick={this.props.firebase.doSignOut}
+            />
+          </Link>)
           : (
             <Link to="/signin">
               <FlatButton
