@@ -21,10 +21,10 @@ class Chapters extends React.Component {
     });
   }
 
-  handleEditChapter = (chapter, text) => {
+  handleEditChapter = (chapter, name) => {
     this.props.firebase.chapter(chapter.uid).set({
       ...chapter,
-      text,
+      name,
       editedAt: this.props.firebase.serverValue.TIMESTAMP
     });
   };
@@ -70,7 +70,7 @@ class Chapters extends React.Component {
               </div>
             )}
             <div className="row">
-              <div className="col s12 m10">
+              <div className="col s9 m10">
                 <TextField
                   floatingLabelText={<FormattedMessage id="chapter.new" />}
                   value={this.state.newChapterName}
@@ -78,7 +78,7 @@ class Chapters extends React.Component {
                   fullWidth
                 />
               </div>
-              <div className="col s12 m2" style={{ textAlign: 'right', marginTop: '28px' }}>
+              <div className="col s3 m2" style={{ textAlign: 'right', marginTop: '28px' }}>
                 <RaisedButton
                   label={<FormattedMessage id="general.add" />}
                   onClick={this.handleCreateNewChapter}
