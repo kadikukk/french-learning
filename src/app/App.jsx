@@ -1,7 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { Drawer } from 'material-ui';
+import { Drawer, AppBar as MaterialAppBar } from 'material-ui';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { FormattedMessage } from 'react-intl';
 
 import Menu from '../menu/Menu.jsx';
 import LandingPage from '../landing/Landing.jsx';
@@ -40,6 +41,10 @@ class App extends React.Component {
                 docked={false}
                 onRequestChange={this.toggleMenu}
               >
+                <MaterialAppBar
+                  title={<FormattedMessage id="appBar.menu" />}
+                  showMenuIconButton={false}
+                />
                 <Menu toggleMenu={this.toggleMenu} />
               </Drawer>
               <Route exact path={'/'} component={LandingPage} />
