@@ -39,8 +39,11 @@ const MenuAuth = ({ authUser, toggleMenu }) => (
         <ListItem primaryText="Admin" onClick={toggleMenu} />
       </Link>
     )}
-    <Link to={'/chapters'}>
+    <Link to={'/manage/chapters'}>
       <ListItem primaryText={<FormattedMessage id="menu.chapters"/>} onClick={toggleMenu} />
+    </Link>
+    <Link to={'/manage/words'}>
+      <ListItem primaryText={<FormattedMessage id="menu.words"/>} onClick={toggleMenu} />
     </Link>
   </List>
 );

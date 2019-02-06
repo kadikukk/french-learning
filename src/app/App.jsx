@@ -13,6 +13,7 @@ import HomePage from '../home/HomePage.jsx';
 import AccountPage from '../account/AccountPage.jsx';
 import AdminPage from '../admin/AdminPage.jsx';
 import ChaptersContainer from '../chapter/ChaptersContainer.js';
+import WordsAddForm from '../word/add/WordsAddForm.jsx';
 
 import withAuthentication from '../session/withAuthentication';
 import AppBar from '../appbar/AppBar.jsx';
@@ -54,7 +55,8 @@ class App extends React.Component {
               <Route path={'/home'} component={HomePage} />
               <Route path={'/account'} component={AccountPage} />
               <Route path={'/admin'} component={AdminPage} />
-              <Route path={'/chapters'} component={ChaptersContainer} />
+              <Route path={'/manage/chapters'} component={ChaptersContainer} />
+              <Route path={'/manage/words'} component={WordsAddForm} />
             </div>
           </Router>
         </React.Fragment>
