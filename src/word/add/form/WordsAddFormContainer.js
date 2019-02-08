@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { sortBy, compose, toLower, prop } from 'ramda';
 
-import withFirebase from '../../firebase/withFirebase';
+import withFirebase from '../../../firebase/withFirebase';
 import WordsAddForm from './WordsAddForm';
 
 const sortByName = sortBy(compose(toLower, prop('name')));

@@ -23,6 +23,7 @@ const translations = {
   'words.add.input.file': 'Failist',
   'words.add.chapter': 'Peatükk',
   'words.add.subject': 'Teema',
+  'words.add.cardTitle': 'Uus sõna',
   'words.add.type': 'Sõnaliik',
   'words.add.type.noun': 'Nimisõna',
   'words.add.type.verb': 'Tegusõna',

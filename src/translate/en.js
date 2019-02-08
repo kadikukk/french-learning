@@ -23,6 +23,7 @@ const translations = {
   'words.add.input.file': 'From file',
   'words.add.chapter': 'Chapter',
   'words.add.subject': 'Subject',
+  'words.add.cardTitle': 'New word',
   'words.add.type': 'Type',
   'words.add.type.noun': 'Noun',
   'words.add.type.verb': 'Verb',

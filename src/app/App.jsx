@@ -13,7 +13,7 @@ import HomePage from '../home/HomePage.jsx';
 import AccountPage from '../account/AccountPage.jsx';
 import AdminPage from '../admin/AdminPage.jsx';
 import ChaptersContainer from '../chapter/ChaptersContainer.js';
-import WordsAddFormContainer from '../word/add/WordsAddFormContainer.js';
+import WordsAddFormContainer from '../word/add/form/WordsAddFormContainer.js';
 
 import withAuthentication from '../session/withAuthentication';
 import AppBar from '../appbar/AppBar.jsx';

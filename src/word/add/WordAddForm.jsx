@@ -1,6 +1,6 @@
 import React from 'react';
 import { merge } from 'ramda';
-import { TextField, SelectField, MenuItem, Paper, RaisedButton } from 'material-ui';
+import { TextField, SelectField, MenuItem, Paper } from 'material-ui';
 import { FormattedMessage } from 'react-intl';
 import ExtraSelections from './ExtraSelections';
 
@@ -17,10 +17,10 @@ class WordAddForm extends React.Component {
         plural: '',
         masculine: '',
         feminine: '',
-        gender: 'm',
+        gender: '',
         preposition: '',
         postposition: '',
-        verbGroup: 1,
+        verbGroup: '',
         additionalInfo: ''
       },
       differentAdjectiveForms: false,
@@ -29,6 +29,8 @@ class WordAddForm extends React.Component {
       hasPostposition: false
     };
   }
+
+  getAddedWord = () => this.state.word;
 
   getAdditionalInfoColWidth = () => {
     if (this.state.word.type === 'verb' && this.state.hasPostposition) {
@@ -113,7 +115,7 @@ class WordAddForm extends React.Component {
         <div className="col s12 m4">
           <TextField
             floatingLabelText={<FormattedMessage id="words.add.masculine" />}
-            value={this.state.masculine}
+            value={this.state.word.masculine}
             fullWidth
             onChange={(e, value) => this.masculineFormChange(value)}
           />
@@ -121,7 +123,7 @@ class WordAddForm extends React.Component {
         <div className="col s12 m4">
           <TextField
             floatingLabelText={<FormattedMessage id="words.add.feminine" />}
-            value={this.state.feminine}
+            value={this.state.word.feminine}
             fullWidth
             onChange={(e, value) => this.feminineFormChange(value)}
           />
@@ -135,7 +137,7 @@ class WordAddForm extends React.Component {
       <div className="col s12 m4">
         <TextField
           floatingLabelText={<FormattedMessage id="words.add.plural" />}
-          value={this.state.plural}
+          value={this.state.word.plural}
           fullWidth
           onChange={(e, value) => this.pluralFormChange(value)}
         />
@@ -215,7 +217,7 @@ class WordAddForm extends React.Component {
     const wordColWidth = this.state.hasIrregularPlural || this.state.differentAdjectiveForms ? 4 : 6;
 
     return (
-      <Paper style={{ padding: '10px 0px 10px 0px' }}>
+      <Paper zDepth={0} style={{ padding: '10px 0px 10px 0px' }}>
         <div className="row">
           <div className="col s12 m3">
             <SelectField
@@ -271,14 +273,6 @@ class WordAddForm extends React.Component {
               value={this.state.word.additionalInfo}
               fullWidth
               onChange={(e, value) => this.additionalInfoChange(value)}
-            />
-          </div>
-        </div>
-        <div className="row">
-          <div className="col s12" style={{ textAlign: 'right' }}>
-            <RaisedButton
-              label={<FormattedMessage id="general.add" />}
-              onClick={this.handleCreateNewChapter}
             />
           </div>
         </div>
