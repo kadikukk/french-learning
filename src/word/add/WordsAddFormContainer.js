@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { sortBy, compose, toLower, prop } from 'ramda';
 
-import withFirebase from '../firebase/withFirebase';
-import Chapters from './Chapters.jsx';
+import withFirebase from '../../firebase/withFirebase';
+import WordsAddForm from './WordsAddForm';
 
 const sortByName = sortBy(compose(toLower, prop('name')));
 
-class ChaptersContainer extends React.Component {
+class WordsAddFormContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -32,19 +32,10 @@ class ChaptersContainer extends React.Component {
         const chapterObject = snapshot.val();
 
         if (chapterObject) {
-          const chapterList = Object.keys(chapterObject).map(key => {
-            // add uid to chapter
-            if (!chapterObject[key].uid) {
-              this.props.firebase.chapter(key).set({
-                ...chapterObject[key],
-                uid: key
-              });
-            }
-            return {
-              ...chapterObject[key],
-              uid: key
-            };
-          });
+          const chapterList = Object.keys(chapterObject).map(key => ({
+            ...chapterObject[key],
+            uid: key
+          }));
 
           this.setState({
             chapters: sortByName(chapterList),
@@ -61,7 +52,7 @@ class ChaptersContainer extends React.Component {
 
   render() {
     return (
-      <Chapters
+      <WordsAddForm
         fetching={this.state.fetching}
         chapters={this.state.chapters}
       />
@@ -69,8 +60,8 @@ class ChaptersContainer extends React.Component {
   }
 }
 
-ChaptersContainer.propTypes = {
+WordsAddFormContainer.propTypes = {
   firebase: PropTypes.object.isRequired
 };
 
-export default withFirebase(ChaptersContainer);
+export default withFirebase(WordsAddFormContainer);

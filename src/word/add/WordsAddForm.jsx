@@ -1,12 +1,57 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import { Paper, RadioButtonGroup, RadioButton, Divider, RaisedButton } from 'material-ui';
+import {
+  Paper, RadioButtonGroup, RadioButton, Divider, RaisedButton,
+  SelectField, MenuItem, TextField, CircularProgress
+} from 'material-ui';
 
 import FormWithHeading from '../../util/components/FormWithHeading';
 import AddedWords from './AddedWords';
 import WordAddForm from './WordAddForm';
 import FileUpload from './FileUpload';
+
+const ChapterAndSubjectSelect = (props) => (
+  <div className="row">
+    {props.fetching ? (
+      <div style={{ width: '100%', margin: 'auto', marginTop: '20px', textAlign: 'center' }}>
+        <CircularProgress size={50} />
+      </div>
+    ) : (<React.Fragment>
+      <div className="col s12 m6">
+        <SelectField
+          floatingLabelText={<FormattedMessage id="words.add.chapter" />}
+          value={props.chapterId}
+          fullWidth
+          onChange={(event, key, payload) => props.chapterChange(payload)}
+          disabled={props.fetching}
+        >
+          {props.chapters.map((chapter, i) => (
+            <MenuItem key={chapter.name} value={chapter.uid} primaryText={chapter.name} />
+          ))}
+        </SelectField>
+      </div>
+      <div className="col s12 m6">
+        <TextField
+          floatingLabelText={<FormattedMessage id="words.add.subject" />}
+          value={props.subject}
+          onChange={(e, value) => props.subjectChange(value)}
+          disabled={props.fetching}
+          fullWidth
+        />
+      </div>
+    </React.Fragment>)}
+  </div>
+);
+
+ChapterAndSubjectSelect.propTypes = {
+  chapterId: PropTypes.string.isRequired,
+  chapters: PropTypes.array.isRequired,
+  subject: PropTypes.string.isRequired,
+  chapterChange: PropTypes.func.isRequired,
+  subjectChange: PropTypes.func.isRequired,
+  fetching: PropTypes.bool.isRequired
+};
 
 const AddInputSelect = (props) => (
   <div className="row">
@@ -41,15 +86,31 @@ class WordsAddForm extends React.Component {
     super(props);
     this.state = {
       selectedInput: 'oneByOne',
+      chapterId: '',
+      subject: '',
       words: []
     };
   }
 
-  selectedInputChange = (value) => {
+  componentDidUpdate(prevProps) {
+    if (prevProps.chapters !== this.props.chapters) {
+      this.setState({
+        chapterId: this.props.chapters[0].uid
+      });
+    }
+  }
+
+  handleChange = (property, value) => {
     this.setState({
-      selectedInput: value
+      [property]: value
     });
-  };
+  }
+
+  selectedInputChange = (value) => this.handleChange('selectedInput', value);
+
+  chapterChange = (uid) => this.handleChange('chapterId', uid);
+
+  subjectChange = (subject) => this.handleChange('subject', subject);
 
   render() {
     return (
@@ -59,6 +120,14 @@ class WordsAddForm extends React.Component {
             <AddInputSelect
               selected={this.state.selectedInput}
               selectedInputChange={this.selectedInputChange}
+            />
+            <ChapterAndSubjectSelect
+              chapterId={this.state.chapterId}
+              chapters={this.props.chapters}
+              subject={this.state.subject}
+              chapterChange={this.chapterChange}
+              subjectChange={this.subjectChange}
+              fetching={this.props.fetching}
             />
             <Divider />
             <AddedWords words={this.state.words} />
@@ -76,5 +145,10 @@ class WordsAddForm extends React.Component {
     );
   }
 }
+
+WordsAddForm.propTypes = {
+  chapters: PropTypes.array.isRequired,
+  fetching: PropTypes.bool.isRequired
+};
 
 export default WordsAddForm;

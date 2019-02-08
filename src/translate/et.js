@@ -21,6 +21,8 @@ const translations = {
   'words.add.title': 'Uute sõnade lisamine',
   'words.add.input.oneByOne': 'Ühekaupa',
   'words.add.input.file': 'Failist',
+  'words.add.chapter': 'Peatükk',
+  'words.add.subject': 'Teema',
   'words.add.type': 'Sõnaliik',
   'words.add.type.noun': 'Nimisõna',
   'words.add.type.verb': 'Tegusõna',

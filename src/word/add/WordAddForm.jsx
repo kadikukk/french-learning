@@ -279,7 +279,6 @@ class WordAddForm extends React.Component {
             <RaisedButton
               label={<FormattedMessage id="general.add" />}
               onClick={this.handleCreateNewChapter}
-              primary
             />
           </div>
         </div>

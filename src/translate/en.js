@@ -21,6 +21,8 @@ const translations = {
   'words.add.title': 'Add new words',
   'words.add.input.oneByOne': 'One by one',
   'words.add.input.file': 'From file',
+  'words.add.chapter': 'Chapter',
+  'words.add.subject': 'Subject',
   'words.add.type': 'Type',
   'words.add.type.noun': 'Noun',
   'words.add.type.verb': 'Verb',
