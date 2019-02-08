@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import { Paper, RadioButtonGroup, RadioButton, Divider } from 'material-ui';
+import { Paper, RadioButtonGroup, RadioButton, Divider, RaisedButton } from 'material-ui';
 
 import FormWithHeading from '../../util/components/FormWithHeading';
 import AddedWords from './AddedWords';
@@ -63,6 +63,13 @@ class WordsAddForm extends React.Component {
             <Divider />
             <AddedWords words={this.state.words} />
             {this.state.selectedInput === 'oneByOne' ? <WordAddForm /> : <FileUpload />}
+            <div className="row" style={{ textAlign: 'right', marginTop: '20px' }}>
+              <RaisedButton
+                label={<FormattedMessage id="general.save" />}
+                onClick={this.handleCreateNewChapter}
+                primary
+              />
+            </div>
           </FormWithHeading>
         </Paper>
       </div>

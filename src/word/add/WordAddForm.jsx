@@ -1,6 +1,6 @@
 import React from 'react';
 import { merge } from 'ramda';
-import { TextField, SelectField, MenuItem, Paper } from 'material-ui';
+import { TextField, SelectField, MenuItem, Paper, RaisedButton } from 'material-ui';
 import { FormattedMessage } from 'react-intl';
 import ExtraSelections from './ExtraSelections';
 
@@ -271,6 +271,15 @@ class WordAddForm extends React.Component {
               value={this.state.word.additionalInfo}
               fullWidth
               onChange={(e, value) => this.additionalInfoChange(value)}
+            />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col s12" style={{ textAlign: 'right' }}>
+            <RaisedButton
+              label={<FormattedMessage id="general.add" />}
+              onClick={this.handleCreateNewChapter}
+              primary
             />
           </div>
         </div>
