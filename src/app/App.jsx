@@ -4,6 +4,8 @@ import { Drawer, AppBar as MaterialAppBar } from 'material-ui';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { FormattedMessage } from 'react-intl';
 
+import withAuthentication from '../session/withAuthentication';
+
 import LandingPage from '../landing/Landing.jsx';
 import SignUpPage from '../sign/SignUpPage.jsx';
 import SignInPage from '../sign/SignInPage.jsx';
@@ -14,10 +16,9 @@ import ChaptersContainer from '../chapter/ChaptersContainer.js';
 import WordsAddFormContainer from '../word/add/form/WordsAddFormContainer.js';
 import AppBar from '../appbar/AppBar.jsx';
 import MenuContainer from '../menu/MenuContainer.js';
-import WordsContainer from '../subject/SubjectsContainer.js';
+import SubjectsContainer from '../subject/SubjectsContainer.js';
 import SubjectsAddFormContainer from '../subject/add/SubjectsAddFormContainer.js';
-
-import withAuthentication from '../session/withAuthentication';
+import WordsContainer from '../word/translate/WordsContainer.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -55,7 +56,8 @@ class App extends React.Component {
               <Route path="/pw-forget" component={PasswordForgetPage} />
               <Route path="/account" component={AccountPage} />
               <Route path="/admin" component={AdminPage} />
-              <Route path="/chapters/:id/subjects" component={WordsContainer} />
+              <Route path="/chapters/:id/subjects" exact component={SubjectsContainer} />
+              <Route path="/chapters/:id/subjects/:id" exact component={WordsContainer} />
               <Route path="/manage/chapters" component={ChaptersContainer} />
               <Route path="/manage/subjects" component={SubjectsAddFormContainer} />
               <Route path="/manage/words" component={WordsAddFormContainer} />
