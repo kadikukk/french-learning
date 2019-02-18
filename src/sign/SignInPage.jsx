@@ -61,7 +61,7 @@ class SignInFormBase extends React.Component {
         <Paper className="pagePaper">
           <form className="formPadding" onSubmit={this.onSubmit}>
             <div className="row">
-              <div className="col s12 m6">
+              <div className="col s12 m6 l6">
                 <TextField
                   floatingLabelText={<FormattedMessage id="signIn.email" />}
                   value={this.state.email}
@@ -69,7 +69,7 @@ class SignInFormBase extends React.Component {
                   fullWidth
                 />
               </div>
-              <div className="col s12 m6">
+              <div className="col s12 m6 l6">
                 <TextField
                   type="password"
                   floatingLabelText={<FormattedMessage id="signIn.password" />}
@@ -81,7 +81,7 @@ class SignInFormBase extends React.Component {
             </div>
             {this.state.error && (
               <div className="row">
-                <div className="col s12" style={{ color: 'red' }}>
+                <div className="col s12 m12 l12" style={{ color: 'red' }}>
                   {errorMessages[this.state.error.code]
                     ? <FormattedMessage id={errorMessages[this.state.error.code]} />
                     : this.state.error.message}
@@ -89,7 +89,7 @@ class SignInFormBase extends React.Component {
               </div>
             )}
             <div className="row">
-              <div className="col s12" style={{ textAlign: 'right' }}>
+              <div className="col s12 m12 l12" style={{ textAlign: 'right' }}>
                 <RaisedButton
                   label={<FormattedMessage id="general.cancel" />}
                   onClick={() => window.history.back()}
@@ -104,7 +104,7 @@ class SignInFormBase extends React.Component {
               </div>
             </div>
             <div className="row">
-              <div className="col s12">
+              <div className="col s12 m12 l12">
                 <PasswordForgetLink />
                 <SignUpLink />
               </div>
