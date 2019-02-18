@@ -1,51 +1,59 @@
 import React from 'react';
-import { merge } from 'ramda';
+import PropTypes from 'prop-types';
+import { isEmpty, all, values, omit } from 'ramda';
 import { TextField, SelectField, MenuItem, Paper } from 'material-ui';
 import { FormattedMessage } from 'react-intl';
-import ExtraSelections from './ExtraSelections';
+import ExtraSelections from './form/ExtraSelections';
 
 const wordTypes = ['noun', 'verb', 'adjective', 'expression', 'other'];
+
+const valueDoesntExist = (value) => !value || isEmpty(value);
+
+const wordIsEmpty = (word) => all(valueDoesntExist)(values(omit(['type'], word)));
+
+const initialState = {
+  differentAdjectiveForms: false,
+  hasPreposition: false,
+  hasIrregularPlural: false,
+  hasPostposition: false
+};
 
 class WordAddForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      word: {
-        type: 'noun',
-        word: '',
-        translation: '',
-        plural: '',
-        masculine: '',
-        feminine: '',
-        gender: '',
-        preposition: '',
-        postposition: '',
-        verbGroup: '',
-        additionalInfo: ''
-      },
-      differentAdjectiveForms: false,
-      hasPreposition: false,
-      hasIrregularPlural: false,
-      hasPostposition: false
+    this.state = wordIsEmpty(props.word) ? initialState : {
+      differentAdjectiveForms: !isEmpty(props.word.masculine),
+      hasPreposition: !isEmpty(props.word.preposition),
+      hasIrregularPlural: !isEmpty(props.word.plural),
+      hasPostposition: !isEmpty(props.word.postposition)
     };
   }
 
-  getAddedWord = () => this.state.word;
+  componentDidUpdate(prevProps) {
+    if (prevProps.word !== this.props.word) {
+      if (wordIsEmpty(this.props.word)) {
+        this.setState(initialState);
+      } else if (this.props.isWordEdit) {
+        this.setState({
+          differentAdjectiveForms: !isEmpty(this.props.word.masculine),
+          hasPreposition: !isEmpty(this.props.word.preposition),
+          hasIrregularPlural: !isEmpty(this.props.word.plural),
+          hasPostposition: !isEmpty(this.props.word.postposition)
+        });
+      }
+    }
+  }
+
+  getAddedWord = () => this.props.word;
 
   getAdditionalInfoColWidth = () => {
-    if (this.state.word.type === 'verb' && this.state.hasPostposition) {
+    if (this.props.word.type === 'verb' && this.state.hasPostposition) {
       return 8;
     }
-    if (['verb', 'noun'].includes(this.state.word.type) || this.state.hasPreposition || this.state.hasPostposition) {
+    if (['verb', 'noun'].includes(this.props.word.type) || this.state.hasPreposition || this.state.hasPostposition) {
       return 10;
     }
     return 12;
-  };
-
-  handleWordChange = (property, value) => {
-    this.setState(({ word }) => ({
-      word: merge(word, { [property]: value })
-    }));
   };
 
   handleChange = (property) => {
@@ -55,7 +63,7 @@ class WordAddForm extends React.Component {
   };
 
   typeChange = (type) => {
-    this.handleWordChange('type', type);
+    this.props.handleWordChange('type', type);
     this.setState({
       differentAdjectiveForms: false,
       hasPreposition: false,
@@ -64,25 +72,25 @@ class WordAddForm extends React.Component {
     });
   }
 
-  wordChange = (word) => this.handleWordChange('word', word);
+  wordChange = (word) => this.props.handleWordChange('word', word);
 
-  translationChange = (word) => this.handleWordChange('translation', word);
+  translationChange = (word) => this.props.handleWordChange('translation', word);
 
-  pluralFormChange = (word) => this.handleWordChange('plural', word);
+  pluralFormChange = (word) => this.props.handleWordChange('plural', word);
 
-  masculineFormChange = (word) => this.handleWordChange('masculine', word);
+  masculineFormChange = (word) => this.props.handleWordChange('masculine', word);
 
-  feminineFormChange = (word) => this.handleWordChange('feminine', word);
+  feminineFormChange = (word) => this.props.handleWordChange('feminine', word);
 
-  genderChange = (gender) => this.handleWordChange('gender', gender);
+  genderChange = (gender) => this.props.handleWordChange('gender', gender);
 
-  prepositionChange = (preposition) => this.handleWordChange('preposition', preposition);
+  prepositionChange = (preposition) => this.props.handleWordChange('preposition', preposition);
 
-  postpositionChange = (postposition) => this.handleWordChange('postposition', postposition);
+  postpositionChange = (postposition) => this.props.handleWordChange('postposition', postposition);
 
-  verbGroupChange = (group) => this.handleWordChange('verbGroup', group);
+  verbGroupChange = (group) => this.props.handleWordChange('verbGroup', group);
 
-  additionalInfoChange = (info) => this.handleWordChange('additionalInfo', info);
+  additionalInfoChange = (info) => this.props.handleWordChange('additionalInfo', info);
 
 
   toggleDifferentAdjectiveForms = () => this.handleChange('differentAdjectiveForms');
@@ -98,10 +106,10 @@ class WordAddForm extends React.Component {
     const wordColWidth = this.state.hasIrregularPlural ? 4 : 6;
 
     return (
-      <div className={`col s12 m${wordColWidth}`}>
+      <div className={`col s12 m${wordColWidth} l${wordColWidth}`}>
         <TextField
           floatingLabelText={<FormattedMessage id="words.add.wordInFrench" />}
-          value={this.state.word.word}
+          value={this.props.word.word}
           fullWidth
           onChange={(e, value) => this.wordChange(value)}
         />
@@ -112,18 +120,18 @@ class WordAddForm extends React.Component {
   renderMasculineAndFeminineFields() {
     return (
       <React.Fragment>
-        <div className="col s12 m4">
+        <div className="col s12 m4 l4">
           <TextField
             floatingLabelText={<FormattedMessage id="words.add.masculine" />}
-            value={this.state.word.masculine}
+            value={this.props.word.masculine}
             fullWidth
             onChange={(e, value) => this.masculineFormChange(value)}
           />
         </div>
-        <div className="col s12 m4">
+        <div className="col s12 m4 l4">
           <TextField
             floatingLabelText={<FormattedMessage id="words.add.feminine" />}
-            value={this.state.word.feminine}
+            value={this.props.word.feminine}
             fullWidth
             onChange={(e, value) => this.feminineFormChange(value)}
           />
@@ -134,10 +142,10 @@ class WordAddForm extends React.Component {
 
   renderPluralFormField() {
     return (
-      <div className="col s12 m4">
+      <div className="col s12 m4 l4">
         <TextField
           floatingLabelText={<FormattedMessage id="words.add.plural" />}
-          value={this.state.word.plural}
+          value={this.props.word.plural}
           fullWidth
           onChange={(e, value) => this.pluralFormChange(value)}
         />
@@ -147,10 +155,10 @@ class WordAddForm extends React.Component {
 
   renderGenderSelection() {
     return (
-      <div className="col s12 m2">
+      <div className="col s12 m2 l2">
         <SelectField
           floatingLabelText={<FormattedMessage id="words.add.gender" />}
-          value={this.state.word.gender}
+          value={this.props.word.gender}
           fullWidth
           onChange={(event, key, payload) => this.genderChange(payload)}
         >
@@ -171,10 +179,10 @@ class WordAddForm extends React.Component {
 
   renderPrepositionField() {
     return (
-      <div className="col s12 m2">
+      <div className="col s12 m2 l2">
         <TextField
           floatingLabelText={<FormattedMessage id="words.add.preposition" />}
-          value={this.state.word.preposition}
+          value={this.props.word.preposition}
           fullWidth
           onChange={(e, value) => this.prepositionChange(value)}
         />
@@ -184,10 +192,10 @@ class WordAddForm extends React.Component {
 
   renderPostpositionField() {
     return (
-      <div className="col s12 m2">
+      <div className="col s12 m2 l2">
         <TextField
           floatingLabelText={<FormattedMessage id="words.add.postposition" />}
-          value={this.state.word.postposition}
+          value={this.props.word.postposition}
           fullWidth
           onChange={(e, value) => this.postpositionChange(value)}
         />
@@ -197,10 +205,10 @@ class WordAddForm extends React.Component {
 
   renderVerbGroupSelection() {
     return (
-      <div className="col s12 m2">
+      <div className="col s12 m2 l2">
         <SelectField
           floatingLabelText={<FormattedMessage id="words.add.verbGroup" />}
-          value={this.state.word.verbGroup}
+          value={this.props.word.verbGroup}
           fullWidth
           onChange={(event, key, payload) => this.verbGroupChange(payload)}
         >
@@ -219,10 +227,10 @@ class WordAddForm extends React.Component {
     return (
       <Paper zDepth={0} style={{ padding: '10px 0px 10px 0px' }}>
         <div className="row">
-          <div className="col s12 m3">
+          <div className="col s12 m3 l3">
             <SelectField
               floatingLabelText={<FormattedMessage id="words.add.type" />}
-              value={this.state.word.type}
+              value={this.props.word.type}
               fullWidth
               onChange={(event, key, payload) => this.typeChange(payload)}
             >
@@ -236,7 +244,7 @@ class WordAddForm extends React.Component {
             </SelectField>
           </div>
           <ExtraSelections
-            type={this.state.word.type}
+            type={this.props.word.type}
             differentAdjectiveForms={this.state.differentAdjectiveForms}
             hasIrregularPlural={this.state.hasIrregularPlural}
             hasPostposition={this.state.hasPostposition}
@@ -253,24 +261,24 @@ class WordAddForm extends React.Component {
             : this.renderWordField()
           }
           {this.state.hasIrregularPlural ? this.renderPluralFormField() : ''}
-          <div className={`col s12 m${wordColWidth}`}>
+          <div className={`col s12 m${wordColWidth} l${wordColWidth}`}>
             <TextField
               floatingLabelText={<FormattedMessage id="words.add.translation" />}
-              value={this.state.word.translation}
+              value={this.props.word.translation}
               fullWidth
               onChange={(e, value) => this.translationChange(value)}
             />
           </div>
         </div>
         <div className="row" style={{ marginTop: '-20px' }}>
-          {this.state.word.type === 'noun' ? this.renderGenderSelection() : ''}
-          {this.state.word.type === 'verb' ? this.renderVerbGroupSelection() : ''}
+          {this.props.word.type === 'noun' ? this.renderGenderSelection() : ''}
+          {this.props.word.type === 'verb' ? this.renderVerbGroupSelection() : ''}
           {this.state.hasPreposition ? this.renderPrepositionField() : ''}
           {this.state.hasPostposition ? this.renderPostpositionField() : ''}
-          <div className={`col s12 m${additionalInfoColWidth}`}>
+          <div className={`col s12 m${additionalInfoColWidth} l${additionalInfoColWidth}`}>
             <TextField
               floatingLabelText={<FormattedMessage id="words.add.additionalInfo" />}
-              value={this.state.word.additionalInfo}
+              value={this.props.word.additionalInfo}
               fullWidth
               onChange={(e, value) => this.additionalInfoChange(value)}
             />
@@ -280,5 +288,11 @@ class WordAddForm extends React.Component {
     );
   }
 }
+
+WordAddForm.propTypes = {
+  word: PropTypes.object.isRequired,
+  isWordEdit: PropTypes.bool.isRequired,
+  handleWordChange: PropTypes.func.isRequired
+};
 
 export default WordAddForm;
