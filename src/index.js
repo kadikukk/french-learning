@@ -4,6 +4,7 @@ import etLocaleData from 'react-intl/locale-data/et';
 import { addLocaleData, IntlProvider } from 'react-intl';
 
 import './index.css';
+import 'react-tippy/dist/tippy.css';
 import * as serviceWorker from './serviceWorker';
 
 import App from './app/App.jsx';
