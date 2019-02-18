@@ -83,11 +83,17 @@ class Firebase {
 
   chapters = () => this.db.ref('chapters');
 
-  // *** Message API ***
+  // *** Subject API ***
 
-  message = uid => this.db.ref(`messages/${uid}`);
+  subject = uid => this.db.ref(`subjects/${uid}`);
 
-  messages = () => this.db.ref('messages');
+  subjects = () => this.db.ref('subjects');
+
+  // *** Word API ***
+
+  word = uid => this.db.ref(`words/${uid}`);
+
+  words = () => this.db.ref('words');
 }
 
 export default Firebase;
