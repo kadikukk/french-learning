@@ -1,59 +1,64 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import readXlsxFile from 'read-excel-file';
+import Dropzone from 'react-dropzone';
+import { FormattedMessage } from 'react-intl';
+import FileCloudUpload from 'material-ui/svg-icons/file/cloud-upload';
 
-const schema = {
-  word: {
-    prop: 'word',
-    type: String,
-    required: true
-  },
-  english: {
-    prop: 'translation',
-    type: String,
-    required: true
-  },
-  gender: {
-    prop: 'gender',
-    type: String
-  },
-  preposition: {
-    prop: 'preposition',
-    type: String
-  },
-  postposition: {
-    prop: 'postposition',
-    type: String
-  },
-  group: {
-    prop: 'verbGroup',
-    type: Number
-  }
+import { fileUploadSchema } from './FileUploadSchema.js';
+
+const dropzoneStyle = {
+  cursor: 'pointer',
+  width: '100%',
+  border: '2px dashed #757575',
+  textAlign: 'center',
+  padding: '35px'
 };
 
 class FileUpload extends React.Component {
   constructor(props) {
     super(props);
-    this.input = React.createRef();
+    this.state = {
+      isFileUploaded: false
+    };
   }
 
-  componentDidMount() {
-    console.log('input', this.input.current);
-    const input = this.input.current;
+  isFileUploaded = () => this.state.isFileUploaded;
 
-    input.addEventListener('change', () => {
-      readXlsxFile(input.files[0], { schema }).then(({ rows, errors }) => {
-        console.log('row', rows[1]);
-        // `rows` is an array of rows
-        // each row being an array of cells.
-      });
+  onDrop = (acceptedFiles) => {
+    this.setState({
+      isFileUploaded: true
     });
-  }
+
+    readXlsxFile(acceptedFiles[0], { schema: fileUploadSchema }).then(({ rows, errors }) => {
+      this.props.handleAddWords(rows);
+    });
+  };
 
   render() {
+    if (this.state.isFileUploaded) { return ''; }
+
     return (
-      <input ref={this.input} type="file" id="input" />
+      <Dropzone onDrop={this.onDrop} multiple={false} accept=".xlsx" >
+        {({ getRootProps, getInputProps }) => (
+          <div {...getRootProps()} style={dropzoneStyle}>
+            <input {...getInputProps()} />
+            <div>
+              <FileCloudUpload style={{ color: '#757575', width: '48px', height: '48px' }} />
+              <div style={{ color: '#00bcd4' }}>
+                <b><FormattedMessage id="fileUpload.addFile" /></b>
+              </div>
+            </div>
+          </div>
+        )}
+      </Dropzone>
     );
   }
 }
+
+FileUpload.propTypes = {
+  chapterId: PropTypes.string.isRequired,
+  addedWords: PropTypes.array.isRequired
+};
 
 export default FileUpload;
