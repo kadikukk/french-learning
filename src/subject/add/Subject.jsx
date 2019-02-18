@@ -88,8 +88,8 @@ class Subject extends React.Component {
             fullWidth
             disabled
           >
-            {[this.props.chapter].map((chapter) => (
-              <MenuItem key={chapter.uid} value={chapter.uid} primaryText={chapter.name} />
+            {[this.props.chapter].map((chapter, i) => (
+              <MenuItem key={i} value={chapter.uid} primaryText={chapter.name} />
             ))}
           </SelectField>
         </div>
