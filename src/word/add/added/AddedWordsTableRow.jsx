@@ -1,42 +1,108 @@
 import React from 'react';
-import { TableRow, TableRowColumn } from 'material-ui';
+import PropTypes from 'prop-types';
+import { TableRow, TableRowColumn, IconButton } from 'material-ui';
+import EditIcon from 'material-ui/svg-icons/image/edit';
+import DeleteIcon from 'material-ui/svg-icons/action/delete';
+import { grey600 } from 'material-ui/styles/colors';
+import { Tooltip } from 'react-tippy';
 
-const AddedWordsTableRow = ({ word }) => (
-  <TableRow>
-    <TableRowColumn>
-      {word.word}
+const ActionButtons = (props) => (
+  <React.Fragment>
+    <span style={{ marginRight: '15px' }}>
+      <IconButton
+        iconStyle={{ height: '20px', width: '20px', color: grey600 }}
+        style={{ padding: '0px', width: '20px', height: '20px' }}
+        onClick={() => props.handleEditWord(props.index)}
+      >
+        <EditIcon />
+      </IconButton>
+    </span>
+    <span>
+      <IconButton
+        iconStyle={{ height: '20px', width: '20px', color: grey600 }}
+        style={{ padding: '0px', width: '20px', height: '20px' }}
+        onClick={() => props.handleRemoveWord(props.word.uid)}
+      >
+        <DeleteIcon />
+      </IconButton>
+    </span>
+  </React.Fragment>
+);
+
+ActionButtons.propTypes = {
+  word: PropTypes.object.isRequired,
+  index: PropTypes.number.isRequired,
+  handleEditWord: PropTypes.func.isRequired,
+  handleRemoveWord: PropTypes.func.isRequired
+};
+
+
+const AddedWordsTableRowCell = ({ content }) => {
+  return content ? <Tooltip theme="light" title={content}>{content}</Tooltip> : '';
+};
+
+AddedWordsTableRowCell.propTypes = {
+  content: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ])
+};
+
+
+const AddedWordsTableRow = ({ word, index, isWordEdit, handleEditWord, handleRemoveWord }) => (
+  <TableRow hoverable>
+    <TableRowColumn className="tableRowColumn longContentCellStyle">
+      <AddedWordsTableRowCell content={word.word} />
     </TableRowColumn>
-    <TableRowColumn>
-      {word.masculine}
+    <TableRowColumn className="tableRowColumn longContentCellStyle">
+      <AddedWordsTableRowCell content={word.masculine} />
     </TableRowColumn>
-    <TableRowColumn>
-      {word.feminine}
+    <TableRowColumn className="tableRowColumn longContentCellStyle">
+      <AddedWordsTableRowCell content={word.feminine} />
     </TableRowColumn>
-    <TableRowColumn>
-      {word.translation}
+    <TableRowColumn className="tableRowColumn longContentCellStyle">
+      <AddedWordsTableRowCell content={word.translation} />
     </TableRowColumn>
-    <TableRowColumn>
-      {word.type}
+    <TableRowColumn className="tableRowColumn longContentCellStyle">
+      <AddedWordsTableRowCell content={word.type} />
     </TableRowColumn>
-    <TableRowColumn>
-      {word.gender}
+    <TableRowColumn className="tableRowColumn longContentCellStyle">
+      <AddedWordsTableRowCell content={word.gender} />
     </TableRowColumn>
-    <TableRowColumn>
-      {word.plural}
+    <TableRowColumn className="tableRowColumn longContentCellStyle">
+      <AddedWordsTableRowCell content={word.plural} />
     </TableRowColumn>
-    <TableRowColumn>
-      {word.preposition}
+    <TableRowColumn className="tableRowColumn longContentCellStyle">
+      <AddedWordsTableRowCell content={word.preposition} />
     </TableRowColumn>
-    <TableRowColumn>
-      {word.postposition}
+    <TableRowColumn className="tableRowColumn longContentCellStyle">
+      <AddedWordsTableRowCell content={word.postposition} />
     </TableRowColumn>
-    <TableRowColumn>
-      {word.verbGroup}
+    <TableRowColumn className="tableRowColumn longContentCellStyle">
+      <AddedWordsTableRowCell content={word.verbGroup} />
     </TableRowColumn>
-    <TableRowColumn>
-      {word.additionalInfo}
+    <TableRowColumn className="tableRowColumn longContentCellStyle">
+      <AddedWordsTableRowCell content={word.additionalInfo} />
+    </TableRowColumn>
+    <TableRowColumn className="tableRowColumn longContentCellStyle">
+      {isWordEdit ? '' : (
+        <ActionButtons
+          index={index}
+          word={word}
+          handleEditWord={handleEditWord}
+          handleRemoveWord={handleRemoveWord}
+        />
+      )}
     </TableRowColumn>
   </TableRow>
 );
+
+AddedWordsTableRow.propTypes = {
+  word: PropTypes.object.isRequired,
+  index: PropTypes.number.isRequired,
+  isWordEdit: PropTypes.bool.isRequired,
+  handleEditWord: PropTypes.func.isRequired,
+  handleRemoveWord: PropTypes.func.isRequired
+};
 
 export default AddedWordsTableRow;

@@ -1,41 +1,43 @@
 import React from 'react';
 import { TableHeaderColumn, TableRow } from 'material-ui';
+import { FormattedMessage } from 'react-intl';
 
 const AddedWordsTableHeader = () => (
   <TableRow>
-    <TableHeaderColumn>
-      French
+    <TableHeaderColumn className="tableRowColumn">
+      <FormattedMessage id="addedWords.french" />
     </TableHeaderColumn>
-    <TableHeaderColumn>
-      Masc.
+    <TableHeaderColumn className="tableRowColumn">
+      <FormattedMessage id="addedWords.masculine" />
     </TableHeaderColumn>
-    <TableHeaderColumn>
-      Femin.
+    <TableHeaderColumn className="tableRowColumn">
+      <FormattedMessage id="addedWords.feminine" />
     </TableHeaderColumn>
-    <TableHeaderColumn>
-      English
+    <TableHeaderColumn className="tableRowColumn">
+      <FormattedMessage id="addedWords.english" />
     </TableHeaderColumn>
-    <TableHeaderColumn>
-      Type
+    <TableHeaderColumn className="tableRowColumn">
+      <FormattedMessage id="addedWords.type" />
     </TableHeaderColumn>
-    <TableHeaderColumn>
-      Gender
+    <TableHeaderColumn className="tableRowColumn">
+      <FormattedMessage id="addedWords.gender" />
     </TableHeaderColumn>
-    <TableHeaderColumn>
-      Plural
+    <TableHeaderColumn className="tableRowColumn">
+      <FormattedMessage id="addedWords.plural" />
     </TableHeaderColumn>
-    <TableHeaderColumn>
-      Prep.
+    <TableHeaderColumn className="tableRowColumn">
+      <FormattedMessage id="addedWords.preposition" />
     </TableHeaderColumn>
-    <TableHeaderColumn>
-      Postp.
+    <TableHeaderColumn className="tableRowColumn">
+      <FormattedMessage id="addedWords.postposition" />
     </TableHeaderColumn>
-    <TableHeaderColumn>
-      Group
+    <TableHeaderColumn className="tableRowColumn">
+      <FormattedMessage id="addedWords.verbGroup" />
     </TableHeaderColumn>
-    <TableHeaderColumn>
-      Info
+    <TableHeaderColumn className="tableRowColumn">
+      <FormattedMessage id="addedWords.additionalInfo" />
     </TableHeaderColumn>
+    <TableHeaderColumn />
   </TableRow>
 );
 

@@ -8,22 +8,36 @@ import AddedWordsTableRow from './AddedWordsTableRow';
 class AddedWordsTable extends React.Component {
   render() {
     return (
-      <Table selectable={false}>
-        <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-          <AddedWordsTableHeader />
-        </TableHeader>
-        <TableBody displayRowCheckbox={false}>
-          {this.props.words.map((word, i) => (
-            <AddedWordsTableRow key={i} word={word} index={i} />
-          ))}
-        </TableBody>
-      </Table>
+      <div className="row">
+        <div className="col s12 m12 l12">
+          <Table selectable={false}>
+            <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+              <AddedWordsTableHeader />
+            </TableHeader>
+            <TableBody displayRowCheckbox={false} showRowHover>
+              {this.props.words.map((word, i) => (
+                <AddedWordsTableRow
+                  key={i}
+                  word={word}
+                  index={i}
+                  isWordEdit={this.props.isWordEdit}
+                  handleEditWord={this.props.handleEditWord}
+                  handleRemoveWord={this.props.handleRemoveWord}
+                />
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+      </div>
     );
   }
 }
 
 AddedWordsTable.propTypes = {
-  words: PropTypes.array.isRequired
+  words: PropTypes.array.isRequired,
+  isWordEdit: PropTypes.bool.isRequired,
+  handleEditWord: PropTypes.func.isRequired,
+  handleRemoveWord: PropTypes.func.isRequired
 };
 
 export default AddedWordsTable;
