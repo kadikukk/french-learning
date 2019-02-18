@@ -4,8 +4,8 @@ import { find, propEq } from 'ramda';
 import { TextField, RaisedButton, Paper, CircularProgress, SelectField, MenuItem } from 'material-ui';
 import { FormattedMessage } from 'react-intl';
 
-import withFirebase from '../firebase/withFirebase';
-import FormWithHeading from '../util/components/FormWithHeading';
+import withFirebase from '../../firebase/withFirebase';
+import FormWithHeading from '../../util/components/FormWithHeading';
 import SubjectList from './SubjectList';
 
 class SubjectsAddForm extends React.Component {
