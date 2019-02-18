@@ -1,35 +1,51 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { List, ListItem } from 'material-ui';
+import { List, ListItem, CircularProgress } from 'material-ui';
 import { FormattedMessage } from 'react-intl';
 
 import AuthUserContext from '../session/AuthUserContext';
 import './Menu.css';
+import { idLabel } from '../util/IdLabel';
 
 const ROLES = { ADMIN: 'ADMIN' };
 
+const Loader = () => (
+  <div style={{ width: '100%', margin: 'auto', textAlign: 'center' }}>
+    <CircularProgress />
+  </div>
+);
 
-const MenuNonAuth = ({ toggleMenu }) => (
+const ChaptersList = ({ chapters, toggleMenu }) => (
+  chapters.map((chapter) => (
+    <Link key={chapter.uid} to={`/chapters/${idLabel(chapter.uid)}/subjects`}>
+      <ListItem primaryText={chapter.name} onClick={toggleMenu} />
+    </Link>
+  ))
+);
+
+const MenuNonAuth = ({ toggleMenu, chapters, fetching }) => (
   <List>
     <Link to={'/'}>
       <ListItem primaryText="Landing" onClick={toggleMenu} />
     </Link>
+    {fetching ? <Loader /> : (
+      <ChaptersList chapters={chapters} toggleMenu={toggleMenu} />
+    )}
   </List>
 );
 
 MenuNonAuth.propTypes = {
-  toggleMenu: PropTypes.func.isRequired
+  toggleMenu: PropTypes.func.isRequired,
+  chapters: PropTypes.array.isRequired,
+  fetching: PropTypes.bool.isRequired
 };
 
 
-const MenuAuth = ({ authUser, toggleMenu }) => (
+const MenuAuth = ({ authUser, toggleMenu, chapters, fetching }) => (
   <List>
     <Link to={'/'}>
       <ListItem primaryText="Landing" onClick={toggleMenu} />
-    </Link>
-    <Link to={'/home'}>
-      <ListItem primaryText="Home" onClick={toggleMenu} />
     </Link>
     <Link to={'/account'}>
       <ListItem primaryText="Account" onClick={toggleMenu} />
@@ -40,31 +56,41 @@ const MenuAuth = ({ authUser, toggleMenu }) => (
       </Link>
     )}
     <Link to={'/manage/chapters'}>
-      <ListItem primaryText={<FormattedMessage id="menu.chapters"/>} onClick={toggleMenu} />
+      <ListItem primaryText={<FormattedMessage id="menu.chapters" />} onClick={toggleMenu} />
+    </Link>
+    <Link to={'/manage/subjects'}>
+      <ListItem primaryText={<FormattedMessage id="menu.subjects" />} onClick={toggleMenu} />
     </Link>
     <Link to={'/manage/words'}>
-      <ListItem primaryText={<FormattedMessage id="menu.words"/>} onClick={toggleMenu} />
+      <ListItem primaryText={<FormattedMessage id="menu.words" />} onClick={toggleMenu} />
     </Link>
+    {fetching ? <Loader /> : (
+      <ChaptersList chapters={chapters} toggleMenu={toggleMenu} />
+    )}
   </List>
 );
 
 MenuAuth.propTypes = {
   authUser: PropTypes.object.isRequired,
-  toggleMenu: PropTypes.func.isRequired
+  toggleMenu: PropTypes.func.isRequired,
+  chapters: PropTypes.array.isRequired,
+  fetching: PropTypes.bool.isRequired
 };
 
 
-const Menu = ({ toggleMenu }) => (
+const Menu = ({ toggleMenu, chapters, fetching }) => (
   <AuthUserContext.Consumer>
     {authUser => authUser
-      ? <MenuAuth authUser={authUser} toggleMenu={toggleMenu} />
-      : <MenuNonAuth toggleMenu={toggleMenu} />
+      ? <MenuAuth chapters={chapters} fetching={fetching} authUser={authUser} toggleMenu={toggleMenu} />
+      : <MenuNonAuth chaptes={chapters} fetching={fetching} toggleMenu={toggleMenu} />
     }
   </AuthUserContext.Consumer>
 );
 
 Menu.propTypes = {
-  toggleMenu: PropTypes.func.isRequired
+  toggleMenu: PropTypes.func.isRequired,
+  chapters: PropTypes.array.isRequired,
+  fetching: PropTypes.bool.isRequired
 };
 
 export default Menu;
