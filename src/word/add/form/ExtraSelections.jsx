@@ -7,7 +7,7 @@ class ExtraSelections extends React.Component {
 
   renderNounSelections() {
     return (
-      <div className="col s12 m9" style={{ height: '56px', display: 'inline-flex', alignItems: 'flex-end' }}>
+      <div className="col s12 m9 l9" style={{ height: '56px', display: 'inline-flex', alignItems: 'flex-end' }}>
         <Checkbox
           label={<FormattedMessage id="words.add.hasIrregularPlural" />}
           checked={this.props.hasIrregularPlural}
@@ -19,7 +19,7 @@ class ExtraSelections extends React.Component {
 
   renderVerbSelections() {
     return (
-      <div className="col s12 m9" style={{ height: '56px', display: 'inline-flex', alignItems: 'flex-end' }}>
+      <div className="col s12 m9 l9" style={{ height: '56px', display: 'inline-flex', alignItems: 'flex-end' }}>
         <Checkbox
           label={<FormattedMessage id="words.add.hasPostposition" />}
           checked={this.props.hasPostposition}
@@ -32,14 +32,14 @@ class ExtraSelections extends React.Component {
   renderAdjectiveSelections() {
     return (
       <React.Fragment>
-        <div className="col s12 m6" style={{ height: '56px', display: 'inline-flex', alignItems: 'flex-end' }}>
+        <div className="col s12 m6 l6" style={{ height: '56px', display: 'inline-flex', alignItems: 'flex-end' }}>
           <Checkbox
             label={<FormattedMessage id="words.add.hasDifferentForms" />}
             checked={this.props.differentAdjectiveForms}
             onCheck={this.props.toggleDifferentAdjectiveForms}
           />
         </div>
-        <div className="col s12 m3" style={{ height: '56px', display: 'inline-flex', alignItems: 'flex-end' }}>
+        <div className="col s12 m3 l3" style={{ height: '56px', display: 'inline-flex', alignItems: 'flex-end' }}>
           <Checkbox
             label={<FormattedMessage id="words.add.hasPreposition" />}
             checked={this.props.hasPreposition}
