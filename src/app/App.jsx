@@ -14,8 +14,8 @@ import ChaptersContainer from '../chapter/ChaptersContainer.js';
 import WordsAddFormContainer from '../word/add/form/WordsAddFormContainer.js';
 import AppBar from '../appbar/AppBar.jsx';
 import MenuContainer from '../menu/MenuContainer.js';
-import WordsContainer from '../word/translate/WordsContainer.js';
-import SubjectsAddFormContainer from '../subject/SubjectsAddFormContainer.js';
+import WordsContainer from '../subject/SubjectsContainer.js';
+import SubjectsAddFormContainer from '../subject/add/SubjectsAddFormContainer.js';
 
 import withAuthentication from '../session/withAuthentication';
 
