@@ -57,7 +57,7 @@ class App extends React.Component {
               <Route path="/account" component={AccountPage} />
               <Route path="/admin" component={AdminPage} />
               <Route path="/chapters/:id/subjects" exact component={SubjectsContainer} />
-              <Route path="/chapters/:id/subjects/:id" exact component={WordsContainer} />
+              <Route path="/chapters/:id/subjects/:id" component={WordsContainer} />
               <Route path="/manage/chapters" component={ChaptersContainer} />
               <Route path="/manage/subjects" component={SubjectsAddFormContainer} />
               <Route path="/manage/words" component={WordsAddFormContainer} />
