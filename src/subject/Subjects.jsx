@@ -9,13 +9,13 @@ import { idLabel } from '../util/IdLabel';
 
 const Subjects = (props) => (
   <div style={{ margin: '70px auto', maxWidth: '750px' }}>
-    <GridList cols={2} cellHeight={100}>
+    <GridList cols={2} cellHeight="auto" padding={9}>
       {props.subjects.map((subject) => (
         <Link
           key={subject.uid}
           to={`/chapters/${idLabel(subject.chapterId)}/subjects/${idLabel(subject.uid)}`}
         >
-          <GridTile style={{ height: 'auto', margin: '7px', paddingTop: '14px' }}>
+          <GridTile style={{ boxShadow: '2px 4px #E0E0E0' }}>
             <Paper className="subjectPaper">
               <div style={{ fontSize: '20px', color: grey600 }}>
                 <b>{subject.name.toUpperCase()}</b>
