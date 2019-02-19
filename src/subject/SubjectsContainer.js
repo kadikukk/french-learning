@@ -2,9 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { filter } from 'ramda';
 import { CircularProgress } from 'material-ui';
+import { sortBy, compose, toLower, prop } from 'ramda';
 
 import withFirebase from '../firebase/withFirebase';
 import Subjects from './Subjects';
+
+const sortByName = sortBy(compose(toLower, prop('name')));
 
 class SubjectsContainer extends React.Component {
   constructor(props) {
@@ -37,7 +40,7 @@ class SubjectsContainer extends React.Component {
           }));
 
           this.setState({
-            subjects: subjectList,
+            subjects: sortByName(subjectList),
             fetching: false
           });
         } else {
