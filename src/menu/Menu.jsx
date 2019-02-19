@@ -82,7 +82,7 @@ const Menu = ({ toggleMenu, chapters, fetching }) => (
   <AuthUserContext.Consumer>
     {authUser => authUser
       ? <MenuAuth chapters={chapters} fetching={fetching} authUser={authUser} toggleMenu={toggleMenu} />
-      : <MenuNonAuth chaptes={chapters} fetching={fetching} toggleMenu={toggleMenu} />
+      : <MenuNonAuth chapters={chapters} fetching={fetching} toggleMenu={toggleMenu} />
     }
   </AuthUserContext.Consumer>
 );
