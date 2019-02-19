@@ -1,7 +1,7 @@
 export const initialState = {
-  stepIndex: 2,
+  stepIndex: 0,
   finished: false,
-  selectedInput: 'fromFile',
+  selectedInput: 'oneByOne',
   chapterId: '',
   subjectId: '',
   word: {
