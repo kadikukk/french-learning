@@ -1,0 +1,11 @@
+.dataColumn {
+  box-sizing: border-box;
+  font-size: 14px;
+  padding-left: 16px;
+  width: 100%;
+}
+
+.dataRow {
+  margin-bottom: 0px;
+  margin-top: 10px;
+}
