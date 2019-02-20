@@ -88,7 +88,16 @@ const translations = {
   'words.list.postposition': 'Järelsõna',
   'words.list.verbGroup': 'Tegusõna grupp',
   'words.list.additionalInfo': 'Lisainfo',
-  'words.list.translate': 'Testi teadmisi'
+  'words.list.translate': 'Testi teadmisi',
+  'word.translate.french': 'Prantsuskeelne sõna',
+  'word.translate.masculine': 'Meessoo vorm',
+  'word.translate.feminine': 'Naissoo vorm',
+  'word.translate.plural': 'Mitmuse vorm',
+  'word.translate.gender': 'Sugu',
+  'word.translate.preposition': 'Eessõna',
+  'word.translate.postposition': 'Järelsõna',
+  'word.translate.verbGroup': 'Tegusõna grupp',
+  'word.translate.check': 'Kontrolli'
 };
 
 export default translations;

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { isEmpty } from 'ramda';
 import WordTranslateCard from './WordTranslateCard';
 
 class WordsTranslate extends React.Component {
@@ -17,9 +18,13 @@ class WordsTranslate extends React.Component {
   }
 
   render() {
+    if (isEmpty(this.props.words)) {
+      return '';
+    }
     return (
       <WordTranslateCard
         word={this.props.words[this.state.wordIndex]}
+        handleClickNext={this.handleClickNext}
       />
     );
   }

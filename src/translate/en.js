@@ -88,7 +88,16 @@ const translations = {
   'words.list.postposition': 'Postposition',
   'words.list.verbGroup': 'Verb group',
   'words.list.additionalInfo': 'Additional info',
-  'words.list.translate': 'Test knowledge'
+  'words.list.translate': 'Test knowledge',
+  'word.translate.french': 'French',
+  'word.translate.masculine': 'Masculine form',
+  'word.translate.feminine': 'Feminine form',
+  'word.translate.plural': 'Plural',
+  'word.translate.gender': 'Gender',
+  'word.translate.preposition': 'Preposition',
+  'word.translate.postposition': 'Postposition',
+  'word.translate.verbGroup': 'Verb group',
+  'word.translate.check': 'Check'
 };
 
 export default translations;

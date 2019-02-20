@@ -20,7 +20,7 @@ import SubjectsContainer from '../subject/SubjectsContainer.js';
 import SubjectsAddFormContainer from '../subject/add/SubjectsAddFormContainer.js';
 import SubjectWordsListContainer from '../word/list/SubjectWordsListContainer.js';
 import ChapterWordsListContainer from '../word/list/ChapterWordsListContainer.js';
-import WordsTranslateContainer from '../word/translate/WordsTranslateContainer.js';
+import WordsTranslateContainer from '../word/translate/WordsTranslateContainer';
 
 class App extends React.Component {
   constructor(props) {
