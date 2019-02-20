@@ -5,8 +5,9 @@ import { List, ListItem, CircularProgress } from 'material-ui';
 import { FormattedMessage } from 'react-intl';
 
 import AuthUserContext from '../session/AuthUserContext';
-import './Menu.css';
 import { idLabel } from '../util/IdLabel';
+
+import './Menu.css';
 
 const ROLES = { ADMIN: 'ADMIN' };
 
@@ -18,11 +19,28 @@ const Loader = () => (
 
 const ChaptersList = ({ chapters, toggleMenu }) => (
   chapters.map((chapter) => (
-    <Link key={chapter.uid} to={`/chapters/${idLabel(chapter.uid)}/subjects`}>
-      <ListItem primaryText={chapter.name} onClick={toggleMenu} />
-    </Link>
+    <ListItem
+      primaryText={chapter.name}
+      nestedListStyle={{ marginLeft: '20px' }}
+      primaryTogglesNestedList
+      nestedItems={[
+        <Link key={chapter.uid} to={`/chapters/${idLabel(chapter.uid)}/subjects`}>
+          <ListItem
+            primaryText={<FormattedMessage id="menu.chapter.subjects" />}
+            onClick={toggleMenu}
+          />
+        </Link>,
+        <Link key={chapter.uid} to={`/chapters/${idLabel(chapter.uid)}/words`}>
+          <ListItem
+            primaryText={<FormattedMessage id="menu.chapter.words" />}
+            onClick={toggleMenu}
+          />
+        </Link>
+      ]}
+    />
   ))
 );
+
 
 const MenuNonAuth = ({ toggleMenu, chapters, fetching }) => (
   <List>

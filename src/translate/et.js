@@ -10,6 +10,8 @@ const translations = {
   'menu.chapters': 'Peatükid',
   'menu.words': 'Sõnad',
   'menu.subjects': 'Teemad',
+  'menu.chapter.words': 'Sõnad',
+  'menu.chapter.subjects': 'Teemad',
   'signIn.email': 'E-post',
   'signIn.password': 'Parool',
   'signIn.submit': 'Logi sisse',

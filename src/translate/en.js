@@ -10,6 +10,8 @@ const translations = {
   'menu.chapters': 'Chapters',
   'menu.subjects': 'Subjects',
   'menu.words': 'Words',
+  'menu.chapter.words': 'Words',
+  'menu.chapter.subjects': 'Subjects',
   'signIn.email': 'Email',
   'signIn.password': 'Password',
   'signIn.submit': 'Sign in',
