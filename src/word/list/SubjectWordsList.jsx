@@ -98,8 +98,7 @@ class SubjectWordsList extends React.Component {
         <div className="row">
           <div className="col s12 m12 l12" style={{ textAlign: 'right' }}>
             <Link
-              to={`/chapters/${this.props.chapterIdLabel}/subjects/
-              ${this.props.subjectIdLabel}/words/translate`}
+              to={`/chapters/${this.props.chapterIdLabel}/subjects/${this.props.subjectIdLabel}/words/translate`}
             >
               <RaisedButton
                 label={<FormattedMessage id="words.list.translate" />}
