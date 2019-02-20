@@ -20,6 +20,7 @@ import SubjectsContainer from '../subject/SubjectsContainer.js';
 import SubjectsAddFormContainer from '../subject/add/SubjectsAddFormContainer.js';
 import SubjectWordsListContainer from '../word/list/SubjectWordsListContainer.js';
 import ChapterWordsListContainer from '../word/list/ChapterWordsListContainer';
+import WordsTranslateContainer from '../word/translate/WordsTranslateContainer';
 
 class App extends React.Component {
   constructor(props) {
@@ -59,7 +60,9 @@ class App extends React.Component {
               <Route path="/admin" component={AdminPage} />
               <Route path="/chapters/:id/subjects" exact component={SubjectsContainer} />
               <Route path="/chapters/:id/words" exact component={ChapterWordsListContainer} />
-              <Route path="/chapters/:id/subjects/:id/words" component={SubjectWordsListContainer} />
+              <Route path="/chapters/:id/words/translate" component={WordsTranslateContainer} />
+              <Route path="/chapters/:id/subjects/:id/words" exact component={SubjectWordsListContainer} />
+              <Route path="/chapters/:id/subjects/:id/words/translate" component={WordsTranslateContainer} />
               <Route path="/manage/chapters" component={ChaptersContainer} />
               <Route path="/manage/subjects" component={SubjectsAddFormContainer} />
               <Route path="/manage/words" component={WordsAddFormContainer} />
