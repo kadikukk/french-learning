@@ -20,17 +20,18 @@ const Loader = () => (
 const ChaptersList = ({ chapters, toggleMenu }) => (
   chapters.map((chapter) => (
     <ListItem
+      key={chapter.uid}
       primaryText={chapter.name}
       nestedListStyle={{ marginLeft: '20px' }}
       primaryTogglesNestedList
       nestedItems={[
-        <Link key={chapter.uid} to={`/chapters/${idLabel(chapter.uid)}/subjects`}>
+        <Link key={chapter.uid + 1} to={`/chapters/${idLabel(chapter.uid)}/subjects`}>
           <ListItem
             primaryText={<FormattedMessage id="menu.chapter.subjects" />}
             onClick={toggleMenu}
           />
         </Link>,
-        <Link key={chapter.uid} to={`/chapters/${idLabel(chapter.uid)}/words`}>
+        <Link key={chapter.uid + 2} to={`/chapters/${idLabel(chapter.uid)}/words`}>
           <ListItem
             primaryText={<FormattedMessage id="menu.chapter.words" />}
             onClick={toggleMenu}
