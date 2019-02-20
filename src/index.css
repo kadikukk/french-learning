@@ -35,7 +35,7 @@ code {
 
 @media only screen and (max-height: 800px) {
   .wordsList {
-    max-height: 500px;
+    max-height: 450px;
     overflow: auto;
   }
 }
@@ -44,6 +44,12 @@ code {
   .wordsList {
     max-height: 1000px;
     overflow: auto;
+  }
+}
+
+@media only screen and (max-width: 993px) {
+  .translateButton {
+    min-width: 100% !important;
   }
 }
 

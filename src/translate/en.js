@@ -87,7 +87,8 @@ const translations = {
   'words.list.preposition': 'Preposition',
   'words.list.postposition': 'Postposition',
   'words.list.verbGroup': 'Verb group',
-  'words.list.additionalInfo': 'Additional info'
+  'words.list.additionalInfo': 'Additional info',
+  'words.list.translate': 'Test knowledge'
 };
 
 export default translations;

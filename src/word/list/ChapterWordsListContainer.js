@@ -68,6 +68,7 @@ class ChapterWordsListContainer extends React.Component {
       this.state.fetching ? this.renderLoader() : (
         <ChapterWordsList
           words={this.getWords()}
+          chapterIdLabel={window.location.pathname.split('/')[2]}
         />
       )
     );

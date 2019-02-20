@@ -87,7 +87,8 @@ const translations = {
   'words.list.preposition': 'Eessõna',
   'words.list.postposition': 'Järelsõna',
   'words.list.verbGroup': 'Tegusõna grupp',
-  'words.list.additionalInfo': 'Lisainfo'
+  'words.list.additionalInfo': 'Lisainfo',
+  'words.list.translate': 'Testi teadmisi'
 };
 
 export default translations;

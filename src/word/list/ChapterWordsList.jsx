@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { sortWith, prop, ascend } from 'ramda';
 import { FormattedMessage } from 'react-intl';
-import { Checkbox, RadioButtonGroup, RadioButton } from 'material-ui';
+import { Checkbox, RadioButtonGroup, RadioButton, RaisedButton } from 'material-ui';
 
 import WordCard from './WordCard';
 import { shuffleArray } from '../../util/ListUtil';
@@ -82,15 +83,28 @@ class ChapterWordsList extends React.Component {
             </RadioButtonGroup>
           </div>
         </div>
-        <div className="wordsList">
-          {this.sortWords().map((word) => (
-            <WordCard
-              key={word.uid}
-              word={word}
-              expandCards={this.state.expandCards}
-              toggleExpandCards={this.toggleExpandCards}
-            />
-          ))}
+        <div className="row wordsList">
+          <div className="col s12 m12 l12">
+            {this.sortWords().map((word) => (
+              <WordCard
+                key={word.uid}
+                word={word}
+                expandCards={this.state.expandCards}
+                toggleExpandCards={this.toggleExpandCards}
+              />
+            ))}
+          </div>
+        </div>
+        <div className="row">
+          <div className="col s12 m12 l12" style={{ textAlign: 'right' }}>
+            <Link to={`/chapters/${this.props.chapterIdLabel}/words/translate`}>
+              <RaisedButton
+                label={<FormattedMessage id="words.list.translate" />}
+                primary
+                className="translateButton"
+              />
+            </Link>
+          </div>
         </div>
       </div>
     );
@@ -98,7 +112,8 @@ class ChapterWordsList extends React.Component {
 }
 
 ChapterWordsList.propTypes = {
-  words: PropTypes.array.isRequired
+  words: PropTypes.array.isRequired,
+  chapterIdLabel: PropTypes.string.isRequired
 };
 
 export default ChapterWordsList;
