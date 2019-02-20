@@ -13,7 +13,7 @@ const Subjects = (props) => (
       {props.subjects.map((subject) => (
         <Link
           key={subject.uid}
-          to={`/chapters/${idLabel(subject.chapterId)}/subjects/${idLabel(subject.uid)}`}
+          to={`/chapters/${idLabel(subject.chapterId)}/subjects/${idLabel(subject.uid)}/words`}
         >
           <GridTile style={{ boxShadow: '2px 4px #E0E0E0' }}>
             <Paper className="subjectPaper">
