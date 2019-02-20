@@ -63,13 +63,29 @@ const translations = {
   'addedWords.masculine': 'Meess.',
   'addedWords.feminine': 'Naiss.',
   'addedWords.english': 'Inglisk.',
-  'addedWords.type': 'Tüüp',
+  'addedWords.type': 'Sõnaliik',
   'addedWords.gender': 'Sugu',
   'addedWords.plural': 'Mitmus',
   'addedWords.preposition': 'Eessõna',
   'addedWords.postposition': 'Järelsõna',
   'addedWords.verbGroup': 'Grupp',
-  'addedWords.additionalInfo': 'Info'
+  'addedWords.additionalInfo': 'Info',
+  'words.list.expandCards': 'Ava kõik sõnakaardid',
+  'words.list.sortBy': 'Sorteerimine:',
+  'words.list.sortByFrench': 'Prantsuse keel',
+  'words.list.sortByEnglish': 'Inglise keel',
+  'words.list.sortByRandom': 'Juhuslik',
+  'words.list.type': 'Sõnaliik',
+  'words.list.wordInFrench': 'Prantsuskeelne sõna',
+  'words.list.masculine': 'Messoo vorm',
+  'words.list.feminine': 'Naissoo vorm',
+  'words.list.plural': 'Mitmuse vorm',
+  'words.list.gender': 'Sugu',
+  'words.list.translation': 'Ingliskeelne tõlge',
+  'words.list.preposition': 'Eessõna',
+  'words.list.postposition': 'Järelsõna',
+  'words.list.verbGroup': 'Tegusõna grupp',
+  'words.list.additionalInfo': 'Lisainfo'
 };
 
 export default translations;

@@ -69,7 +69,23 @@ const translations = {
   'addedWords.preposition': 'Preposition',
   'addedWords.postposition': 'Postposition',
   'addedWords.verbGroup': 'Group',
-  'addedWords.additionalInfo': 'Info'
+  'addedWords.additionalInfo': 'Info',
+  'words.list.expandCards': 'Expand all words',
+  'words.list.sortBy': 'Sort by',
+  'words.list.sortByFrench': 'French',
+  'words.list.sortByEnglish': 'English',
+  'words.list.sortByRandom': 'Random',
+  'words.list.type': 'Type',
+  'words.list.wordInFrench': 'Word in French',
+  'words.list.masculine': 'Masculine form',
+  'words.list.feminine': 'Feminine form',
+  'words.list.plural': 'Plural form',
+  'words.list.gender': 'Gender',
+  'words.list.translation': 'Word in English',
+  'words.list.preposition': 'Preposition',
+  'words.list.postposition': 'Postposition',
+  'words.list.verbGroup': 'Verb group',
+  'words.list.additionalInfo': 'Additional info'
 };
 
 export default translations;
