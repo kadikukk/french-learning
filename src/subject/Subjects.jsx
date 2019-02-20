@@ -15,7 +15,7 @@ const Subjects = (props) => (
           key={subject.uid}
           to={`/chapters/${idLabel(subject.chapterId)}/subjects/${idLabel(subject.uid)}/words`}
         >
-          <GridTile style={{ boxShadow: '2px 4px #E0E0E0' }}>
+          <GridTile style={{ boxShadow: '2px 4px #E0E0E0', border: '1px solid #E0E0E0' }}>
             <Paper className="subjectPaper">
               <div style={{ fontSize: '20px', color: grey600 }}>
                 <b>{subject.name.toUpperCase()}</b>
