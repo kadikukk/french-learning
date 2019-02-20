@@ -57,7 +57,7 @@ class Chapters extends React.Component {
     return (
       <div style={{ margin: '70px auto' }}>
         <Paper className="pagePaper">
-          <FormWithHeading title="chapters.title">
+          <FormWithHeading title={<FormattedMessage id="chapters.title" />}>
             {this.props.chapters && (
               <div className="row">
                 {this.props.fetching ? this.renderLoader() : (

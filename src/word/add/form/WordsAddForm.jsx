@@ -216,7 +216,7 @@ class WordsAddForm extends React.Component {
     return (
       <div style={{ margin: '70px auto' }}>
         <Paper className="pagePaper" style={{ maxWidth: '950px', minHeight: '350px' }}>
-          <FormWithHeading title="words.add.title">
+          <FormWithHeading title={<FormattedMessage id="words.add.title" />}>
             <Stepper activeStep={this.state.stepIndex}>
               <Step>
                 <StepLabel><FormattedMessage id="words.add.step1" /></StepLabel>

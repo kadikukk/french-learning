@@ -74,7 +74,7 @@ class SubjectsAddForm extends React.Component {
     return (
       <div style={{ margin: '70px auto' }}>
         <Paper className="pagePaper">
-          <FormWithHeading title="subjects.title">
+          <FormWithHeading title={<FormattedMessage id="subjects.title" />}>
             {this.props.subjects && (
               <div className="row">
                 {this.props.fetching ? this.renderLoader() : (
