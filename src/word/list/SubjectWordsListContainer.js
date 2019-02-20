@@ -67,10 +67,16 @@ class SubjectWordsListContainer extends React.Component {
   }
 
   render() {
+    const pathnameParts = window.location.pathname.split('/');
+    const chapterIdLabel = pathnameParts[2];
+    const subjectIdLabel = pathnameParts[4];
+
     return (
       this.state.fetching ? this.renderLoader() : (
         <SubjectWordsList
           words={this.getWords()}
+          chapterIdLabel={chapterIdLabel}
+          subjectIdLabel={subjectIdLabel}
         />
       )
     );
