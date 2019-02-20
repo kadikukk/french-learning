@@ -4,7 +4,7 @@ import { filter } from 'ramda';
 import { CircularProgress } from 'material-ui';
 
 import withFirebase from '../../firebase/withFirebase';
-import WordsTranslate from './WordsTranslate';
+import WordsTranslate from './WordsTranslate.jsx';
 import { shuffleArray } from '../../util/ListUtil';
 
 class WordsTranslateContainer extends React.Component {
