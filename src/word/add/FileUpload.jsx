@@ -39,19 +39,30 @@ class FileUpload extends React.Component {
     if (this.state.isFileUploaded) { return ''; }
 
     return (
-      <Dropzone onDrop={this.onDrop} multiple={false} accept=".xlsx" >
-        {({ getRootProps, getInputProps }) => (
-          <div {...getRootProps()} style={dropzoneStyle}>
-            <input {...getInputProps()} />
-            <div>
-              <FileCloudUpload style={{ color: '#757575', width: '48px', height: '48px' }} />
-              <div style={{ color: '#00bcd4' }}>
-                <b><FormattedMessage id="fileUpload.addFile" /></b>
+      <React.Fragment>
+        <Dropzone onDrop={this.onDrop} multiple={false} accept=".xlsx" >
+          {({ getRootProps, getInputProps }) => (
+            <div {...getRootProps()} style={dropzoneStyle}>
+              <input {...getInputProps()} />
+              <div>
+                <FileCloudUpload style={{ color: '#757575', width: '48px', height: '48px' }} />
+                <div style={{ color: '#00bcd4' }}>
+                  <b><FormattedMessage id="fileUpload.addFile" /></b>
+                </div>
               </div>
             </div>
-          </div>
-        )}
-      </Dropzone>
+          )}
+        </Dropzone>
+        <div style={{ marginTop: '20px' }}>
+          <a
+            href="https://drive.google.com/file/d/1rjVdr97CDiUgBtaSncwzatIiT7xrTes9/view"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FormattedMessage id="words.add.input.file.example" />
+          </a>
+        </div>
+      </React.Fragment>
     );
   }
 }

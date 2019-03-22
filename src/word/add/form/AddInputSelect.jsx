@@ -30,6 +30,15 @@ const AddInputSelect = (props) => (
         <div className="col s12 m12 l12" style={{ color: grey600 }}>
           <FormattedMessage id="words.add.input.file.message" />
         </div>
+        <div className="col s12 m12 l12">
+          <a
+            href="https://drive.google.com/file/d/1rjVdr97CDiUgBtaSncwzatIiT7xrTes9/view"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FormattedMessage id="words.add.input.file.example" />
+          </a>
+        </div>
       </div>
     ) : ''}
   </React.Fragment>
