@@ -57,7 +57,7 @@ class App extends React.Component {
               <Route path="/signin" component={SignInPage} />
               <Route path="/passwordForget" component={PasswordForgetForm} />
               <Route path="/account" component={PasswordChangeForm} />
-              <Route path="/admin" component={AdminPage} />
+              <Route path="/manage/accounts" component={AdminPage} />
               <Route path="/chapters/:id/subjects" exact component={SubjectsContainer} />
               <Route path="/chapters/:id/words" exact component={ChapterWordsListContainer} />
               <Route path="/chapters/:id/words/translate" component={WordsTranslateContainer} />

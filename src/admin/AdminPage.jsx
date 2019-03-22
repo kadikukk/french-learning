@@ -14,8 +14,8 @@ const AdminPage = () => (
     <p>The Admin Page is accessible by every signed in admin user.</p>
 
     <Switch>
-      <Route exact path={'/admin/:id'} component={UserItem} />
-      <Route exact path={'/admin'} component={UserList} />
+      <Route exact path={'/manage/accounts/:id'} component={UserItem} />
+      <Route exact path={'/manage/accounts'} component={UserList} />
     </Switch>
   </div>
 );
