@@ -7,6 +7,8 @@ const translations = {
   'appBar.menu': 'Menu',
   'appBar.signIn': 'Sign in',
   'appBar.signOut': 'Sign out',
+  'menu.home': 'Home',
+  'menu.account': 'Account',
   'menu.chapters': 'Chapters',
   'menu.subjects': 'Subjects',
   'menu.words': 'Words',

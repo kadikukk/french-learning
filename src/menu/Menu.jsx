@@ -46,7 +46,7 @@ const ChaptersList = ({ chapters, toggleMenu }) => (
 const MenuNonAuth = ({ toggleMenu, chapters, fetching }) => (
   <List>
     <Link to={'/'}>
-      <ListItem primaryText="Landing" onClick={toggleMenu} />
+      <ListItem primaryText={<FormattedMessage id="menu.home" />} onClick={toggleMenu} />
     </Link>
     {fetching ? <Loader /> : (
       <ChaptersList chapters={chapters} toggleMenu={toggleMenu} />
@@ -64,10 +64,10 @@ MenuNonAuth.propTypes = {
 const MenuAuth = ({ authUser, toggleMenu, chapters, fetching }) => (
   <List>
     <Link to={'/'}>
-      <ListItem primaryText="Landing" onClick={toggleMenu} />
+      <ListItem primaryText={<FormattedMessage id="menu.home" />} onClick={toggleMenu} />
     </Link>
     <Link to={'/account'}>
-      <ListItem primaryText="Account" onClick={toggleMenu} />
+      <ListItem primaryText={<FormattedMessage id="menu.account" />} onClick={toggleMenu} />
     </Link>
     {authUser.roles.includes(ROLES.ADMIN) && (
       <Link to={'/admin'}>

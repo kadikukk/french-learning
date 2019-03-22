@@ -7,6 +7,8 @@ const translations = {
   'appBar.menu': 'Menüü',
   'appBar.signIn': 'Logi sisse',
   'appBar.signOut': 'Logi välja',
+  'menu.home': 'Avaleht',
+  'menu.account': 'Konto',
   'menu.chapters': 'Peatükid',
   'menu.words': 'Sõnad',
   'menu.subjects': 'Teemad',
