@@ -42,6 +42,7 @@ const translations = {
   'forgotPassword.email': 'Email address',
   'forgotPassword.reset': 'Reset password',
   'accounts.title': 'Accounts\' management',
+  'accounts.noUsers': 'No accounts to show',
   'accounts.name': 'Name',
   'accounts.email': 'Email',
   'accounts.isActive': 'Account active',

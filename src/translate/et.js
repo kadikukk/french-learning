@@ -42,6 +42,7 @@ const translations = {
   'forgotPassword.email': 'E-posti aadress',
   'forgotPassword.reset': 'Lähtesta parool',
   'accounts.title': 'Kontode haldamine',
+  'accounts.noUsers': 'Kontod puuduvad',
   'accounts.name': 'Nimi',
   'accounts.email': 'E-post',
   'accounts.isActive': 'Kasutaja aktiivne',

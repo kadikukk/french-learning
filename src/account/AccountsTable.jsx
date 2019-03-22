@@ -1,13 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { reject, propEq } from 'ramda';
+import { reject, propEq, isEmpty } from 'ramda';
 import { FormattedMessage } from 'react-intl';
 import { Table, TableHeader, TableBody, Paper, CircularProgress } from 'material-ui';
+import { grey600 } from 'material-ui/styles/colors';
 
 import AuthUserContext from '../session/AuthUserContext';
 import AccountsTableHeader from './AccountsTableHeader';
 import AccountsTableRow from './AccountsTableRow';
 import FormWithHeading from '../util/components/FormWithHeading';
+
+const noUsersMessageStyle = {
+  justifyContent: 'center', alignItems: 'center', display: 'flex', fontSize: '20px', color: grey600
+};
 
 const usersWithoutMe = (users, account) => {
   return reject(propEq('email', account.email), users);
@@ -18,6 +23,33 @@ const renderLoader = () => (
     <CircularProgress size={60} thickness={7} />
   </div>
 );
+
+const renderTable = (users, props) => {
+  if (isEmpty(users)) {
+    return (
+      <div style={noUsersMessageStyle}>
+        <FormattedMessage id="accounts.noUsers" />
+      </div>
+    );
+  }
+  return (
+    <Table selectable={false}>
+      <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+        <AccountsTableHeader />
+      </TableHeader>
+      <TableBody displayRowCheckbox={false} showRowHover>
+        {users.map((user) => (
+          <AccountsTableRow
+            key={user.uid}
+            user={user}
+            activateUser={props.activateUser}
+            makeAdministrator={props.makeAdministrator}
+          />
+        ))}
+      </TableBody>
+    </Table>
+  );
+};
 
 const AccountsTable = (props) => {
   return (
@@ -34,23 +66,7 @@ const AccountsTable = (props) => {
               <FormWithHeading title={<FormattedMessage id="accounts.title" />}>
                 <div className="row">
                   <div className="col s12 m12 l12">
-                    {props.fetching ? renderLoader() : (
-                      <Table selectable={false}>
-                        <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-                          <AccountsTableHeader />
-                        </TableHeader>
-                        <TableBody displayRowCheckbox={false} showRowHover>
-                          {usersList.map((user) => (
-                            <AccountsTableRow
-                              key={user.uid}
-                              user={user}
-                              activateUser={props.activateUser}
-                              makeAdministrator={props.makeAdministrator}
-                            />
-                          ))}
-                        </TableBody>
-                      </Table>
-                    )}
+                    {props.fetching ? renderLoader() : renderTable(usersList, props)}
                   </div>
                 </div>
               </FormWithHeading>
