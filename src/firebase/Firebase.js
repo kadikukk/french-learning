@@ -28,23 +28,24 @@ class Firebase {
 
   // *** Auth API ***
 
-  doCreateUserWithEmailAndPassword = (email, password) =>
-    this.auth.createUserWithEmailAndPassword(email, password);
+  createUserWithEmailAndPassword = (email, password) => (
+    this.auth.createUserWithEmailAndPassword(email, password)
+  );
 
-  doSignInWithEmailAndPassword = (email, password) =>
-    this.auth.signInWithEmailAndPassword(email, password);
+  signInWithEmailAndPassword = (email, password) => (
+    this.auth.signInWithEmailAndPassword(email, password)
+  );
 
-  doSignOut = () => this.auth.signOut();
+  signOut = () => this.auth.signOut();
 
-  doPasswordReset = email => this.auth.sendPasswordResetEmail(email);
+  resetPassword = (email) => this.auth.sendPasswordResetEmail(email);
 
-  doPasswordUpdate = password =>
-    this.auth.currentUser.updatePassword(password);
+  updatePassword = (password) => this.auth.currentUser.updatePassword(password);
 
   // *** Merge Auth and DB User API *** //
 
-  onAuthUserListener = (next, fallback) =>
-    this.auth.onAuthStateChanged(authUser => {
+  onAuthUserListener = (next, fallback) => (
+    this.auth.onAuthStateChanged((authUser) => {
       if (authUser) {
         this.user(authUser.uid)
           .once('value')
@@ -57,19 +58,19 @@ class Firebase {
             }
 
             // merge auth and db user
-            authUser = {
+            const user = {
               uid: authUser.uid,
               email: authUser.email,
               providerData: authUser.providerData,
-              ...dbUser,
+              ...dbUser
             };
-
-            next(authUser);
+            next(user);
           });
       } else {
         fallback();
       }
-    });
+    })
+  );
 
   // *** User API ***
 

@@ -27,7 +27,7 @@ class PasswordForgetForm extends React.Component {
   onSubmit = (e) => {
     e.preventDefault();
     this.props.firebase
-      .doPasswordReset(this.state.email)
+      .resetPassword(this.state.email)
       .then(() => this.setState(initialState))
       .catch(error => this.setState({ error }));
   };

@@ -38,7 +38,7 @@ class SignInPage extends React.Component {
     const { email, password } = this.state;
 
     this.props.firebase
-      .doSignInWithEmailAndPassword(email, password)
+      .signInWithEmailAndPassword(email, password)
       .then(() => {
         this.setState(initialState);
         this.props.history.push('/');

@@ -35,7 +35,7 @@ class UserItem extends Component {
   }
 
   onSendPasswordResetEmail = () => {
-    this.props.firebase.doPasswordReset(this.state.user.email);
+    this.props.firebase.resetPassword(this.state.user.email);
   };
 
   render() {

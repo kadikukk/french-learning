@@ -47,7 +47,7 @@ class PasswordChangeForm extends React.Component {
 
     if (equals(this.state.passwordOne, this.state.passwordTwo)) {
       this.props.firebase
-        .doPasswordUpdate(this.state.passwordOne)
+        .updatePassword(this.state.passwordOne)
         .then(() => this.setState(initialState))
         .catch(error => this.setState({ error }));
     } else {

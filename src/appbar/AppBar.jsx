@@ -18,7 +18,7 @@ class AppBar extends React.Component {
           <Link to="/">
             <FlatButton
               label={<FormattedMessage id="appBar.signOut" />}
-              onClick={this.props.firebase.doSignOut}
+              onClick={this.props.firebase.signOut}
             />
           </Link>)
           : (
