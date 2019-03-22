@@ -10,7 +10,6 @@ import LandingPage from '../landing/Landing.jsx';
 import SignUpPage from '../sign/SignUpPage.jsx';
 import SignInPage from '../sign/SignInPage.jsx';
 import PasswordForgetPage from '../password/PasswordForgetPage.jsx';
-import AccountPage from '../account/AccountPage.jsx';
 import AdminPage from '../admin/AdminPage.jsx';
 import ChaptersContainer from '../chapter/ChaptersContainer.js';
 import WordsAddFormContainer from '../word/add/form/WordsAddFormContainer.js';
@@ -21,6 +20,7 @@ import SubjectsAddFormContainer from '../subject/add/SubjectsAddFormContainer.js
 import SubjectWordsListContainer from '../word/list/SubjectWordsListContainer.js';
 import ChapterWordsListContainer from '../word/list/ChapterWordsListContainer.js';
 import WordsTranslateContainer from '../word/translate/WordsTranslateContainer';
+import PasswordChangeForm from '../password/PasswordChangeForm';
 
 class App extends React.Component {
   constructor(props) {
@@ -56,7 +56,7 @@ class App extends React.Component {
               <Route path="/signup" component={SignUpPage} />
               <Route path="/signin" component={SignInPage} />
               <Route path="/pw-forget" component={PasswordForgetPage} />
-              <Route path="/account" component={AccountPage} />
+              <Route path="/account" component={PasswordChangeForm} />
               <Route path="/admin" component={AdminPage} />
               <Route path="/chapters/:id/subjects" exact component={SubjectsContainer} />
               <Route path="/chapters/:id/words" exact component={ChapterWordsListContainer} />

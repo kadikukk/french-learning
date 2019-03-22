@@ -1,69 +1,124 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { compose } from 'recompose';
+import { equals } from 'ramda';
+import { FormattedMessage } from 'react-intl';
+import { Paper, TextField, RaisedButton } from 'material-ui';
+
+import AuthUserContext from '../session/AuthUserContext';
+import withAuthorization from '../session/withAuthorization';
 
 import withFirebase from '../firebase/withFirebase';
+import FormWithHeading from '../util/components/FormWithHeading';
 
-const INITIAL_STATE = {
-  passwordOne: '',
-  passwordTwo: '',
-  error: null,
+const errorMessages = {
+  'auth/weak-password': 'errors.weakPassword',
+  'differentPasswords': 'errors.differentPasswords'
 };
 
-class PasswordChangeForm extends Component {
+const initialState = {
+  passwordOne: '',
+  passwordTwo: '',
+  error: null
+};
+
+class PasswordChangeForm extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = { ...INITIAL_STATE };
+    this.state = initialState;
   }
 
-  onSubmit = event => {
-    const { passwordOne } = this.state;
+  disableSubmitButton = () => (
+    !this.state.passwordOne || !this.state.passwordTwo
+  );
 
-    this.props.firebase
-      .doPasswordUpdate(passwordOne)
-      .then(() => {
-        this.setState({ ...INITIAL_STATE });
-      })
-      .catch(error => {
-        this.setState({ error });
-      });
-
-    event.preventDefault();
+  handleChange = (property, value) => {
+    this.setState({
+      [property]: value
+    });
   };
 
-  onChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
+  passwordOneChange = (value) => this.handleChange('passwordOne', value);
+
+  passwordTwoChange = (value) => this.handleChange('passwordTwo', value);
+
+  onSubmit = (e) => {
+    e.preventDefault();
+
+    if (equals(this.state.passwordOne, this.state.passwordTwo)) {
+      this.props.firebase
+        .doPasswordUpdate(this.state.passwordOne)
+        .then(() => this.setState(initialState))
+        .catch(error => this.setState({ error }));
+    } else {
+      this.setState({ error: { code: 'differentPasswords' }});
+    }
   };
 
   render() {
-    const { passwordOne, passwordTwo, error } = this.state;
-
-    const isInvalid =
-      passwordOne !== passwordTwo || passwordOne === '';
-
     return (
-      <form onSubmit={this.onSubmit}>
-        <input
-          name="passwordOne"
-          value={passwordOne}
-          onChange={this.onChange}
-          type="password"
-          placeholder="New Password"
-        />
-        <input
-          name="passwordTwo"
-          value={passwordTwo}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Confirm New Password"
-        />
-        <button disabled={isInvalid} type="submit">
-          Reset My Password
-        </button>
-
-        {error && <p>{error.message}</p>}
-      </form>
+      <AuthUserContext.Consumer>
+        {authUser => (
+          <div style={{ margin: '70px auto' }}>
+            <Paper className="pagePaper">
+              <FormWithHeading title={authUser.email}>
+                <form onSubmit={this.onSubmit}>
+                  <div className="row">
+                    <div className="col s12 m6 l6">
+                      <TextField
+                        type="password"
+                        floatingLabelText={<FormattedMessage id="changePassword.newPassword" />}
+                        value={this.state.passwordOne}
+                        onChange={(e, value) => this.passwordOneChange(value)}
+                        fullWidth
+                      />
+                    </div>
+                    <div className="col s12 m6 l6">
+                      <TextField
+                        type="password"
+                        floatingLabelText={<FormattedMessage id="changePassword.confirmPassword" />}
+                        value={this.state.passwordTwo}
+                        onChange={(e, value) => this.passwordTwoChange(value)}
+                        fullWidth
+                      />
+                    </div>
+                  </div>
+                  {this.state.error && (
+                    <div className="row">
+                      <div className="col s12 m12 l12" style={{ color: 'red' }}>
+                        {errorMessages[this.state.error.code]
+                          ? <FormattedMessage id={errorMessages[this.state.error.code]} />
+                          : this.state.error.message}
+                      </div>
+                    </div>
+                  )}
+                  <div className="row">
+                    <div className="col s12 m12 l12" style={{ textAlign: 'right' }}>
+                      <RaisedButton
+                        type="submit"
+                        primary
+                        label={<FormattedMessage id="changePassword.submit" />}
+                        disabled={this.disableSubmitButton()}
+                      />
+                    </div>
+                  </div>
+                </form>
+              </FormWithHeading>
+            </Paper>
+          </div>
+        )}
+      </AuthUserContext.Consumer>
     );
   }
 }
 
-export default withFirebase(PasswordChangeForm);
+PasswordChangeForm.propTypes = {
+  firebase: PropTypes.object.isRequired
+};
+
+const condition = authUser => !!authUser;
+
+export default compose(
+  withAuthorization(condition),
+  withFirebase
+)(PasswordChangeForm);
