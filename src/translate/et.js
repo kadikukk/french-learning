@@ -35,6 +35,7 @@ const translations = {
   'words.add.input.oneByOne': 'Ühekaupa',
   'words.add.input.file': 'Failist',
   'words.add.input.file.message': 'Pärast faili üleslaadimist on võimalik sõnu muuta ning lisada',
+  'words.add.input.file.example': 'Failil peab olema etteantud struktuur. Vaata näidisfaili',
   'words.add.chapter': 'Peatükk',
   'words.add.subject': 'Teema',
   'words.add.cardTitle': 'Uus sõna',
