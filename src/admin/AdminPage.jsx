@@ -15,7 +15,7 @@ const AdminPage = () => (
 
     <Switch>
       <Route exact path={'/manage/accounts/:id'} component={UserItem} />
-      <Route exact path={'/manage/accounts'} component={UserList} />
+      {/* <Route exact path={'/manage/accounts'} component={UserList} /> */}
     </Switch>
   </div>
 );

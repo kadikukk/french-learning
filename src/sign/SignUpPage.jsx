@@ -60,6 +60,7 @@ class SignUpForm extends React.Component {
         .then((authUser) => this.props.firebase.user(authUser.user.uid).set({
           name: this.state.name,
           email: this.state.email,
+          roles: [],
           active: false
         }))
         .then(() => {
