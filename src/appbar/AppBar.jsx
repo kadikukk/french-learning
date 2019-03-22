@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { AppBar as MaterialAppBar, FlatButton } from 'material-ui';
 import { FormattedMessage } from 'react-intl';
+import windowDimensions from 'react-window-dimensions';
 
 import AuthUserContext from '../session/AuthUserContext';
 import withFirebase from '../firebase/withFirebase';
@@ -33,16 +34,17 @@ class AppBar extends React.Component {
       <MaterialAppBar
         title={<FormattedMessage id="appBar.menu" />}
         onLeftIconButtonClick={this.props.toggleMenu}
-        iconElementRight={this.signInOrOutButton()}
+        iconElementRight={this.props.width > 768 ? this.signInOrOutButton() : null}
       />
     );
   }
 }
 
 AppBar.propTypes = {
+  width: PropTypes.number.isRequired,
   toggleMenu: PropTypes.func.isRequired,
   firebase: PropTypes.object.isRequired
 };
 
-export default withFirebase(AppBar);
+export default windowDimensions()(withFirebase(AppBar));
 
