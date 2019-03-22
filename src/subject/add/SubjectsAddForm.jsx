@@ -74,7 +74,10 @@ class SubjectsAddForm extends React.Component {
     return (
       <div style={{ margin: '70px auto' }}>
         <Paper className="pagePaper">
-          <FormWithHeading title={<FormattedMessage id="subjects.title" />}>
+          <FormWithHeading
+            title={<FormattedMessage id="subjects.title" />}
+            onSubmit={this.handleCreateNewSubject}
+          >
             {this.props.subjects && (
               <div className="row">
                 {this.props.fetching ? this.renderLoader() : (
@@ -109,8 +112,8 @@ class SubjectsAddForm extends React.Component {
               </div>
               <div className="col s12 m2 l2" style={{ textAlign: 'right', marginTop: '28px' }}>
                 <RaisedButton
+                  type="submit"
                   label={<FormattedMessage id="general.add" />}
-                  onClick={this.handleCreateNewSubject}
                   primary
                 />
               </div>

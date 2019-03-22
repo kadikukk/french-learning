@@ -57,7 +57,10 @@ class Chapters extends React.Component {
     return (
       <div style={{ margin: '70px auto' }}>
         <Paper className="pagePaper">
-          <FormWithHeading title={<FormattedMessage id="chapters.title" />}>
+          <FormWithHeading
+            title={<FormattedMessage id="chapters.title" />}
+            onSubmit={this.handleCreateNewChapter}
+          >
             {this.props.chapters && (
               <div className="row">
                 {this.props.fetching ? this.renderLoader() : (
@@ -80,8 +83,8 @@ class Chapters extends React.Component {
               </div>
               <div className="col s3 m2" style={{ textAlign: 'right', marginTop: '28px' }}>
                 <RaisedButton
+                  type="submit"
                   label={<FormattedMessage id="general.add" />}
-                  onClick={this.handleCreateNewChapter}
                   primary
                 />
               </div>

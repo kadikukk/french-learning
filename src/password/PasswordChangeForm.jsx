@@ -51,7 +51,7 @@ class PasswordChangeForm extends React.Component {
         .then(() => this.setState(initialState))
         .catch(error => this.setState({ error }));
     } else {
-      this.setState({ error: { code: 'differentPasswords' }});
+      this.setState({ error: { code: 'differentPasswords' } });
     }
   };
 
@@ -61,48 +61,46 @@ class PasswordChangeForm extends React.Component {
         {authUser => (
           <div style={{ margin: '70px auto' }}>
             <Paper className="pagePaper">
-              <FormWithHeading title={authUser.email}>
-                <form onSubmit={this.onSubmit}>
+              <FormWithHeading title={authUser.email} onSubmit={this.onSubmit}>
+                <div className="row">
+                  <div className="col s12 m6 l6">
+                    <TextField
+                      type="password"
+                      floatingLabelText={<FormattedMessage id="changePassword.newPassword" />}
+                      value={this.state.passwordOne}
+                      onChange={(e, value) => this.passwordOneChange(value)}
+                      fullWidth
+                    />
+                  </div>
+                  <div className="col s12 m6 l6">
+                    <TextField
+                      type="password"
+                      floatingLabelText={<FormattedMessage id="changePassword.confirmPassword" />}
+                      value={this.state.passwordTwo}
+                      onChange={(e, value) => this.passwordTwoChange(value)}
+                      fullWidth
+                    />
+                  </div>
+                </div>
+                {this.state.error && (
                   <div className="row">
-                    <div className="col s12 m6 l6">
-                      <TextField
-                        type="password"
-                        floatingLabelText={<FormattedMessage id="changePassword.newPassword" />}
-                        value={this.state.passwordOne}
-                        onChange={(e, value) => this.passwordOneChange(value)}
-                        fullWidth
-                      />
-                    </div>
-                    <div className="col s12 m6 l6">
-                      <TextField
-                        type="password"
-                        floatingLabelText={<FormattedMessage id="changePassword.confirmPassword" />}
-                        value={this.state.passwordTwo}
-                        onChange={(e, value) => this.passwordTwoChange(value)}
-                        fullWidth
-                      />
+                    <div className="col s12 m12 l12" style={{ color: 'red' }}>
+                      {errorMessages[this.state.error.code]
+                        ? <FormattedMessage id={errorMessages[this.state.error.code]} />
+                        : this.state.error.message}
                     </div>
                   </div>
-                  {this.state.error && (
-                    <div className="row">
-                      <div className="col s12 m12 l12" style={{ color: 'red' }}>
-                        {errorMessages[this.state.error.code]
-                          ? <FormattedMessage id={errorMessages[this.state.error.code]} />
-                          : this.state.error.message}
-                      </div>
-                    </div>
-                  )}
-                  <div className="row">
-                    <div className="col s12 m12 l12" style={{ textAlign: 'right' }}>
-                      <RaisedButton
-                        type="submit"
-                        primary
-                        label={<FormattedMessage id="changePassword.submit" />}
-                        disabled={this.disableSubmitButton()}
-                      />
-                    </div>
+                )}
+                <div className="row">
+                  <div className="col s12 m12 l12" style={{ textAlign: 'right' }}>
+                    <RaisedButton
+                      type="submit"
+                      primary
+                      label={<FormattedMessage id="changePassword.submit" />}
+                      disabled={this.disableSubmitButton()}
+                    />
                   </div>
-                </form>
+                </div>
               </FormWithHeading>
             </Paper>
           </div>
