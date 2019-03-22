@@ -8,6 +8,8 @@ import windowDimensions from 'react-window-dimensions';
 import AuthUserContext from '../session/AuthUserContext';
 import withFirebase from '../firebase/withFirebase';
 
+const TABLET_SCREEN_SIZE = 768;
+
 class AppBar extends React.Component {
   signInOrOutButton = () => {
     return (
@@ -34,7 +36,7 @@ class AppBar extends React.Component {
       <MaterialAppBar
         title={<FormattedMessage id="appBar.menu" />}
         onLeftIconButtonClick={this.props.toggleMenu}
-        iconElementRight={this.props.width > 768 ? this.signInOrOutButton() : null}
+        iconElementRight={this.props.width > TABLET_SCREEN_SIZE ? this.signInOrOutButton() : null}
       />
     );
   }
