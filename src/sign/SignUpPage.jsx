@@ -1,161 +1,156 @@
-import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
-import { compose } from 'recompose';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { isEmpty, equals, merge } from 'ramda';
+import { FormattedMessage } from 'react-intl';
+import { Paper, TextField, RaisedButton } from 'material-ui';
+import { grey600, lightGreen600 } from 'material-ui/styles/colors';
 
 import withFirebase from '../firebase/withFirebase';
 
-const ROLES = { ADMIN: 'ADMIN' };
+const errorMessages = {
+  'auth/email-already-in-use': 'errors.emailExists',
+  'differentPasswords': 'errors.differentPasswords'
+};
 
-const SignUpPage = () => (
-  <div>
-    <h1>SignUp</h1>
-    <SignUpForm />
-  </div>
-);
-
-const INITIAL_STATE = {
-  username: '',
+const initialState = {
+  name: '',
   email: '',
   passwordOne: '',
   passwordTwo: '',
   isAdmin: false,
   error: null,
+  submitted: false
 };
 
-const ERROR_CODE_ACCOUNT_EXISTS = 'auth/email-already-in-use';
-
-const ERROR_MSG_ACCOUNT_EXISTS = `
-  An account with this E-Mail address already exists.
-  Try to login with this account instead. If you think the
-  account is already used from one of the social logins, try
-  to sign in with one of them. Afterward, associate your accounts
-  on your personal account page.
-`;
-
-class SignUpFormBase extends Component {
+class SignUpForm extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = { ...INITIAL_STATE };
+    this.state = initialState;
   }
 
-  onSubmit = event => {
-    const { username, email, passwordOne, isAdmin } = this.state;
-    const roles = [];
+  messageColor = () => (
+    this.state.submitted ? lightGreen600 : grey600
+  );
 
-    if (isAdmin) {
-      roles.push(ROLES.ADMIN);
+  disableSubmitButton = () => {
+    const { name, email, passwordOne, passwordTwo } = this.state;
+    return isEmpty(name) || isEmpty(email) || isEmpty(passwordOne) || isEmpty(passwordTwo);
+  };
+
+  handleChange = (property, value) => {
+    this.setState({
+      [property]: value
+    });
+  }
+
+  nameChange = (value) => this.handleChange('name', value);
+
+  emailChange = (value) => this.handleChange('email', value);
+
+  passwordOneChange = (value) => this.handleChange('passwordOne', value);
+
+  passwordTwoChange = (value) => this.handleChange('passwordTwo', value);
+
+  onSubmit = (e) => {
+    e.preventDefault();
+
+    if (equals(this.state.passwordOne, this.state.passwordTwo)) {
+      this.props.firebase
+        .doCreateUserWithEmailAndPassword(this.state.email, this.state.passwordOne)
+        .then((authUser) => this.props.firebase.user(authUser.user.uid).set({
+          name: this.state.name,
+          email: this.state.email,
+          active: false
+        }))
+        .then(() => {
+          this.setState(merge(initialState, { submitted: true }));
+          this.props.history.push('/');
+        })
+        .catch(error => this.setState({ error }));
+    } else {
+      this.setState({ error: { code: 'differentPasswords' } });
     }
-
-    this.props.firebase
-      .doCreateUserWithEmailAndPassword(email, passwordOne)
-      .then(authUser => {
-        // Create a user in your Firebase realtime database
-        return this.props.firebase.user(authUser.user.uid).set({
-          username,
-          email,
-          roles,
-        });
-      })
-      .then(() => {
-        this.setState({ ...INITIAL_STATE });
-        this.props.history.push('/home');
-      })
-      .catch(error => {
-        if (error.code === ERROR_CODE_ACCOUNT_EXISTS) {
-          error.message = ERROR_MSG_ACCOUNT_EXISTS;
-        }
-
-        this.setState({ error });
-      });
-
-    event.preventDefault();
-  };
-
-  onChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
-  };
-
-  onChangeCheckbox = event => {
-    this.setState({ [event.target.name]: event.target.checked });
   };
 
   render() {
-    const {
-      username,
-      email,
-      passwordOne,
-      passwordTwo,
-      isAdmin,
-      error,
-    } = this.state;
-
-    const isInvalid =
-      passwordOne !== passwordTwo ||
-      passwordOne === '' ||
-      email === '' ||
-      username === '';
-
     return (
-      <form onSubmit={this.onSubmit}>
-        <input
-          name="username"
-          value={username}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Full Name"
-        />
-        <input
-          name="email"
-          value={email}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Email Address"
-        />
-        <input
-          name="passwordOne"
-          value={passwordOne}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Password"
-        />
-        <input
-          name="passwordTwo"
-          value={passwordTwo}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Confirm Password"
-        />
-        <label>
-          Admin:
-          <input
-            name="isAdmin"
-            type="checkbox"
-            checked={isAdmin}
-            onChange={this.onChangeCheckbox}
-          />
-        </label>
-        <button disabled={isInvalid} type="submit">
-          Sign Up
-        </button>
-
-        {error && <p>{error.message}</p>}
-      </form>
+      <div style={{ margin: '70px auto' }}>
+        <Paper className="pagePaper">
+          <form className="formPadding" onSubmit={this.onSubmit}>
+            <div className="row" style={{ marginTop: '20px', textAlign: 'justify', color: this.messageColor() }}>
+              <div className="col s12 m12 l12">
+                {this.state.submitted
+                  ? <FormattedMessage id="signUp.introMessage" />
+                  : <FormattedMessage id="signUp.introMessage" />}
+              </div>
+            </div>
+            <div className="row">
+              <div className="col s12 m6 l6">
+                <TextField
+                  floatingLabelText={<FormattedMessage id="signUp.name" />}
+                  value={this.state.name}
+                  onChange={(e, value) => this.nameChange(value)}
+                  fullWidth
+                />
+              </div>
+              <div className="col s12 m6 l6">
+                <TextField
+                  floatingLabelText={<FormattedMessage id="signUp.email" />}
+                  value={this.state.email}
+                  onChange={(e, value) => this.emailChange(value)}
+                  fullWidth
+                />
+              </div>
+            </div>
+            <div className="row">
+              <div className="col s12 m6 l6">
+                <TextField
+                  type="password"
+                  floatingLabelText={<FormattedMessage id="signUp.password" />}
+                  value={this.state.passwordOne}
+                  onChange={(e, value) => this.passwordOneChange(value)}
+                  fullWidth
+                />
+              </div>
+              <div className="col s12 m6 l6">
+                <TextField
+                  type="password"
+                  floatingLabelText={<FormattedMessage id="signUp.confirmPassword" />}
+                  value={this.state.passwordTwo}
+                  onChange={(e, value) => this.passwordTwoChange(value)}
+                  fullWidth
+                />
+              </div>
+            </div>
+            {this.state.error && (
+              <div className="row">
+                <div className="col s12 m12 l12" style={{ color: 'red' }}>
+                  {errorMessages[this.state.error.code]
+                    ? <FormattedMessage id={errorMessages[this.state.error.code]} />
+                    : this.state.error.message}
+                </div>
+              </div>
+            )}
+            <div className="row">
+              <div className="col s12 m12 l12" style={{ textAlign: 'right' }}>
+                <RaisedButton
+                  type="submit"
+                  primary
+                  label={<FormattedMessage id="signUp.submit" />}
+                  disabled={this.disableSubmitButton()}
+                />
+              </div>
+            </div>
+          </form>
+        </Paper>
+      </div>
     );
   }
 }
 
-const SignUpLink = () => (
-  <p>
-    Don't have an account? <Link to={'/signup'}>Sign Up</Link>
-  </p>
-);
+SignUpForm.propTypes = {
+  firebase: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired
+};
 
-const SignUpForm = compose(
-  withRouter,
-  withFirebase,
-)(SignUpFormBase);
-
-export default SignUpPage;
-
-export { SignUpForm, SignUpLink };
+export default withFirebase(SignUpForm);

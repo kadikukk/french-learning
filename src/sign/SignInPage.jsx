@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { Paper, TextField, RaisedButton } from 'material-ui';
 import { FormattedMessage } from 'react-intl';
 
-import { SignUpLink } from './SignUpPage.jsx';
 import withFirebase from '../firebase/withFirebase';
 
 const errorMessages = {
@@ -101,10 +100,18 @@ class SignInPage extends React.Component {
             </div>
             <div className="row">
               <div className="col s12 m12 l12">
-                <Link to={'/passwordForget'}>
-                  <FormattedMessage id="signIn.forgotPassword" />
-                </Link>
-                <SignUpLink />
+                <p>
+                  <Link to={'/passwordForget'}>
+                    <FormattedMessage id="signIn.forgotPassword" />
+                  </Link>
+                </p>
+                <p>
+                  <FormattedMessage id="signIn.noAccount" />
+                  {' '}
+                  <Link to={'/signup'}>
+                    <FormattedMessage id="signIn.signUp" />
+                  </Link>
+                </p>
               </div>
             </div>
           </form>
