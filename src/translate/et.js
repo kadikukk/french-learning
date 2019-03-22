@@ -97,7 +97,9 @@ const translations = {
   'word.translate.preposition': 'Eessõna',
   'word.translate.postposition': 'Järelsõna',
   'word.translate.verbGroup': 'Tegusõna grupp',
-  'word.translate.check': 'Kontrolli'
+  'word.translate.check': 'Kontrolli',
+  'word.translate.translateAgain': 'Tõlgi algusest',
+  'word.translate.back': 'Tagasi sõnade nimekirja'
 };
 
 export default translations;

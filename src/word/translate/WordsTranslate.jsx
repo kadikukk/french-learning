@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'ramda';
+
 import WordTranslateCard from './WordTranslateCard';
+import WordsTranslateLastPage from './WordsTranslateLastPage';
 
 class WordsTranslate extends React.Component {
   constructor(props) {
@@ -10,6 +12,10 @@ class WordsTranslate extends React.Component {
       wordIndex: 0
     };
   }
+
+  translateFromStart = () => {
+    this.setState({ wordIndex: 0 });
+  };
 
   handleClickNext = () => {
     this.setState((prevState) => ({
@@ -20,6 +26,11 @@ class WordsTranslate extends React.Component {
   render() {
     if (isEmpty(this.props.words)) {
       return '';
+    }
+    if (this.state.wordIndex >= this.props.words.length) {
+      return (
+        <WordsTranslateLastPage translateFromStart={this.translateFromStart} />
+      );
     }
     return (
       <WordTranslateCard
