@@ -23,11 +23,25 @@ class WordsAddForm extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps !== this.props && !isEmpty(this.props.subjects) && !isEmpty(this.props.chapters)) {
-      this.setState({
-        chapterId: this.props.chapters[0].uid,
-        subjectId: this.props.subjects[0].uid
-      });
+    if ((!equals(prevProps.subjects, this.props.subjects) && !isEmpty(this.props.subjects)) ||
+      (!equals(prevProps.chapters, this.props.chapters) && !isEmpty(this.props.chapters))) {
+      const chapterId = !isEmpty(this.props.chapters) ? this.props.chapters[0].uid : null;
+      const subjectId = !isEmpty(this.props.subjects) ? this.props.subjects[0].uid : null;
+
+      if (chapterId && subjectId) {
+        this.setState({
+          chapterId: this.props.chapters[0].uid,
+          subjectId: this.props.subjects[0].uid
+        });
+      }
+      else if (chapterId && !subjectId) {
+        this.setState({
+          chapterId: this.props.chapters[0].uid
+        });
+      } else if (!chapterId && subjectId)
+        this.setState({
+          subjectId: this.props.subjects[0].uid
+        });
     }
   }
 
