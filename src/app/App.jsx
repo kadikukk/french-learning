@@ -9,7 +9,7 @@ import withAuthentication from '../session/withAuthentication';
 import LandingPage from '../landing/Landing.jsx';
 import SignUpPage from '../sign/SignUpPage.jsx';
 import SignInPage from '../sign/SignInPage.jsx';
-import PasswordForgetPage from '../password/PasswordForgetPage.jsx';
+import PasswordForgetForm from '../password/PasswordForgetForm.jsx';
 import AdminPage from '../admin/AdminPage.jsx';
 import ChaptersContainer from '../chapter/ChaptersContainer.js';
 import WordsAddFormContainer from '../word/add/form/WordsAddFormContainer.js';
@@ -55,7 +55,7 @@ class App extends React.Component {
               <Route exact path="/" component={LandingPage} />
               <Route path="/signup" component={SignUpPage} />
               <Route path="/signin" component={SignInPage} />
-              <Route path="/pw-forget" component={PasswordForgetPage} />
+              <Route path="/passwordForget" component={PasswordForgetForm} />
               <Route path="/account" component={PasswordChangeForm} />
               <Route path="/admin" component={AdminPage} />
               <Route path="/chapters/:id/subjects" exact component={SubjectsContainer} />

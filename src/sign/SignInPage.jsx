@@ -1,12 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
-import { compose } from 'recompose';
+import { Link } from 'react-router-dom';
 import { Paper, TextField, RaisedButton } from 'material-ui';
 import { FormattedMessage } from 'react-intl';
 
 import { SignUpLink } from './SignUpPage.jsx';
-import { PasswordForgetLink } from '../password/PasswordForgetPage.jsx';
 import withFirebase from '../firebase/withFirebase';
 
 const errorMessages = {
@@ -15,15 +13,13 @@ const errorMessages = {
   'auth/invalid-email': 'errors.invalidEmail'
 };
 
-const SignInPage = () => <SignInForm />;
-
 const initialState = {
   email: '',
   password: '',
   error: null
 };
 
-class SignInFormBase extends React.Component {
+class SignInPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = initialState;
@@ -105,7 +101,9 @@ class SignInFormBase extends React.Component {
             </div>
             <div className="row">
               <div className="col s12 m12 l12">
-                <PasswordForgetLink />
+                <Link to={'/passwordForget'}>
+                  <FormattedMessage id="signIn.forgotPassword" />
+                </Link>
                 <SignUpLink />
               </div>
             </div>
@@ -116,14 +114,9 @@ class SignInFormBase extends React.Component {
   }
 }
 
-SignInFormBase.propTypes = {
+SignInPage.propTypes = {
   firebase: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired
 };
 
-const SignInForm = compose(
-  withRouter,
-  withFirebase,
-)(SignInFormBase);
-
-export default SignInPage;
+export default withFirebase(SignInPage);
