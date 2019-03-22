@@ -70,8 +70,8 @@ const MenuAuth = ({ authUser, toggleMenu, chapters, fetching }) => (
       <ListItem primaryText={<FormattedMessage id="menu.account" />} onClick={toggleMenu} />
     </Link>
     {authUser.roles.includes(ROLES.ADMIN) && (
-      <Link to={'/admin'}>
-        <ListItem primaryText="Admin" onClick={toggleMenu} />
+      <Link to={'/manage/accounts'}>
+        <ListItem primaryText={<FormattedMessage id="menu.manageAccounts" />} onClick={toggleMenu} />
       </Link>
     )}
     <Link to={'/manage/chapters'}>
