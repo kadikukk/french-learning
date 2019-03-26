@@ -13,6 +13,9 @@ import ChapterAndSubjectSelect from './ChapterAndSubjectSelect';
 import AddInputSelect from './AddInputSelect';
 import WordAddCard from '../WordAddCard';
 import { initialState } from './WordsAddFormInitialState';
+import withAuthorization from '../../../session/withAuthorization';
+import { isActiveUser } from '../../../util/AuthUtil';
+import { compose } from 'recompose';
 
 
 class WordsAddForm extends React.Component {
@@ -265,4 +268,7 @@ WordsAddForm.propTypes = {
   fetching: PropTypes.bool.isRequired
 };
 
-export default withFirebase(WordsAddForm);
+export default compose(
+  withAuthorization(isActiveUser),
+  withFirebase
+)(WordsAddForm);

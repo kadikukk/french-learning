@@ -13,8 +13,7 @@ const withAuthorization = condition => Component => {
           if (!condition(authUser)) {
             this.props.history.push('/signin');
           }
-        },
-        () => this.props.history.push('/signin'),
+        }, () => this.props.history.push('/signin')
       );
     }
 
@@ -25,9 +24,7 @@ const withAuthorization = condition => Component => {
     render() {
       return (
         <AuthUserContext.Consumer>
-          {authUser =>
-            condition(authUser) ? <Component {...this.props} /> : null
-          }
+          {authUser => condition(authUser) ? <Component {...this.props} /> : null}
         </AuthUserContext.Consumer>
       );
     }

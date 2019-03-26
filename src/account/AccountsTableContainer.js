@@ -38,7 +38,7 @@ class AccountsTableContainer extends React.Component {
     const user = this.getUser(userUid);
     this.props.firebase.user(userUid).set({
       ...user,
-      roles: append('ADMIN', user.roles)
+      roles: append('ADMIN', user.roles || [])
     });
   };
 

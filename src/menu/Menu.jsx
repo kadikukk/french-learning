@@ -8,8 +8,7 @@ import AuthUserContext from '../session/AuthUserContext';
 import { idLabel } from '../util/IdLabel';
 
 import './Menu.css';
-
-const ROLES = { ADMIN: 'ADMIN' };
+import { isActiveUser } from '../util/AuthUtil';
 
 const Loader = () => (
   <div style={{ width: '100%', margin: 'auto', textAlign: 'center' }}>
@@ -69,7 +68,7 @@ const MenuAuth = ({ authUser, toggleMenu, chapters, fetching }) => (
     <Link to={'/account'}>
       <ListItem primaryText={<FormattedMessage id="menu.account" />} onClick={toggleMenu} />
     </Link>
-    {authUser.roles.includes(ROLES.ADMIN) && (
+    {authUser.roles.includes('ADMIN') && (
       <Link to={'/manage/accounts'}>
         <ListItem primaryText={<FormattedMessage id="menu.manageAccounts" />} onClick={toggleMenu} />
       </Link>
@@ -99,7 +98,7 @@ MenuAuth.propTypes = {
 
 const Menu = ({ toggleMenu, chapters, fetching }) => (
   <AuthUserContext.Consumer>
-    {authUser => authUser
+    {authUser => isActiveUser(authUser)
       ? <MenuAuth chapters={chapters} fetching={fetching} authUser={authUser} toggleMenu={toggleMenu} />
       : <MenuNonAuth chapters={chapters} fetching={fetching} toggleMenu={toggleMenu} />
     }

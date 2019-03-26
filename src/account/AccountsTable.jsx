@@ -6,9 +6,11 @@ import { Table, TableHeader, TableBody, Paper, CircularProgress } from 'material
 import { grey600 } from 'material-ui/styles/colors';
 
 import AuthUserContext from '../session/AuthUserContext';
+import withAuthorization from '../session/withAuthorization';
 import AccountsTableHeader from './AccountsTableHeader';
 import AccountsTableRow from './AccountsTableRow';
 import FormWithHeading from '../util/components/FormWithHeading';
+import { isAdmin } from '../util/AuthUtil';
 
 const noUsersMessageStyle = {
   justifyContent: 'center', alignItems: 'center', display: 'flex', fontSize: '20px', color: grey600
@@ -85,4 +87,4 @@ AccountsTable.propTypes = {
   makeAdministrator: PropTypes.func.isRequired
 };
 
-export default AccountsTable;
+export default withAuthorization(isAdmin)(AccountsTable);

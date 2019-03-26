@@ -7,6 +7,9 @@ import { FormattedMessage } from 'react-intl';
 import withFirebase from '../../firebase/withFirebase';
 import FormWithHeading from '../../util/components/FormWithHeading';
 import SubjectList from './SubjectList';
+import { compose } from 'recompose';
+import withAuthorization from '../../session/withAuthorization';
+import { isActiveUser } from '../../util/AuthUtil';
 
 class SubjectsAddForm extends React.Component {
   constructor(props) {
@@ -136,4 +139,7 @@ SubjectsAddForm.defaultProps = {
   subjects: null
 };
 
-export default withFirebase(SubjectsAddForm);
+export default compose(
+  withAuthorization(isActiveUser),
+  withFirebase
+)(SubjectsAddForm);

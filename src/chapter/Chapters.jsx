@@ -6,6 +6,9 @@ import { FormattedMessage } from 'react-intl';
 import withFirebase from '../firebase/withFirebase';
 import ChapterList from './ChapterList';
 import FormWithHeading from '../util/components/FormWithHeading';
+import { compose } from 'recompose';
+import withAuthorization from '../session/withAuthorization';
+import { isActiveUser } from '../util/AuthUtil';
 
 class Chapters extends React.Component {
   constructor(props) {
@@ -106,4 +109,7 @@ Chapters.defaultProps = {
   chapters: null
 };
 
-export default withFirebase(Chapters);
+export default compose(
+  withAuthorization(isActiveUser),
+  withFirebase
+)(Chapters);
