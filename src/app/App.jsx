@@ -6,7 +6,7 @@ import { FormattedMessage } from 'react-intl';
 
 import withAuthentication from '../session/withAuthentication';
 
-import LandingPage from '../landing/Landing.jsx';
+import HomePage from '../home/HomePage.jsx';
 import SignUpPage from '../sign/SignUpPage.jsx';
 import SignInPage from '../sign/SignInPage.jsx';
 import PasswordForgetForm from '../password/PasswordForgetForm.jsx';
@@ -52,7 +52,7 @@ class App extends React.Component {
                 />
                 <MenuContainer toggleMenu={this.toggleMenu} />
               </Drawer>
-              <Route exact path="/" component={LandingPage} />
+              <Route exact path="/" component={HomePage} />
               <Route path="/signup" component={SignUpPage} />
               <Route path="/signin" component={SignInPage} />
               <Route path="/passwordForget" component={PasswordForgetForm} />

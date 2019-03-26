@@ -41,6 +41,7 @@ const translations = {
   'changePassword.submit': 'Reset password',
   'forgotPassword.email': 'Email address',
   'forgotPassword.reset': 'Reset password',
+  'account.notActivated': 'Your account is not activated yet. Please contact course\'s supervisor.',
   'accounts.title': 'Accounts\' management',
   'accounts.noUsers': 'No accounts to show',
   'accounts.name': 'Name',

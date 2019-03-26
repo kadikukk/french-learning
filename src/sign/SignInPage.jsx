@@ -34,7 +34,8 @@ class SignInPage extends React.Component {
 
   passwordChange = (password) => this.handleChange('password', password);
 
-  onSubmit = event => {
+  onSubmit = (e) => {
+    e.preventDefault();
     const { email, password } = this.state;
 
     this.props.firebase
@@ -44,8 +45,6 @@ class SignInPage extends React.Component {
         this.props.history.push('/');
       })
       .catch(error => this.setState({ error }));
-
-    event.preventDefault();
   };
 
   render() {

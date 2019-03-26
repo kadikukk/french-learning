@@ -41,6 +41,7 @@ const translations = {
   'changePassword.submit': 'Muuda parooli',
   'forgotPassword.email': 'E-posti aadress',
   'forgotPassword.reset': 'Lähtesta parool',
+  'account.notActivated': 'Sinu konto ei ole veel aktiveeritud. Palun võta ühendust kursust administreeriva õppejõuga.',
   'accounts.title': 'Kontode haldamine',
   'accounts.noUsers': 'Kontod puuduvad',
   'accounts.name': 'Nimi',
