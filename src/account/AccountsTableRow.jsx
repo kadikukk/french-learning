@@ -9,7 +9,7 @@ const booleansText = {
   false: 'general.no'
 };
 
-const CELL_WIDTH = 0;
+const CELL_WIDTH = 14;
 
 const isAdmin = (user) => !!user.roles && user.roles.includes('ADMIN');
 
