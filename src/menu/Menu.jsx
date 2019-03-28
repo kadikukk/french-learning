@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { List, ListItem, CircularProgress } from 'material-ui';
 import { FormattedMessage } from 'react-intl';
 
@@ -16,7 +16,13 @@ const Loader = () => (
   </div>
 );
 
-const ChaptersList = ({ chapters, toggleMenu }) => (
+
+const handleChapterItemClick = (toggleMenu, history, linkTo) => {
+  history.push(linkTo);
+  toggleMenu();
+};
+
+const ChaptersList = ({ chapters, toggleMenu, history }) => (
   chapters.map((chapter) => (
     <ListItem
       key={chapter.uid}
@@ -24,43 +30,42 @@ const ChaptersList = ({ chapters, toggleMenu }) => (
       nestedListStyle={{ marginLeft: '20px' }}
       primaryTogglesNestedList
       nestedItems={[
-        <Link key={chapter.uid + 1} to={`/chapters/${idLabel(chapter.uid)}/subjects`}>
-          <ListItem
-            primaryText={<FormattedMessage id="menu.chapter.subjects" />}
-            onClick={toggleMenu}
-          />
-        </Link>,
-        <Link key={chapter.uid + 2} to={`/chapters/${idLabel(chapter.uid)}/words`}>
-          <ListItem
-            primaryText={<FormattedMessage id="menu.chapter.words" />}
-            onClick={toggleMenu}
-          />
-        </Link>
+        <ListItem
+          key={chapter.uid + 1}
+          primaryText={<FormattedMessage id="menu.chapter.subjects" />}
+          onClick={() => handleChapterItemClick(toggleMenu, history, `/chapters/${idLabel(chapter.uid)}/subjects`)}
+        />,
+        <ListItem
+          key={chapter.uid + 2}
+          primaryText={<FormattedMessage id="menu.chapter.words" />}
+          onClick={() => handleChapterItemClick(toggleMenu, history, `/chapters/${idLabel(chapter.uid)}/words`)}
+        />
       ]}
     />
   ))
 );
 
 
-const MenuNonAuth = ({ toggleMenu, chapters, fetching }) => (
+const MenuNonAuth = ({ toggleMenu, chapters, fetching, history }) => (
   <List>
     <Link to={'/'}>
       <ListItem primaryText={<FormattedMessage id="menu.home" />} onClick={toggleMenu} />
     </Link>
     {fetching ? <Loader /> : (
-      <ChaptersList chapters={chapters} toggleMenu={toggleMenu} />
+      <ChaptersList chapters={chapters} toggleMenu={toggleMenu} history={history} />
     )}
   </List>
 );
 
 MenuNonAuth.propTypes = {
+  history: PropTypes.object.isRequired,
   toggleMenu: PropTypes.func.isRequired,
   chapters: PropTypes.array.isRequired,
   fetching: PropTypes.bool.isRequired
 };
 
 
-const MenuAuth = ({ authUser, toggleMenu, chapters, fetching }) => (
+const MenuAuth = ({ authUser, toggleMenu, chapters, fetching, history }) => (
   <List>
     <Link to={'/'}>
       <ListItem primaryText={<FormattedMessage id="menu.home" />} onClick={toggleMenu} />
@@ -83,12 +88,13 @@ const MenuAuth = ({ authUser, toggleMenu, chapters, fetching }) => (
       <ListItem primaryText={<FormattedMessage id="menu.words" />} onClick={toggleMenu} />
     </Link>
     {fetching ? <Loader /> : (
-      <ChaptersList chapters={chapters} toggleMenu={toggleMenu} />
+      <ChaptersList chapters={chapters} toggleMenu={toggleMenu} history={history} />
     )}
   </List>
 );
 
 MenuAuth.propTypes = {
+  history: PropTypes.object.isRequired,
   authUser: PropTypes.object.isRequired,
   toggleMenu: PropTypes.func.isRequired,
   chapters: PropTypes.array.isRequired,
@@ -96,19 +102,20 @@ MenuAuth.propTypes = {
 };
 
 
-const Menu = ({ toggleMenu, chapters, fetching }) => (
+const Menu = ({ toggleMenu, chapters, fetching, history }) => (
   <AuthUserContext.Consumer>
     {authUser => isActiveUser(authUser)
-      ? <MenuAuth chapters={chapters} fetching={fetching} authUser={authUser} toggleMenu={toggleMenu} />
-      : <MenuNonAuth chapters={chapters} fetching={fetching} toggleMenu={toggleMenu} />
+      ? <MenuAuth chapters={chapters} fetching={fetching} authUser={authUser} toggleMenu={toggleMenu} history={history} />
+      : <MenuNonAuth chapters={chapters} fetching={fetching} toggleMenu={toggleMenu} history={history} />
     }
   </AuthUserContext.Consumer>
 );
 
 Menu.propTypes = {
+  history: PropTypes.object.isRequired,
   toggleMenu: PropTypes.func.isRequired,
   chapters: PropTypes.array.isRequired,
   fetching: PropTypes.bool.isRequired
 };
 
-export default Menu;
+export default withRouter(Menu);
