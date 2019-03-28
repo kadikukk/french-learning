@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { compose } from 'recompose';
+import { withRouter } from 'react-router-dom';
 import { isEmpty, equals, merge } from 'ramda';
 import { FormattedMessage } from 'react-intl';
 import { Paper, TextField, RaisedButton } from 'material-ui';
@@ -154,4 +156,7 @@ SignUpForm.propTypes = {
   history: PropTypes.object.isRequired
 };
 
-export default withFirebase(SignUpForm);
+export default compose(
+  withRouter,
+  withFirebase
+)(SignUpForm);

@@ -131,7 +131,7 @@ const translations = {
   'word.translate.postposition': 'Postposition',
   'word.translate.verbGroup': 'Verb group',
   'word.translate.check': 'Check',
-  'word.translate.translateAgain': 'Tranlsate again',
+  'word.translate.translateAgain': 'Translate again',
   'word.translate.back': 'Back to words list'
 };
 

@@ -1,12 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { merge } from 'ramda';
-import { Paper, TextField, SelectField, MenuItem, RaisedButton } from 'material-ui';
+import { Paper, TextField, SelectField, MenuItem, RaisedButton, IconButton } from 'material-ui';
 import { FormattedMessage } from 'react-intl';
+import ListenWordIcon from 'material-ui/svg-icons/av/volume-up';
+import { grey600 } from 'material-ui/styles/colors';
 
 import FormWithHeading from '../../util/components/FormWithHeading';
+import TextToSpeech from '../../util/TextToSpeech';
 
 import './WordTranslateCard.css';
+
+const styles = {
+  speechButton: { padding: '0px', width: '0px', height: '0px', marginTop: '35px' },
+  speechButtonIcon: { color: grey600 }
+};
 
 const initialState = {
   checkRequested: false,
@@ -19,14 +27,26 @@ const initialState = {
     preposition: '',
     postposition: '',
     verbGroup: ''
-  }
+  },
+  speechEnabled: false
 };
 
 class WordTranslateCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = initialState;
+    this.speech = new TextToSpeech();
   }
+
+  componentDidMount() {
+    if ('speechSynthesis' in window) {
+      this.setState({ speechEnabled: true });
+    }
+  }
+
+  listenWord = (word) => {
+    this.speech.speak(this.props.word[word]);
+  };
 
   isWordCorrect = (word) => {
     return this.props.word[word] === this.state.word[word];
@@ -35,6 +55,12 @@ class WordTranslateCard extends React.Component {
   correctAnswer = (word) => {
     return this.state.checkRequested && !this.isWordCorrect(word) && this.props.word[word];
   };
+
+  getClassname = (largeColWidth, smallColWidth) => {
+    const largeCol = this.state.speechEnabled ? largeColWidth - 1 : largeColWidth;
+    const smallCol = this.state.speechEnabled ? smallColWidth - 1 : smallColWidth;
+    return `col s${smallCol} m${largeCol} l${largeCol}`;
+  }
 
   handleChange = (property, value) => {
     this.setState(({ word }) => ({
@@ -68,7 +94,7 @@ class WordTranslateCard extends React.Component {
   };
 
   handleClickNextButton = () => {
-    this.setState(initialState);
+    this.setState(merge(initialState, { speechEnabled: 'speechSynthesis' in window} ));
     this.props.handleClickNext();
   }
 
@@ -93,20 +119,33 @@ class WordTranslateCard extends React.Component {
   renderFrenchFields() {
     if (this.props.word.word) {
       return (
-        <div className="col s12 m12 l12">
-          <TextField
-            floatingLabelText={<FormattedMessage id="word.translate.french" />}
-            value={this.state.word.word}
-            fullWidth
-            onChange={(e, value) => this.frenchWordChange(value)}
-            errorText={this.correctAnswer('word')}
-          />
-        </div>
+        <React.Fragment>
+          <div className={this.getClassname(12, 12)}>
+            <TextField
+              floatingLabelText={<FormattedMessage id="word.translate.french" />}
+              value={this.state.word.word}
+              fullWidth
+              onChange={(e, value) => this.frenchWordChange(value)}
+              errorText={this.correctAnswer('word')}
+            />
+          </div>
+          {this.state.speechEnabled ? (
+            <div className="col s1 m1 l1" style={{ alignItems: 'left', paddingLeft: '0px' }}>
+              <IconButton
+                style={styles.speechButton}
+                iconStyle={styles.speechButtonIcon}
+                onClick={() => this.listenWord('word')}
+              >
+                <ListenWordIcon />
+              </IconButton>
+            </div>
+          ) : ''}
+        </React.Fragment>
       );
     }
     return (
       <React.Fragment>
-        <div className="col s12 m6 l6">
+        <div className={this.getClassname(6, 12)}>
           <TextField
             floatingLabelText={<FormattedMessage id="word.translate.masculine" />}
             value={this.state.word.masculine}
@@ -115,7 +154,18 @@ class WordTranslateCard extends React.Component {
             errorText={this.correctAnswer('masculine')}
           />
         </div>
-        <div className="col s12 m6 l6">
+        {this.state.speechEnabled ? (
+          <div className="col s1 m1 l1" style={{ alignItems: 'left', paddingLeft: '0px' }}>
+            <IconButton
+              style={styles.speechButton}
+              iconStyle={styles.speechButtonIcon}
+              onClick={() => this.listenWord('masculine')}
+            >
+              <ListenWordIcon />
+            </IconButton>
+          </div>
+        ) : ''}
+        <div className={this.getClassname(6, 12)}>
           <TextField
             floatingLabelText={<FormattedMessage id="word.translate.feminine" />}
             value={this.state.word.feminine}
@@ -124,6 +174,17 @@ class WordTranslateCard extends React.Component {
             errorText={this.correctAnswer('feminine')}
           />
         </div>
+        {this.state.speechEnabled ? (
+          <div className="col s1 m1 l1" style={{ alignItems: 'left', paddingLeft: '0px' }}>
+            <IconButton
+              style={styles.speechButton}
+              iconStyle={styles.speechButtonIcon}
+              onClick={() => this.listenWord('feminine')}
+            >
+              <ListenWordIcon />
+            </IconButton>
+          </div>
+        ) : ''}
       </React.Fragment>
     );
   }

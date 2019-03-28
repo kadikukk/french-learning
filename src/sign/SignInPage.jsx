@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { compose } from 'recompose';
+import { Link, withRouter } from 'react-router-dom';
 import { Paper, TextField, RaisedButton } from 'material-ui';
 import { FormattedMessage } from 'react-intl';
 
@@ -125,4 +126,7 @@ SignInPage.propTypes = {
   history: PropTypes.object.isRequired
 };
 
-export default withFirebase(SignInPage);
+export default compose(
+  withRouter,
+  withFirebase
+)(SignInPage);

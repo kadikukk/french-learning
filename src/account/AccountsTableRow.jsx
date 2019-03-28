@@ -43,14 +43,14 @@ const AccountsTableRow = (props) => (
           primary
           label={<FormattedMessage id="accounts.activate" />}
           disabled={props.user.active}
-          onClick={() => this.props.activateUser(props.user.uid)}
+          onClick={() => props.activateUser(props.user.uid)}
         />
       </span>
       <span>
         <RaisedButton
           label={<FormattedMessage id="accounts.makeAdministrator" />}
           disabled={isAdmin(props.user)}
-          onClick={() => this.props.makeAdministrator(props.user.uid)}
+          onClick={() => props.makeAdministrator(props.user.uid)}
         />
       </span>
     </TableRowColumn>
@@ -58,7 +58,9 @@ const AccountsTableRow = (props) => (
 );
 
 AccountsTableRow.propTypes = {
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
+  activateUser: PropTypes.func.isRequired,
+  makeAdministrator: PropTypes.func.isRequired
 };
 
 export default AccountsTableRow;
