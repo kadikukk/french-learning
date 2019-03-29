@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card, CardHeader, CardText, Divider } from 'material-ui';
+import { Card, CardHeader, CardText, Divider, IconButton } from 'material-ui';
+import ListenWordIcon from 'material-ui/svg-icons/av/volume-up';
+import { grey600 } from 'material-ui/styles/colors';
 
 import {
   FrenchWord, Type, Translation, Plural, Gender,
@@ -8,6 +10,11 @@ import {
 } from './WordCardContent';
 
 import './WordCard.css';
+
+const styles = {
+  speechButton: { padding: '0px', width: '0px', height: '0px', marginLeft: '5px' },
+  speechButtonIcon: { color: grey600 }
+};
 
 class WordCard extends React.Component {
   constructor(props) {
@@ -25,6 +32,10 @@ class WordCard extends React.Component {
     }
   }
 
+  listenWord = (word) => {
+    this.props.speech.speak(word);
+  };
+
   toggleExpandCard = (expanded) => {
     if (!expanded && this.props.expandCards) {
       this.props.toggleExpandCards();
@@ -34,7 +45,21 @@ class WordCard extends React.Component {
     });
   }
 
-  headerTitle = () => this.props.word.word || this.props.word.masculine + '/' + this.props.word.feminine;
+  headerTitle = () => {
+    const frenchWord = this.props.word.word || this.props.word.masculine + '/' + this.props.word.feminine;
+    return (
+      <div style={{ display: 'flex', alignItems: 'end' }}>
+        {frenchWord}
+        <IconButton
+          style={styles.speechButton}
+          iconStyle={styles.speechButtonIcon}
+          onClick={() => this.listenWord(frenchWord)}
+        >
+          <ListenWordIcon />
+        </IconButton>
+      </div>
+    );
+  };
 
   render() {
     return (
@@ -69,6 +94,7 @@ class WordCard extends React.Component {
 
 WordCard.propTypes = {
   word: PropTypes.object.isRequired,
+  speech: PropTypes.object.isRequired,
   expandCards: PropTypes.bool.isRequired,
   toggleExpandCards: PropTypes.func.isRequired
 };

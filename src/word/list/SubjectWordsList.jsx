@@ -7,6 +7,7 @@ import { Checkbox, RadioButtonGroup, RadioButton, RaisedButton } from 'material-
 
 import WordCard from './WordCard';
 import { shuffleArray } from '../../util/ListUtil';
+import TextToSpeech from '../../util/TextToSpeech';
 
 class SubjectWordsList extends React.Component {
   constructor(props) {
@@ -14,8 +15,16 @@ class SubjectWordsList extends React.Component {
     this.state = {
       words: props.words,
       expandCards: false,
-      sortBy: 'word'
+      sortBy: 'word',
+      speechEnabled: false
     };
+    this.speech = new TextToSpeech();
+  }
+
+  componentDidMount() {
+    if ('speechSynthesis' in window) {
+      this.setState({ speechEnabled: true });
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -89,6 +98,7 @@ class SubjectWordsList extends React.Component {
               <WordCard
                 key={word.uid}
                 word={word}
+                speech={this.speech}
                 expandCards={this.state.expandCards}
                 toggleExpandCards={this.toggleExpandCards}
               />
