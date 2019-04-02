@@ -9,5 +9,14 @@ To install necessary packages:
 To start the application in the development mode:
 
 	npm start
+	
+To build the application:
+
+	npm run build
+	
+To deploy the application:
+
+	firebase deploy
+	
   
 NB! Requires Node.js to run
