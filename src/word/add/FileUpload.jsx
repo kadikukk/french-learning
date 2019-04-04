@@ -46,7 +46,7 @@ class FileUpload extends React.Component {
               <input {...getInputProps()} />
               <div>
                 <FileCloudUpload style={{ color: '#757575', width: '48px', height: '48px' }} />
-                <div style={{ color: '#00bcd4' }}>
+                <div style={{ color: '#5e35b1' }}>
                   <b><FormattedMessage id="fileUpload.addFile" /></b>
                 </div>
               </div>

@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Drawer, AppBar as MaterialAppBar } from 'material-ui';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { FormattedMessage } from 'react-intl';
 
 import withAuthentication from '../session/withAuthentication';
+import ApplicationTheme from '../util/ApplicationTheme';
 
 import HomePage from '../home/HomePage.jsx';
 import SignUpPage from '../sign/SignUpPage.jsx';
@@ -36,7 +36,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <MuiThemeProvider>
+      <ApplicationTheme>
         <React.Fragment>
           <Router>
             <div>
@@ -69,7 +69,7 @@ class App extends React.Component {
             </div>
           </Router>
         </React.Fragment>
-      </MuiThemeProvider>
+      </ApplicationTheme>
     );
   }
 }
