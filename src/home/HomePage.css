@@ -1,0 +1,67 @@
+.accountNotActivatedMessage {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  height: 100px;
+  font-size: 18px;
+}
+
+.homePagePaper {
+  margin: 70px auto;
+}
+
+@media only screen and (max-width: 993px) {
+  .homePagePaper {
+    margin: 30px auto;
+  }
+}
+
+.homePageTitle {
+  text-align: center;
+  font-size: 30px;
+  color: #424242;
+}
+
+@media only screen and (max-width: 993px) {
+  .homePageTitle {
+    font-size: 25px;
+  }
+}
+
+.homePageSlogan {
+  text-align: center;
+  font-size: 20px;
+  color: #616161
+}
+
+@media only screen and (max-width: 993px) {
+  .homePageSlogan {
+    font-size: 18px;
+  }
+}
+
+.homePageImage {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.homePageDescription {
+  text-align: justify;
+  margin-top: 30px;
+  font-size: 16px;
+}
+
+.listStyle {
+  list-style-type: disc;
+  line-height: 30px;
+  text-align: left;
+}
+
+.homePageOutroMessage {
+  margin-top: 40px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #616161;
+  font-size: 19px;
+}
