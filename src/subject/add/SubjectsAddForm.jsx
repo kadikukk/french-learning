@@ -117,6 +117,7 @@ class SubjectsAddForm extends React.Component {
                 <RaisedButton
                   type="submit"
                   label={<FormattedMessage id="general.add" />}
+                  disabled={!this.state.newSubjectName}
                   primary
                 />
               </div>
