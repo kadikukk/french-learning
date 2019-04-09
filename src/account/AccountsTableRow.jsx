@@ -37,7 +37,7 @@ const AccountsTableRow = (props) => (
     <TableRowColumn className="tableRowColumn">
       <AccountsTableRowCell content={<FormattedMessage id={booleansText[isAdmin(props.user)]} />} />
     </TableRowColumn>
-    <TableRowColumn className="tableRowColumn" style={{ width: '35%' }}>
+    <TableRowColumn className="tableRowColumn" style={{ width: '40%' }}>
       <span style={{ marginRight: '10px' }}>
         <RaisedButton
           primary

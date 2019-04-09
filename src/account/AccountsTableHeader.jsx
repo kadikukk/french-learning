@@ -16,7 +16,7 @@ const AccountsTableHeader = () => (
     <TableHeaderColumn className="tableRowColumn">
       <FormattedMessage id="accounts.isAdmin" />
     </TableHeaderColumn>
-    <TableHeaderColumn className="tableRowColumn" style={{ width: '35%' }} />
+    <TableHeaderColumn className="tableRowColumn" style={{ width: '40%' }} />
   </TableRow>
 );
 
