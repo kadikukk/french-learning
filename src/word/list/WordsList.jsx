@@ -54,7 +54,7 @@ class WordsList extends React.Component {
       return shuffleArray(this.state.words);
     }
     if (this.state.sortBy === 'french') {
-      const property = (word) => word.word ? 'word' : 'masculine';
+      const property = (word) => word.word ? prop('word') : prop('masculine');
       return sortWith([ascend(property)], this.state.words);
     }
     if (this.state.sortBy === 'english') {
