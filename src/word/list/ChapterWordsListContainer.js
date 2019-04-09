@@ -4,7 +4,7 @@ import { filter } from 'ramda';
 import { CircularProgress } from 'material-ui';
 
 import withFirebase from '../../firebase/withFirebase';
-import ChapterWordsList from './ChapterWordsList';
+import WordsList from './WordsList';
 
 class ChapterWordsListContainer extends React.Component {
   constructor(props) {
@@ -64,11 +64,13 @@ class ChapterWordsListContainer extends React.Component {
   }
 
   render() {
+    const chapterIdLabel = window.location.pathname.split('/')[2];
+
     return (
       this.state.fetching ? this.renderLoader() : (
-        <ChapterWordsList
+        <WordsList
           words={this.getWords()}
-          chapterIdLabel={window.location.pathname.split('/')[2]}
+          translateLink={`/chapters/${chapterIdLabel}/words/translate`}
         />
       )
     );

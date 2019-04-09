@@ -9,7 +9,7 @@ import WordCard from './WordCard';
 import { shuffleArray } from '../../util/ListUtil';
 import TextToSpeech from '../../util/TextToSpeech';
 
-class ChapterWordsList extends React.Component {
+class WordsList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -114,7 +114,7 @@ class ChapterWordsList extends React.Component {
         </div>
         <div className="row">
           <div className="col s12 m12 l12" style={{ textAlign: 'right' }}>
-            <Link to={`/chapters/${this.props.chapterIdLabel}/words/translate`}>
+            <Link to={this.props.translateLink}>
               <RaisedButton
                 label={<FormattedMessage id="words.list.translate" />}
                 primary
@@ -128,9 +128,9 @@ class ChapterWordsList extends React.Component {
   }
 }
 
-ChapterWordsList.propTypes = {
+WordsList.propTypes = {
   words: PropTypes.array.isRequired,
-  chapterIdLabel: PropTypes.string.isRequired
+  translateLink: PropTypes.string.isRequired
 };
 
-export default ChapterWordsList;
+export default WordsList;
