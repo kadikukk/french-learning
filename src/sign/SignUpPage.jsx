@@ -8,10 +8,12 @@ import { Paper, TextField, RaisedButton } from 'material-ui';
 import { grey600, lightGreen600 } from 'material-ui/styles/colors';
 
 import withFirebase from '../firebase/withFirebase';
+import { isStrongPassword } from '../util/AuthUtil';
 
 const errorMessages = {
   'auth/email-already-in-use': 'errors.emailExists',
-  'differentPasswords': 'errors.differentPasswords'
+  'differentPasswords': 'errors.differentPasswords',
+  'auth/weak-password': 'errors.weakPassword'
 };
 
 const initialState = {
@@ -56,7 +58,9 @@ class SignUpForm extends React.Component {
   onSubmit = (e) => {
     e.preventDefault();
 
-    if (equals(this.state.passwordOne, this.state.passwordTwo)) {
+    if (!isStrongPassword(this.state.passwordOne)) {
+      this.setState({ error: { code: 'auth/weak-password' } });
+    } else if (equals(this.state.passwordOne, this.state.passwordTwo)) {
       this.props.firebase
         .createUserWithEmailAndPassword(this.state.email, this.state.passwordOne)
         .then((authUser) => this.props.firebase.user(authUser.user.uid).set({

@@ -10,6 +10,7 @@ import withAuthorization from '../session/withAuthorization';
 
 import withFirebase from '../firebase/withFirebase';
 import FormWithHeading from '../util/components/FormWithHeading';
+import { isStrongPassword } from '../util/AuthUtil';
 
 const errorMessages = {
   'auth/weak-password': 'errors.weakPassword',
@@ -45,7 +46,9 @@ class PasswordChangeForm extends React.Component {
   onSubmit = (e) => {
     e.preventDefault();
 
-    if (equals(this.state.passwordOne, this.state.passwordTwo)) {
+    if (!isStrongPassword(this.state.passwordOne)) {
+      this.setState({ error: { code: 'auth/weak-password' } });
+    } else if (equals(this.state.passwordOne, this.state.passwordTwo)) {
       this.props.firebase
         .updatePassword(this.state.passwordOne)
         .then(() => this.setState(initialState))
