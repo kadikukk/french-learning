@@ -23,6 +23,7 @@ class AddedWordsTable extends React.Component {
                   isWordEdit={this.props.isWordEdit}
                   handleEditWord={this.props.handleEditWord}
                   handleRemoveWord={this.props.handleRemoveWord}
+                  disableEdit={this.props.disableEdit}
                 />
               ))}
             </TableBody>
@@ -37,7 +38,8 @@ AddedWordsTable.propTypes = {
   words: PropTypes.array.isRequired,
   isWordEdit: PropTypes.bool.isRequired,
   handleEditWord: PropTypes.func.isRequired,
-  handleRemoveWord: PropTypes.func.isRequired
+  handleRemoveWord: PropTypes.func.isRequired,
+  disableEdit: PropTypes.bool.isRequired
 };
 
 export default AddedWordsTable;

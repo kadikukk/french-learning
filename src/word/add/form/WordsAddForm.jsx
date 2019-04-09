@@ -216,6 +216,7 @@ class WordsAddForm extends React.Component {
               isWordEdit={this.state.isWordEdit}
               handleEditWord={this.handleEditWord}
               handleRemoveWord={this.handleRemoveWord}
+              disableEdit={this.state.selectedInput === 'fromFile' && !isFileUploaded}
             />
           )}
           {this.state.selectedInput === 'oneByOne'

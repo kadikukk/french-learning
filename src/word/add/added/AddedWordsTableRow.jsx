@@ -13,6 +13,7 @@ const ActionButtons = (props) => (
         iconStyle={{ height: '20px', width: '20px', color: grey600 }}
         style={{ padding: '0px', width: '20px', height: '20px' }}
         onClick={() => props.handleEditWord(props.index)}
+        disabled={props.disableEdit}
       >
         <EditIcon />
       </IconButton>
@@ -33,7 +34,8 @@ ActionButtons.propTypes = {
   word: PropTypes.object.isRequired,
   index: PropTypes.number.isRequired,
   handleEditWord: PropTypes.func.isRequired,
-  handleRemoveWord: PropTypes.func.isRequired
+  handleRemoveWord: PropTypes.func.isRequired,
+  disableEdit: PropTypes.bool.isRequired
 };
 
 
@@ -49,7 +51,9 @@ AddedWordsTableRowCell.propTypes = {
 };
 
 
-const AddedWordsTableRow = ({ word, index, isWordEdit, handleEditWord, handleRemoveWord }) => (
+const AddedWordsTableRow = ({
+  word, index, isWordEdit, handleEditWord, handleRemoveWord, disableEdit
+}) => (
   <TableRow hoverable>
     <TableRowColumn className="tableRowColumn longContentCellStyle">
       <AddedWordsTableRowCell content={word.word} />
@@ -91,6 +95,7 @@ const AddedWordsTableRow = ({ word, index, isWordEdit, handleEditWord, handleRem
           word={word}
           handleEditWord={handleEditWord}
           handleRemoveWord={handleRemoveWord}
+          disableEdit={disableEdit}
         />
       )}
     </TableRowColumn>
@@ -102,7 +107,8 @@ AddedWordsTableRow.propTypes = {
   index: PropTypes.number.isRequired,
   isWordEdit: PropTypes.bool.isRequired,
   handleEditWord: PropTypes.func.isRequired,
-  handleRemoveWord: PropTypes.func.isRequired
+  handleRemoveWord: PropTypes.func.isRequired,
+  disableEdit: PropTypes.bool.isRequired
 };
 
 export default AddedWordsTableRow;
