@@ -8,7 +8,7 @@ import { idLabel } from '../util/IdLabel';
 import './Subjects.css';
 
 const Subjects = (props) => (
-  <div style={{ margin: '70px auto', maxWidth: '750px' }}>
+  <div className="subjectsPage">
     <div className="row">
       {props.subjects.map((subject) => (
         <div key={subject.uid} className="col s6 m6 l6">

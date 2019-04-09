@@ -5,3 +5,16 @@
   align-items: center;
   margin-bottom: 20px;
 }
+
+@media only screen and (min-width: 993px) {
+  .subjectsPage {
+    max-width: 750px;
+    margin: 70px auto;
+  }
+}
+
+@media only screen and (max-width: 993px) {
+  .subjectsPage {
+    margin: 30px auto;
+  }
+}
