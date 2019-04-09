@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { compose } from 'recompose';
 import { equals } from 'ramda';
 import { FormattedMessage } from 'react-intl';
-import { Paper, TextField, RaisedButton } from 'material-ui';
+import { Paper, TextField, RaisedButton, CircularProgress } from 'material-ui';
 
 import AuthUserContext from '../session/AuthUserContext';
 import withAuthorization from '../session/withAuthorization';
@@ -20,7 +20,8 @@ const errorMessages = {
 const initialState = {
   passwordOne: '',
   passwordTwo: '',
-  error: null
+  error: null,
+  fetching: false
 };
 
 class PasswordChangeForm extends React.Component {
@@ -45,16 +46,23 @@ class PasswordChangeForm extends React.Component {
 
   onSubmit = (e) => {
     e.preventDefault();
+    this.setState({ fetching: true });
 
     if (!isStrongPassword(this.state.passwordOne)) {
-      this.setState({ error: { code: 'auth/weak-password' } });
+      this.setState({
+        error: { code: 'auth/weak-password' },
+        fecthing: false
+      });
     } else if (equals(this.state.passwordOne, this.state.passwordTwo)) {
       this.props.firebase
         .updatePassword(this.state.passwordOne)
         .then(() => this.setState(initialState))
         .catch(error => this.setState({ error }));
     } else {
-      this.setState({ error: { code: 'differentPasswords' } });
+      this.setState({
+        error: { code: 'differentPasswords' },
+        fetching: false
+      });
     }
   };
 
@@ -96,6 +104,9 @@ class PasswordChangeForm extends React.Component {
                 )}
                 <div className="row">
                   <div className="col s12 m12 l12" style={{ textAlign: 'right' }}>
+                    {this.state.fetching && (
+                      <CircularProgress size={25} style={{ marginRight: '20px' }} />
+                    )}
                     <RaisedButton
                       type="submit"
                       primary
