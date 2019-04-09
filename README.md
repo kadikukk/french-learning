@@ -18,5 +18,9 @@ To deploy the application:
 
 	firebase deploy
 	
+Run if firebase tools are not installed:
+
+	npm install -g firebase-tools
+	
   
 NB! Requires Node.js to run
