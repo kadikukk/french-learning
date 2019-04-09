@@ -57,7 +57,7 @@ class PasswordChangeForm extends React.Component {
       this.props.firebase
         .updatePassword(this.state.passwordOne)
         .then(() => this.setState(initialState))
-        .catch(error => this.setState({ error }));
+        .catch(error => this.setState({ error, fetching: false }));
     } else {
       this.setState({
         error: { code: 'differentPasswords' },

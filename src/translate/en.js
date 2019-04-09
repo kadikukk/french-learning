@@ -31,7 +31,6 @@ const translations = {
   'signIn.noAccount': 'Don\'t have an account?',
   'signIn.signUp': 'Sign up',
   'signUp.introMessage': 'Registration is only necessary for lectors in order to be able to insert and manage courses\' vocabulary. By signing up, you are sending an application which has to be confirmed by an administrative lector.',
-  'signUp.applicationSent': 'Registration request sent!',
   'signUp.name': 'Full name',
   'signUp.email': 'Email',
   'signUp.password': 'Password',

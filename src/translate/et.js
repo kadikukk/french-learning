@@ -31,7 +31,6 @@ const translations = {
   'signIn.noAccount': 'Pole kontot?',
   'signIn.signUp': 'Registreeru',
   'signUp.introMessage': 'Registreerumine on vajalik õppejõududele, et sisestada ja hallata kursuste sõnavara. Registreerudes saadad taotluse, mille peab kinnitama administreeriv õppejõud.',
-  'signUp.applicationSent': 'Registreerumise taotlus saadetud!',
   'signUp.name': 'Täisnimi',
   'signUp.email': 'E-post',
   'signUp.password': 'Parool',

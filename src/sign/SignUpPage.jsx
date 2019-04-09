@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { compose } from 'recompose';
 import { withRouter } from 'react-router-dom';
-import { isEmpty, equals, merge } from 'ramda';
+import { isEmpty, equals } from 'ramda';
 import { FormattedMessage } from 'react-intl';
-import { Paper, TextField, RaisedButton } from 'material-ui';
-import { grey600, lightGreen600 } from 'material-ui/styles/colors';
+import { Paper, TextField, RaisedButton, CircularProgress } from 'material-ui';
+import { grey600 } from 'material-ui/styles/colors';
 
 import withFirebase from '../firebase/withFirebase';
 import { isStrongPassword } from '../util/AuthUtil';
@@ -21,9 +21,8 @@ const initialState = {
   email: '',
   passwordOne: '',
   passwordTwo: '',
-  isAdmin: false,
   error: null,
-  submitted: false
+  fetching: false
 };
 
 class SignUpForm extends React.Component {
@@ -31,10 +30,6 @@ class SignUpForm extends React.Component {
     super(props);
     this.state = initialState;
   }
-
-  messageColor = () => (
-    this.state.submitted ? lightGreen600 : grey600
-  );
 
   disableSubmitButton = () => {
     const { name, email, passwordOne, passwordTwo } = this.state;
@@ -57,9 +52,13 @@ class SignUpForm extends React.Component {
 
   onSubmit = (e) => {
     e.preventDefault();
+    this.setState({ fetching: true });
 
     if (!isStrongPassword(this.state.passwordOne)) {
-      this.setState({ error: { code: 'auth/weak-password' } });
+      this.setState({
+        error: { code: 'auth/weak-password' },
+        fetching: false
+      });
     } else if (equals(this.state.passwordOne, this.state.passwordTwo)) {
       this.props.firebase
         .createUserWithEmailAndPassword(this.state.email, this.state.passwordOne)
@@ -70,12 +69,15 @@ class SignUpForm extends React.Component {
           active: false
         }))
         .then(() => {
-          this.setState(merge(initialState, { submitted: true }));
+          this.setState(initialState);
           this.props.history.push('/');
         })
-        .catch(error => this.setState({ error }));
+        .catch(error => this.setState({ error, fetching: false }));
     } else {
-      this.setState({ error: { code: 'differentPasswords' } });
+      this.setState({
+        error: { code: 'differentPasswords' },
+        fetching: false
+      });
     }
   };
 
@@ -84,11 +86,9 @@ class SignUpForm extends React.Component {
       <div style={{ margin: '70px auto' }}>
         <Paper className="pagePaper">
           <form className="formPadding" onSubmit={this.onSubmit}>
-            <div className="row" style={{ marginTop: '20px', textAlign: 'justify', color: this.messageColor() }}>
+            <div className="row" style={{ marginTop: '20px', textAlign: 'justify', color: grey600 }}>
               <div className="col s12 m12 l12">
-                {this.state.submitted
-                  ? <FormattedMessage id="signUp.introMessage" />
-                  : <FormattedMessage id="signUp.introMessage" />}
+                <FormattedMessage id="signUp.introMessage" />
               </div>
             </div>
             <div className="row">
@@ -140,6 +140,9 @@ class SignUpForm extends React.Component {
             )}
             <div className="row">
               <div className="col s12 m12 l12" style={{ textAlign: 'right' }}>
+                {this.state.fetching && (
+                  <CircularProgress size={25} style={{ marginRight: '20px' }} />
+                )}
                 <RaisedButton
                   type="submit"
                   primary
