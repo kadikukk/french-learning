@@ -101,7 +101,7 @@ const translations = {
   'words.add.postposition': 'Järelsõna',
   'words.add.gender.masculine': 'm',
   'words.add.gender.feminine:': 'f',
-  'words.add.verbGroup': 'Tegusõna grupp',
+  'words.add.verbGroup': 'Grupp',
   'words.add.additionalInfo': 'Lisainfo',
   'addedWords.french': 'Prantsusk.',
   'addedWords.masculine': 'Meess.',
@@ -141,7 +141,7 @@ const translations = {
   'word.translate.verbGroup': 'Tegusõna grupp',
   'word.translate.check': 'Kontrolli',
   'word.translate.translateAgain': 'Tõlgi algusest',
-  'word.translate.back': 'Tagasi sõnade nimekirja'
+  'word.translate.back': 'Tagasi nimekirja'
 };
 
 export default translations;
