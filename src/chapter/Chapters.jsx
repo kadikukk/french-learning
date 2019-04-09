@@ -89,6 +89,7 @@ class Chapters extends React.Component {
                   type="submit"
                   label={<FormattedMessage id="general.add" />}
                   primary
+                  disabled={!this.state.newChapterName}
                 />
               </div>
             </div>
