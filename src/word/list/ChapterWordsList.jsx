@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { sortWith, prop, ascend, sortBy, compose } from 'ramda';
+import { sortWith, prop, ascend } from 'ramda';
 import { FormattedMessage } from 'react-intl';
 import { Checkbox, RadioButtonGroup, RadioButton, RaisedButton } from 'material-ui';
 

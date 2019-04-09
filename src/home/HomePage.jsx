@@ -9,8 +9,8 @@ import { isActiveUser } from '../util/AuthUtil';
 
 import './HomePage.css';
 
-const imageWidth = (isSmallScreen) => isSmallScreen ? '250px' : '395px';
-const imageHeight = (isSmallScreen) => isSmallScreen ? '273' : '432px';
+// const imageWidth = (isSmallScreen) => isSmallScreen ? '250px' : '395px';
+// const imageHeight = (isSmallScreen) => isSmallScreen ? '273' : '432px';
 
 const AccountNotActivatedMessage = () => (
   <div style={{ margin: '70px auto' }}>
@@ -37,14 +37,14 @@ const HomePage = ({ width }) => (
                   <FormattedMessage id="home.intro1" />
                 </div>
                 <div>
-                  <div className="homePageImage">
+                  {/* <div className="homePageImage">
                     <img
                       src="https://lh5.googleusercontent.com/HgDzORT0S1m4rWUhZg3SK_lOEG3upKWq8wdmJSK1p01NM15UjscFIDqLF0FXuqEP_uDuAY9HSnQ1lnmoZ-JP=w2880-h1388"
                       alt="Frenchman"
                       width={imageWidth(width <= 993)}
                       height={imageHeight(width <= 993)}
                     />
-                  </div>
+                  </div> */}
                   <div className="homePageDescription">
                     <FormattedMessage id="home.intro2" />
                     <ol className="listStyle">
