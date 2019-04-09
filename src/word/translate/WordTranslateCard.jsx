@@ -12,7 +12,7 @@ import TextToSpeech from '../../util/TextToSpeech';
 import './WordTranslateCard.css';
 
 const styles = {
-  speechButton: { padding: '0px', width: '0px', height: '0px', marginTop: '35px' },
+  speechButton: { padding: '0px', width: '24px', height: '24px', marginTop: '35px' },
   speechButtonIcon: { color: grey600 }
 };
 
