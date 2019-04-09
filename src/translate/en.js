@@ -61,6 +61,7 @@ const translations = {
   'chapter.name': 'Chapter\'s name',
   'chapter.new': 'New chapter',
   'chapter.deleteConfirmation': 'Deleting chapter will remove all related subjects and words. Are you sure?',
+  'subjects.noSubjects': 'No subjects have been added under this chapter',
   'subjects.title': 'Subjects',
   'subject.name': 'Subject\'s name',
   'subject.new': 'New subject',

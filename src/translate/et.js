@@ -61,6 +61,7 @@ const translations = {
   'chapter.name': 'Peatüki nimi',
   'chapter.new': 'Uus peatükk',
   'chapter.deleteConfirmation': 'Peatüki kustutamine kustutab ka kõik sellega seotud teemad ja sõnad. Kas oled kindel?',
+  'subjects.noSubjects': 'Selle peatüki alla pole veel teemasid lisatud',
   'subjects.title': 'Teemad',
   'subject.name': 'Teema nimi',
   'subject.new': 'Uus teema',
