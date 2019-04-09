@@ -107,14 +107,17 @@ class WordsList extends React.Component {
             >
               <RadioButton
                 value="french"
+                style={{ maxWidth: '33.3%' }}
                 label={<FormattedMessage id="words.list.sortByFrench" />}
               />
               <RadioButton
                 value="english"
+                style={{ maxWidth: '33.3%' }}
                 label={<FormattedMessage id="words.list.sortByEnglish" />}
               />
               <RadioButton
                 value="random"
+                style={{ maxWidth: '33.3%' }}
                 label={<FormattedMessage id="words.list.sortByRandom" />}
               />
             </RadioButtonGroup>
@@ -127,6 +130,7 @@ class WordsList extends React.Component {
                 key={word.uid}
                 word={word}
                 speech={this.speech}
+                speechEnabled={this.state.speechEnabled}
                 expandCard={this.state.openWords.has(word.uid)}
                 addWordToOpenWords={this.addWordToOpenWords}
                 removeWordFromOpenWords={this.removeWordFromOpenWords}

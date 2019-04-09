@@ -88,7 +88,7 @@ const AddedWordsTableRow = ({
     <TableRowColumn className="tableRowColumn longContentCellStyle">
       <AddedWordsTableRowCell content={word.additionalInfo} />
     </TableRowColumn>
-    <TableRowColumn className="tableRowColumn longContentCellStyle">
+    <TableRowColumn className="tableRowColumn longContentCellStyle" style={{ paddingRight: '0px' }}>
       {isWordEdit ? '' : (
         <ActionButtons
           index={index}

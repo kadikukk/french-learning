@@ -12,7 +12,7 @@ import {
 import './WordCard.css';
 
 const styles = {
-  speechButton: { padding: '0px', width: '0px', height: '0px', marginLeft: '5px' },
+  speechButton: { padding: '0px', width: '24px', height: '24px', marginLeft: '5px' },
   speechButtonIcon: { color: grey600 }
 };
 
@@ -32,7 +32,9 @@ class WordCard extends React.Component {
     }
   }
 
-  listenWord = (word) => {
+  listenWord = (e, word) => {
+    e.stopPropagation();
+
     this.props.speech.speak(word);
   };
 
@@ -50,13 +52,15 @@ class WordCard extends React.Component {
     return (
       <div style={{ display: 'flex', alignItems: 'end' }}>
         {frenchWord}
-        <IconButton
-          style={styles.speechButton}
-          iconStyle={styles.speechButtonIcon}
-          onClick={() => this.listenWord(frenchWord)}
-        >
-          <ListenWordIcon />
-        </IconButton>
+        {this.props.speechEnabled && (
+          <IconButton
+            style={styles.speechButton}
+            iconStyle={styles.speechButtonIcon}
+            onClick={(e) => this.listenWord(e, frenchWord)}
+          >
+            <ListenWordIcon />
+          </IconButton>
+        )}
       </div>
     );
   };
@@ -95,6 +99,7 @@ class WordCard extends React.Component {
 WordCard.propTypes = {
   word: PropTypes.object.isRequired,
   speech: PropTypes.object.isRequired,
+  speechEnabled: PropTypes.bool.isRequired,
   expandCard: PropTypes.bool.isRequired,
   addWordToOpenWords: PropTypes.func.isRequired,
   removeWordFromOpenWords: PropTypes.func.isRequired

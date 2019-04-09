@@ -16,10 +16,12 @@ const AddInputSelect = (props) => (
         >
           <RadioButton
             value="oneByOne"
+            style={{ maxWidth: '50%' }}
             label={<FormattedMessage id="words.add.input.oneByOne" />}
           />
           <RadioButton
             value="fromFile"
+            style={{ maxWidth: '50%' }}
             label={<FormattedMessage id="words.add.input.file" />}
           />
         </RadioButtonGroup>
