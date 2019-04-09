@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { merge, filter, isEmpty, any, values, omit, equals } from 'ramda';
+import { merge, filter, isEmpty, equals, all, omit } from 'ramda';
 import { FormattedMessage } from 'react-intl';
 import { Paper, RaisedButton, Stepper, Step, StepLabel } from 'material-ui';
 
@@ -141,30 +141,17 @@ class WordsAddForm extends React.Component {
     );
   }
 
-  renderSaveButton() {
-    return (
-      <div className="row" style={{ textAlign: 'right', marginTop: '20px' }}>
-        <RaisedButton
-          label={<FormattedMessage id="general.save" />}
-          onClick={this.handleCreateNewChapter}
-          primary
-        />
-      </div>
-    );
-  }
-
   renderWordAddCard() {
-    const valueExists = (value) => value && !isEmpty(value);
     return (
       <WordAddCard
         isWordEdit={this.state.isWordEdit}
+        disableAddButton={all(isEmpty, Object.values(omit(['type'], this.state.word)))}
         handleSubmit={this.state.isWordEdit ? this.handleSaveEditedWord : this.handleCreateNewWord}
       >
         <WordAddForm
           word={this.state.word}
           isWordEdit={this.state.isWordEdit}
           handleWordChange={this.handleWordChange}
-          expandCard={any(valueExists)(values(omit(['type'], this.state.word)))}
         />
       </WordAddCard>
     );
@@ -251,7 +238,7 @@ class WordsAddForm extends React.Component {
             </div>
             <div className="row">
               <div className="col s12 m12 l12" style={{ textAlign: 'right' }}>
-                {this.state.stepIndex === 2 ? this.renderSaveButton() : this.renderNextButton()}
+                {this.state.stepIndex === 2 ? null : this.renderNextButton()}
               </div>
             </div>
           </FormWithHeading>

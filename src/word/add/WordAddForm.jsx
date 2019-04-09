@@ -225,7 +225,7 @@ class WordAddForm extends React.Component {
     const wordColWidth = this.state.hasIrregularPlural || this.state.differentAdjectiveForms ? 4 : 6;
 
     return (
-      <Paper zDepth={0} style={{ padding: '10px 0px 10px 0px' }}>
+      <Paper zDepth={0} style={{ padding: '10px 0px 10px 0px', backgroundColor: '#fdfdfd' }}>
         <div className="row">
           <div className="col s12 m3 l3">
             <SelectField
