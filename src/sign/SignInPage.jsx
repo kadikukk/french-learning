@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { compose } from 'recompose';
 import { Link, withRouter } from 'react-router-dom';
-import { Paper, TextField, RaisedButton } from 'material-ui';
+import { Paper, TextField, RaisedButton, CircularProgress } from 'material-ui';
 import { FormattedMessage } from 'react-intl';
 
 import withFirebase from '../firebase/withFirebase';
@@ -16,7 +16,8 @@ const errorMessages = {
 const initialState = {
   email: '',
   password: '',
-  error: null
+  error: null,
+  fetching: false
 };
 
 class SignInPage extends React.Component {
@@ -38,6 +39,7 @@ class SignInPage extends React.Component {
   onSubmit = (e) => {
     e.preventDefault();
     const { email, password } = this.state;
+    this.setState({ fetching: true });
 
     this.props.firebase
       .signInWithEmailAndPassword(email, password)
@@ -45,7 +47,7 @@ class SignInPage extends React.Component {
         this.setState(initialState);
         this.props.history.push('/');
       })
-      .catch(error => this.setState({ error }));
+      .catch(error => this.setState({ error, fetching: false }));
   };
 
   render() {
@@ -62,6 +64,7 @@ class SignInPage extends React.Component {
                   value={this.state.email}
                   onChange={(e, value) => this.emailChange(value)}
                   fullWidth
+                  disabled={this.state.fetching}
                 />
               </div>
               <div className="col s12 m6 l6">
@@ -71,6 +74,7 @@ class SignInPage extends React.Component {
                   value={this.state.password}
                   onChange={(e, value) => this.passwordChange(value)}
                   fullWidth
+                  disabled={this.state.fetching}
                 />
               </div>
             </div>
@@ -85,16 +89,20 @@ class SignInPage extends React.Component {
             )}
             <div className="row">
               <div className="col s12 m12 l12" style={{ textAlign: 'right' }}>
+                {this.state.fetching && (
+                  <CircularProgress size={25} style={{ marginRight: '20px' }} />
+                )}
                 <RaisedButton
                   label={<FormattedMessage id="general.cancel" />}
                   onClick={() => window.history.back()}
                   style={{ marginRight: '20px' }}
+                  disabled={this.state.fetching}
                 />
                 <RaisedButton
                   type="submit"
                   primary
                   label={<FormattedMessage id="signIn.submit" />}
-                  disabled={isInvalid}
+                  disabled={isInvalid || this.state.fetching}
                 />
               </div>
             </div>
