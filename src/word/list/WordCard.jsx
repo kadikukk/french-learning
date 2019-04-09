@@ -20,15 +20,15 @@ class WordCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      expandCard: props.expandCards
+      expandCard: props.expandCard
     };
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.expandCards !== this.props.expandCards) {
-      this.setState({
-        expandCard: this.props.expandCards
-      });
+    if (prevProps.expandCard !== this.props.expandCard) {
+      this.setState((prevState) => ({
+        expandCard: prevState.expanded || this.props.expandCard
+      }));
     }
   }
 
@@ -37,12 +37,12 @@ class WordCard extends React.Component {
   };
 
   toggleExpandCard = (expanded) => {
-    if (!expanded && this.props.expandCards) {
-      this.props.toggleExpandCards();
+    if (expanded) {
+      this.props.addWordToOpenWords(this.props.word.uid);
+    } else {
+      this.props.removeWordFromOpenWords(this.props.word.uid);
     }
-    this.setState({
-      expandCard: expanded
-    });
+    this.setState({ expandCard: expanded });
   }
 
   headerTitle = () => {
@@ -95,8 +95,9 @@ class WordCard extends React.Component {
 WordCard.propTypes = {
   word: PropTypes.object.isRequired,
   speech: PropTypes.object.isRequired,
-  expandCards: PropTypes.bool.isRequired,
-  toggleExpandCards: PropTypes.func.isRequired
+  expandCard: PropTypes.bool.isRequired,
+  addWordToOpenWords: PropTypes.func.isRequired,
+  removeWordFromOpenWords: PropTypes.func.isRequired
 };
 
 export default WordCard;

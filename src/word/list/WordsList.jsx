@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { sortWith, prop, ascend } from 'ramda';
+import { sortWith, prop, ascend, pluck } from 'ramda';
 import { FormattedMessage } from 'react-intl';
 import { Checkbox, RadioButtonGroup, RadioButton, RaisedButton } from 'material-ui';
 
@@ -14,9 +14,9 @@ class WordsList extends React.Component {
     super(props);
     this.state = {
       words: props.words,
-      expandCards: false,
       sortBy: 'french',
-      speechEnabled: false
+      speechEnabled: false,
+      openWords: new Set()
     };
     this.speech = new TextToSpeech();
   }
@@ -35,13 +35,32 @@ class WordsList extends React.Component {
     }
   }
 
+  cardsExpanded = () => {
+    return this.state.openWords.size === this.state.words.length;
+  };
+
   toggleExpandCards = () => {
-    this.setState((prevState) => {
-      return {
-        expandCards: !prevState.expandCards
-      };
-    });
+    if (this.cardsExpanded()) {
+      this.setState({ openWords: new Set() });
+    } else {
+      const wordIds = pluck('uid', this.state.words);
+      this.setState({ openWords: new Set(wordIds) });
+    }
   }
+
+  addWordToOpenWords = (id) => {
+    this.setState((prevState) => ({
+      openWords: prevState.openWords.add(id)
+    }));
+  };
+
+  removeWordFromOpenWords = (id) => {
+    this.setState((prevState) => {
+      const openWords = prevState.openWords;
+      openWords.delete(id);
+      return { openWords };
+    });
+  };
 
   sortByChange = (value) => {
     this.setState({
@@ -70,7 +89,7 @@ class WordsList extends React.Component {
           <div className="col s12 m4 l4" style={{ marginTop: '20px' }}>
             <Checkbox
               label={<FormattedMessage id="words.list.expandCards" />}
-              checked={this.state.expandCards}
+              checked={this.cardsExpanded()}
               onCheck={this.toggleExpandCards}
             />
           </div>
@@ -106,8 +125,9 @@ class WordsList extends React.Component {
                 key={word.uid}
                 word={word}
                 speech={this.speech}
-                expandCards={this.state.expandCards}
-                toggleExpandCards={this.toggleExpandCards}
+                expandCard={this.state.openWords.has(word.uid)}
+                addWordToOpenWords={this.addWordToOpenWords}
+                removeWordFromOpenWords={this.removeWordFromOpenWords}
               />
             ))}
           </div>
