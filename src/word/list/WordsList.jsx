@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { sortWith, prop, ascend, pluck } from 'ramda';
+import { sortWith, prop, ascend, pluck, merge } from 'ramda';
 import { FormattedMessage } from 'react-intl';
+import windowDimensions from 'react-window-dimensions';
 import { Checkbox, RadioButtonGroup, RadioButton, RaisedButton } from 'material-ui';
 
 import WordCard from './WordCard';
@@ -83,20 +84,21 @@ class WordsList extends React.Component {
   }
 
   render() {
+    const sortTextAlign = this.props.width > 993 ? { textAlign: 'right' } : {};
     return (
       <div className="wordsPage">
         <div className="row">
-          <div className="col s12 m4 l4" style={{ marginTop: '20px' }}>
+          <div className="col s9 m4 l4" style={{ marginTop: '20px' }}>
             <Checkbox
               label={<FormattedMessage id="words.list.expandCards" />}
               checked={this.cardsExpanded()}
               onCheck={this.toggleExpandCards}
             />
           </div>
-          <div className="col s2 m2 l2" style={{ textAlign: 'right', marginTop: '21px' }}>
+          <div className="col s3 m2 l2" style={merge(sortTextAlign, { marginTop: '21px' })}>
             <FormattedMessage id="words.list.sortBy" />
           </div>
-          <div className="col s10 m6 l6" style={{ marginTop: '20px' }}>
+          <div className="col s12 m6 l6" style={{ marginTop: '20px' }}>
             <RadioButtonGroup
               name="wordAddInput"
               valueSelected={this.state.sortBy}
@@ -149,8 +151,9 @@ class WordsList extends React.Component {
 }
 
 WordsList.propTypes = {
+  width: PropTypes.number.isRequired,
   words: PropTypes.array.isRequired,
   translateLink: PropTypes.string.isRequired
 };
 
-export default WordsList;
+export default windowDimensions()(WordsList);

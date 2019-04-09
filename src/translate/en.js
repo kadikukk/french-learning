@@ -115,7 +115,7 @@ const translations = {
   'addedWords.verbGroup': 'Group',
   'addedWords.additionalInfo': 'Info',
   'words.list.expandCards': 'Expand all words',
-  'words.list.sortBy': 'Sort by',
+  'words.list.sortBy': 'Sort by:',
   'words.list.sortByFrench': 'French',
   'words.list.sortByEnglish': 'English',
   'words.list.sortByRandom': 'Random',
