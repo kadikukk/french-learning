@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { sortWith, prop, ascend } from 'ramda';
+import { sortWith, prop, ascend, sortBy, compose } from 'ramda';
 import { FormattedMessage } from 'react-intl';
 import { Checkbox, RadioButtonGroup, RadioButton, RaisedButton } from 'material-ui';
 
@@ -15,7 +15,7 @@ class ChapterWordsList extends React.Component {
     this.state = {
       words: props.words,
       expandCards: false,
-      sortBy: 'word',
+      sortBy: 'french',
       speechEnabled: false
     };
     this.speech = new TextToSpeech();
@@ -53,7 +53,14 @@ class ChapterWordsList extends React.Component {
     if (this.state.sortBy === 'random') {
       return shuffleArray(this.state.words);
     }
-    return sortWith([ascend(prop(this.state.sortBy))], this.state.words);
+    if (this.state.sortBy === 'french') {
+      const property = (word) => word.word ? 'word' : 'masculine';
+      return sortWith([ascend(property)], this.state.words);
+    }
+    if (this.state.sortBy === 'english') {
+      return sortWith([ascend(prop('translate'))], this.state.words);
+    }
+    return this.state.words;
   }
 
   render() {
@@ -78,11 +85,11 @@ class ChapterWordsList extends React.Component {
               onChange={(e, value) => this.sortByChange(value)}
             >
               <RadioButton
-                value="word"
+                value="french"
                 label={<FormattedMessage id="words.list.sortByFrench" />}
               />
               <RadioButton
-                value="translation"
+                value="english"
                 label={<FormattedMessage id="words.list.sortByEnglish" />}
               />
               <RadioButton

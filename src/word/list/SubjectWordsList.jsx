@@ -53,7 +53,14 @@ class SubjectWordsList extends React.Component {
     if (this.state.sortBy === 'random') {
       return shuffleArray(this.state.words);
     }
-    return sortWith([ascend(prop(this.state.sortBy))], this.state.words);
+    if (this.state.sortBy === 'french') {
+      const property = (word) => word.word ? 'word' : 'masculine';
+      return sortWith([ascend(property)], this.state.words);
+    }
+    if (this.state.sortBy === 'english') {
+      return sortWith([ascend(prop('translate'))], this.state.words);
+    }
+    return this.state.words;
   }
 
   render() {
