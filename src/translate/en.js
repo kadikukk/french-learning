@@ -7,6 +7,8 @@ const translations = {
   'general.yes': 'Yes',
   'general.no': 'No',
   'appBar.menu': 'Menu',
+  'appBar.en': 'En',
+  'appBar.et': 'Et',
   'appBar.signIn': 'Sign in',
   'appBar.signOut': 'Sign out',
   'menu.home': 'Home',

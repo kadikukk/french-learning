@@ -17,12 +17,32 @@ class AppBar extends React.Component {
     this.props.history.push('/');
   };
 
+  languageButton = () => {
+    if (this.props.language === 'et') {
+      return (
+        <FlatButton
+          label={<FormattedMessage id="appBar.en" />}
+          style={{ marginTop: '15px', color: 'white', minWidth: 'none' }}
+          onClick={() => this.props.changeLanguage('en')}
+        />
+      );
+    }
+    return (
+      <FlatButton
+        label={<FormattedMessage id="appBar.et" />}
+        style={{ marginTop: '15px', color: 'white', minWidth: 'none' }}
+        onClick={() => this.props.changeLanguage('et')}
+      />
+    );
+  }
+
   signInOrOutButton = (authUser) => {
     if (authUser) {
       return (
         <FlatButton
           label={<FormattedMessage id="appBar.signOut" />}
           onClick={this.handleSignOut}
+          style={{ marginTop: '15px', color: 'white' }}
         />
       );
     }
@@ -30,6 +50,7 @@ class AppBar extends React.Component {
       <FlatButton
         label={<FormattedMessage id="appBar.signIn" />}
         onClick={() => this.props.history.push('/signin')}
+        style={{ marginTop: '15px', color: 'white' }}
       />
     );
   };
@@ -41,8 +62,10 @@ class AppBar extends React.Component {
           <MaterialAppBar
             title={<FormattedMessage id="appBar.menu" />}
             onLeftIconButtonClick={this.props.toggleMenu}
-            iconElementRight={this.props.width > TABLET_SCREEN_SIZE ? this.signInOrOutButton(authUser) : null}
-          />
+          >
+            {this.languageButton()}
+            {this.props.width > TABLET_SCREEN_SIZE && this.signInOrOutButton(authUser)}
+          </MaterialAppBar>
         )}
       </AuthUserContext.Consumer>
     );
@@ -51,8 +74,10 @@ class AppBar extends React.Component {
 
 AppBar.propTypes = {
   width: PropTypes.number.isRequired,
+  language: PropTypes.string.isRequired,
   history: PropTypes.object.isRequired,
   toggleMenu: PropTypes.func.isRequired,
+  changeLanguage: PropTypes.func.isRequired,
   firebase: PropTypes.object.isRequired
 };
 
