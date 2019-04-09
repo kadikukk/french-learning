@@ -55,10 +55,10 @@ class Chapter extends React.Component {
     }
     return (
       <React.Fragment>
-        <IconButton onClick={this.toggleEdit} iconStyle={{ color: '#000000de' }}>
+        <IconButton onClick={this.toggleEdit} iconStyle={{ color: '#757575' }}>
           <EditIcon />
         </IconButton>
-        <IconButton onClick={this.toggleDeleteConfirmation} iconStyle={{ color: '#000000de' }}>
+        <IconButton onClick={this.toggleDeleteConfirmation} iconStyle={{ color: '#757575' }}>
           <DeleteIcon />
         </IconButton>
       </React.Fragment>
