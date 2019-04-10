@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { sortBy, prop, pluck, merge, isEmpty } from 'ramda';
+import { sortBy, prop, pluck, merge, isEmpty, compose, toLower } from 'ramda';
 import { FormattedMessage } from 'react-intl';
 import windowDimensions from 'react-window-dimensions';
 import { Checkbox, RadioButtonGroup, RadioButton, RaisedButton, Paper } from 'material-ui';
@@ -79,11 +79,11 @@ class WordsList extends React.Component {
       return shuffleArray(words);
     }
     if (sortProperty === 'french') {
-      const predicate = ({ word, masculine }) => word || masculine;
+      const predicate = ({ word, masculine }) => word.toLowerCase() || masculine.toLowerCase();
       return sortBy(predicate, words);
     }
     if (sortProperty === 'english') {
-      return sortBy(prop('translation'), words);
+      return sortBy(compose(toLower, prop('translation')), words);
     }
     return words;
   }
