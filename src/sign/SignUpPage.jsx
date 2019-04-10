@@ -32,8 +32,8 @@ class SignUpForm extends React.Component {
   }
 
   disableSubmitButton = () => {
-    const { name, email, passwordOne, passwordTwo } = this.state;
-    return isEmpty(name) || isEmpty(email) || isEmpty(passwordOne) || isEmpty(passwordTwo);
+    const { name, email, passwordOne, passwordTwo, fetching } = this.state;
+    return isEmpty(name) || isEmpty(email) || isEmpty(passwordOne) || isEmpty(passwordTwo) || fetching;
   };
 
   handleChange = (property, value) => {
