@@ -114,6 +114,7 @@ const translations = {
   'addedWords.postposition': 'Järelsõna',
   'addedWords.verbGroup': 'Grupp',
   'addedWords.additionalInfo': 'Info',
+  'words.list.noWords': 'Sõnu ei ole veel lisatud',
   'words.list.expandCards': 'Ava kõik sõnakaardid',
   'words.list.sortBy': 'Sorteeri:',
   'words.list.sortByFrench': 'Pr. k.',

@@ -1,14 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { sortBy, prop, pluck, merge } from 'ramda';
+import { sortBy, prop, pluck, merge, isEmpty } from 'ramda';
 import { FormattedMessage } from 'react-intl';
 import windowDimensions from 'react-window-dimensions';
-import { Checkbox, RadioButtonGroup, RadioButton, RaisedButton } from 'material-ui';
+import { Checkbox, RadioButtonGroup, RadioButton, RaisedButton, Paper } from 'material-ui';
 
 import WordCard from './WordCard';
 import { shuffleArray } from '../../util/ListUtil';
 import TextToSpeech from '../../util/TextToSpeech';
+
+const noWordsStyle = {
+  height: '50px', display: 'flex', alignItems: 'center', justifyContent: 'center'
+};
 
 class WordsList extends React.Component {
   constructor(props) {
@@ -75,7 +79,7 @@ class WordsList extends React.Component {
       return shuffleArray(words);
     }
     if (sortProperty === 'french') {
-      const predicate = ({word, masculine}) => word || masculine;
+      const predicate = ({ word, masculine }) => word || masculine;
       return sortBy(predicate, words);
     }
     if (sortProperty === 'english') {
@@ -85,6 +89,16 @@ class WordsList extends React.Component {
   }
 
   render() {
+    if (isEmpty(this.props.words)) {
+      return (
+        <div className="wordsPage">
+          <Paper style={noWordsStyle}>
+            <FormattedMessage id="words.list.noWords" />
+          </Paper>
+        </div>
+      );
+    }
+
     const sortTextAlign = this.props.width > 993 ? { textAlign: 'right' } : {};
     return (
       <div className="wordsPage">

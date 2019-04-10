@@ -114,6 +114,7 @@ const translations = {
   'addedWords.postposition': 'Postposition',
   'addedWords.verbGroup': 'Group',
   'addedWords.additionalInfo': 'Info',
+  'words.list.noWords': 'No words have been added yet',
   'words.list.expandCards': 'Expand all words',
   'words.list.sortBy': 'Sort by:',
   'words.list.sortByFrench': 'French',
