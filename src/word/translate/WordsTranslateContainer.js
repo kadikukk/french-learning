@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { filter } from 'ramda';
+import { filter, both } from 'ramda';
 import { CircularProgress } from 'material-ui';
 
 import withFirebase from '../../firebase/withFirebase';
@@ -50,9 +50,15 @@ class WordsTranslateContainer extends React.Component {
   };
 
   getWords = () => {
-    const chapterIdLabel = window.location.pathname.split('/')[2];
+    const pathnameParts = window.location.pathname.split('/');
+    const chapterIdLabel = pathnameParts[2];
+    const subjectIdLabel = pathnameParts[4];
     const isSelectedChapterWord = (word) => word.chapterId.startsWith(chapterIdLabel);
 
+    if (subjectIdLabel !== 'translate') {
+      const isSelectedSubjectWord = (word) => word.subjectId.startsWith(subjectIdLabel);
+      return filter(both(isSelectedChapterWord, isSelectedSubjectWord), this.state.words);
+    }
     return filter(isSelectedChapterWord, this.state.words);
   };
 
