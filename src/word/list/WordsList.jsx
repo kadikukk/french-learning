@@ -79,7 +79,15 @@ class WordsList extends React.Component {
       return shuffleArray(words);
     }
     if (sortProperty === 'french') {
-      const predicate = ({ word, masculine }) => word.toLowerCase() || masculine.toLowerCase();
+      const predicate = ({ word, feminine, masculine }) => {
+        if (word) {
+          return word.toLowerCase();
+        } else if (feminine) {
+          return feminine.toLowerCase();
+        } else if (masculine) {
+          return masculine.toLowerCase();
+        }
+      };
       return sortBy(predicate, words);
     }
     if (sortProperty === 'english') {
