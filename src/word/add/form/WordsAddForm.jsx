@@ -107,8 +107,9 @@ class WordsAddForm extends React.Component {
   };
 
   handleEditWord = (index) => {
+    const selectedWords = this.selectedChapterAndSubjectWords();
     this.setState({
-      word: merge(initialState.word, this.props.words[index]),
+      word: merge(initialState.word, selectedWords[index]),
       isWordEdit: true
     });
   };
