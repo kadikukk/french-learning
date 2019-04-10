@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { sortWith, prop, ascend, pluck, merge } from 'ramda';
+import { sortBy, prop, pluck, merge } from 'ramda';
 import { FormattedMessage } from 'react-intl';
 import windowDimensions from 'react-window-dimensions';
 import { Checkbox, RadioButtonGroup, RadioButton, RaisedButton } from 'material-ui';
@@ -14,7 +14,7 @@ class WordsList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      words: props.words,
+      words: this.sortWords(props.words, 'french'),
       sortBy: 'french',
       speechEnabled: false,
       openWords: new Set()
@@ -30,9 +30,9 @@ class WordsList extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.words !== this.props.words) {
-      this.setState({
-        words: this.props.words
-      });
+      this.setState((prevState) => ({
+        words: this.sortWords(this.props.words, prevState.sortBy)
+      }));
     }
   }
 
@@ -64,23 +64,24 @@ class WordsList extends React.Component {
   };
 
   sortByChange = (value) => {
-    this.setState({
-      sortBy: value
-    });
+    this.setState((prevState) => ({
+      sortBy: value,
+      words: this.sortWords(prevState.words, value)
+    }));
   }
 
-  sortWords = () => {
-    if (this.state.sortBy === 'random') {
-      return shuffleArray(this.state.words);
+  sortWords = (words, sortProperty) => {
+    if (sortProperty === 'random') {
+      return shuffleArray(words);
     }
-    if (this.state.sortBy === 'french') {
-      const property = (word) => word.word ? prop('word') : prop('masculine');
-      return sortWith([ascend(property)], this.state.words);
+    if (sortProperty === 'french') {
+      const predicate = ({word, masculine}) => word || masculine;
+      return sortBy(predicate, words);
     }
-    if (this.state.sortBy === 'english') {
-      return sortWith([ascend(prop('translate'))], this.state.words);
+    if (sortProperty === 'english') {
+      return sortBy(prop('translation'), words);
     }
-    return this.state.words;
+    return words;
   }
 
   render() {
@@ -125,7 +126,7 @@ class WordsList extends React.Component {
         </div>
         <div className="row wordsList">
           <div className="col s12 m12 l12">
-            {this.sortWords().map((word) => (
+            {this.state.words.map((word) => (
               <WordCard
                 key={word.uid}
                 word={word}
