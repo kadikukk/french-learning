@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { merge, filter, isEmpty, equals, all, omit } from 'ramda';
+import { merge, filter, isEmpty, equals, all, omit, propEq } from 'ramda';
 import { FormattedMessage } from 'react-intl';
 import { Paper, RaisedButton, Stepper, Step, StepLabel } from 'material-ui';
 
@@ -29,22 +29,18 @@ class WordsAddForm extends React.Component {
     if ((!equals(prevProps.subjects, this.props.subjects) && !isEmpty(this.props.subjects)) ||
       (!equals(prevProps.chapters, this.props.chapters) && !isEmpty(this.props.chapters))) {
       const chapterId = !isEmpty(this.props.chapters) ? this.props.chapters[0].uid : null;
-      const subjectId = !isEmpty(this.props.subjects) ? this.props.subjects[0].uid : null;
+      const subject = !isEmpty(this.props.subjects) && !!chapterId
+        ? this.selectedChapterSubjects(chapterId)[0]
+        : null;
+      const subjectId = subject ? subject.uid : null;
 
       if (chapterId && subjectId) {
-        this.setState({
-          chapterId: this.props.chapters[0].uid,
-          subjectId: this.props.subjects[0].uid
-        });
+        this.setState({ chapterId, subjectId });
       }
       else if (chapterId && !subjectId) {
-        this.setState({
-          chapterId: this.props.chapters[0].uid
-        });
+        this.setState({ chapterId });
       } else if (!chapterId && subjectId)
-        this.setState({
-          subjectId: this.props.subjects[0].uid
-        });
+        this.setState({ subjectId });
     }
   }
 
@@ -54,6 +50,11 @@ class WordsAddForm extends React.Component {
     );
     return filter(isSelectedChapterAndSubjectWord, this.props.words);
   };
+
+  selectedChapterSubjects = (chapterId) => {
+    return filter(propEq('chapterId', chapterId), this.props.subjects);
+  };
+
 
   handleNextStep = () => {
     this.setState(({ stepIndex }) => ({
@@ -78,7 +79,13 @@ class WordsAddForm extends React.Component {
 
   selectedInputChange = (value) => this.handleChange('selectedInput', value);
 
-  chapterChange = (uid) => this.handleChange('chapterId', uid);
+  chapterChange = (uid) => {
+    this.handleChange('chapterId', uid);
+    const subjects = this.selectedChapterSubjects(uid);
+    if (!isEmpty(subjects)) {
+      this.handleChange('subjectId', subjects[0].uid);
+    }
+  }
 
   subjectChange = (uid) => this.handleChange('subjectId', uid);
 
@@ -177,7 +184,7 @@ class WordsAddForm extends React.Component {
           chapterId={this.state.chapterId}
           chapters={this.props.chapters}
           subjectId={this.state.subjectId}
-          subjects={this.props.subjects}
+          subjects={this.selectedChapterSubjects(this.state.chapterId)}
           chapterChange={this.chapterChange}
           subjectChange={this.subjectChange}
           fetching={this.props.fetching}
