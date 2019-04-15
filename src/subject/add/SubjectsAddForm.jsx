@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { find, propEq } from 'ramda';
 import { TextField, RaisedButton, Paper, CircularProgress, SelectField, MenuItem } from 'material-ui';
 import { FormattedMessage } from 'react-intl';
 
@@ -35,9 +34,7 @@ class SubjectsAddForm extends React.Component {
   }
 
   chapterChange = (chapterId) => {
-    this.setState({
-      chapter: find(propEq('uid', chapterId), this.props.chapters)
-    });
+    this.setState({ chapterId });
   }
 
   handleEditSubject = (subject, name) => {
@@ -99,6 +96,7 @@ class SubjectsAddForm extends React.Component {
                   floatingLabelText={<FormattedMessage id="subject.chapterName" />}
                   value={this.state.chapterId}
                   fullWidth
+                  onChange={(event, key, payload) => this.chapterChange(payload)}
                 >
                   {this.props.chapters.map((chapter) => (
                     <MenuItem key={chapter.uid} value={chapter.uid} primaryText={chapter.name} />
