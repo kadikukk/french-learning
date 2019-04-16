@@ -96,7 +96,7 @@ class WordTranslateCard extends React.Component {
   };
 
   handleClickNextButton = () => {
-    this.setState(merge(initialState, { speechEnabled: 'speechSynthesis' in window} ));
+    this.setState(merge(initialState, { speechEnabled: 'speechSynthesis' in window }));
     this.props.handleClickNext();
   }
 
@@ -298,6 +298,11 @@ class WordTranslateCard extends React.Component {
                 </div>
                 <div className="row">
                   <div className="col s12 m12 l12" style={{ textAlign: 'right' }}>
+                    <RaisedButton
+                      label={<FormattedMessage id="general.cancel" />}
+                      onClick={() => window.history.back()}
+                      style={{ marginRight: '10px' }}
+                    />
                     {this.state.checkRequested
                       ? (
                         <RaisedButton
