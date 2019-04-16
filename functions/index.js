@@ -1,12 +1,8 @@
-import functions from 'firebase-functions';
+const functions = require('firebase-functions');
 
 // This will run when a row is changed that matches this pattern
 exports.onDeletedChapterRow = functions.database.ref('/chapters/{chapterId}')
-  .onChange((event) => {
-    // Exit if this item exists... if so it was not deleted!
-    if (event.data.exists()) {
-      return;
-    }
+  .onDelete((event) => {
     // Remove all subjects from that chapter
     event.data.adminRef.getRoot().ref('/subjects')
       .orderByChild('chapterId')
