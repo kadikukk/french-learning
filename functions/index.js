@@ -1,4 +1,4 @@
-import * as functions from 'firebase-functions';
+const functions = require('firebase-functions');
 
 // This will run when a row is changed that matches this pattern
 exports.onDeletedRow = functions.database.ref('/chapters/{chapterId}')
