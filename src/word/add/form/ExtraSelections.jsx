@@ -21,9 +21,9 @@ class ExtraSelections extends React.Component {
     return (
       <div className="col s12 m9 l9" style={{ height: '56px', display: 'inline-flex', alignItems: 'flex-end' }}>
         <Checkbox
-          label={<FormattedMessage id="words.add.hasPostposition" />}
-          checked={this.props.hasPostposition}
-          onCheck={this.props.toggleHasPostposition}
+          label={<FormattedMessage id="words.add.hasPreposition" />}
+          checked={this.props.hasPreposition}
+          onCheck={this.props.toggleHasPreposition}
         />
       </div>
     );
@@ -65,11 +65,9 @@ ExtraSelections.propTypes = {
   type: PropTypes.string.isRequired,
   differentAdjectiveForms: PropTypes.bool.isRequired,
   hasIrregularPlural: PropTypes.bool.isRequired,
-  hasPostposition: PropTypes.bool.isRequired,
   hasPreposition: PropTypes.bool.isRequired,
   toggleDifferentAdjectiveForms: PropTypes.func.isRequired,
   toggleHasIrregularPluar: PropTypes.func.isRequired,
-  toggleHasPostposition: PropTypes.func.isRequired,
   toggleHasPreposition: PropTypes.func.isRequired
 };
 

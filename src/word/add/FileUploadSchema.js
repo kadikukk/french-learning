@@ -32,10 +32,6 @@ export const fileUploadSchema = {
     prop: 'preposition',
     type: String
   },
-  postposition: {
-    prop: 'postposition',
-    type: String
-  },
   group: {
     prop: 'verbGroup',
     type: Number

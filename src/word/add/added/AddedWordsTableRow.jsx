@@ -80,9 +80,6 @@ const AddedWordsTableRow = ({
       <AddedWordsTableRowCell content={word.preposition} />
     </TableRowColumn>
     <TableRowColumn className="tableRowColumn longContentCellStyle">
-      <AddedWordsTableRowCell content={word.postposition} />
-    </TableRowColumn>
-    <TableRowColumn className="tableRowColumn longContentCellStyle">
       <AddedWordsTableRowCell content={word.verbGroup} />
     </TableRowColumn>
     <TableRowColumn className="tableRowColumn longContentCellStyle">

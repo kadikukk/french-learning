@@ -111,23 +111,6 @@ Preposition.propTypes = {
 };
 
 
-export const Postposition = ({ word }) => {
-  if (!word.postposition) {
-    return '';
-  }
-  return (
-    <WordCardRow
-      fieldName="postposition"
-      data={word.postposition}
-    />
-  );
-};
-
-Postposition.propTypes = {
-  word: PropTypes.object.isRequired
-};
-
-
 export const VerbGroup = ({ word }) => {
   if (!word.verbGroup) {
     return '';

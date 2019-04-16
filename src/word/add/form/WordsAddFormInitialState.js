@@ -13,7 +13,6 @@ export const initialState = {
     feminine: '',
     gender: '',
     preposition: '',
-    postposition: '',
     verbGroup: '',
     additionalInfo: ''
   },

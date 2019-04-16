@@ -14,8 +14,7 @@ const wordIsEmpty = (word) => all(valueDoesntExist)(values(omit(['type'], word))
 const initialState = {
   differentAdjectiveForms: false,
   hasPreposition: false,
-  hasIrregularPlural: false,
-  hasPostposition: false
+  hasIrregularPlural: false
 };
 
 class WordAddForm extends React.Component {
@@ -24,8 +23,7 @@ class WordAddForm extends React.Component {
     this.state = wordIsEmpty(props.word) ? initialState : {
       differentAdjectiveForms: !isEmpty(props.word.masculine),
       hasPreposition: !isEmpty(props.word.preposition),
-      hasIrregularPlural: !isEmpty(props.word.plural),
-      hasPostposition: !isEmpty(props.word.postposition)
+      hasIrregularPlural: !isEmpty(props.word.plural)
     };
   }
 
@@ -37,8 +35,7 @@ class WordAddForm extends React.Component {
         this.setState({
           differentAdjectiveForms: !isEmpty(this.props.word.masculine),
           hasPreposition: !isEmpty(this.props.word.preposition),
-          hasIrregularPlural: !isEmpty(this.props.word.plural),
-          hasPostposition: !isEmpty(this.props.word.postposition)
+          hasIrregularPlural: !isEmpty(this.props.word.plural)
         });
       }
     }
@@ -47,10 +44,10 @@ class WordAddForm extends React.Component {
   getAddedWord = () => this.props.word;
 
   getAdditionalInfoColWidth = () => {
-    if (this.props.word.type === 'verb' && this.state.hasPostposition) {
+    if (this.props.word.type === 'verb' && this.state.hasPreposition) {
       return 8;
     }
-    if (['verb', 'noun'].includes(this.props.word.type) || this.state.hasPreposition || this.state.hasPostposition) {
+    if (['verb', 'noun'].includes(this.props.word.type) || this.state.hasPreposition) {
       return 10;
     }
     return 12;
@@ -64,12 +61,7 @@ class WordAddForm extends React.Component {
 
   typeChange = (type) => {
     this.props.handleWordChange('type', type);
-    this.setState({
-      differentAdjectiveForms: false,
-      hasPreposition: false,
-      hasIrregularPlural: false,
-      hasPostposition: false
-    });
+    this.setState(initialState);
   }
 
   wordChange = (word) => this.props.handleWordChange('word', word);
@@ -86,8 +78,6 @@ class WordAddForm extends React.Component {
 
   prepositionChange = (preposition) => this.props.handleWordChange('preposition', preposition);
 
-  postpositionChange = (postposition) => this.props.handleWordChange('postposition', postposition);
-
   verbGroupChange = (group) => this.props.handleWordChange('verbGroup', group);
 
   additionalInfoChange = (info) => this.props.handleWordChange('additionalInfo', info);
@@ -99,7 +89,6 @@ class WordAddForm extends React.Component {
 
   toggleHasIrregularPluar = () => this.handleChange('hasIrregularPlural');
 
-  toggleHasPostposition = () => this.handleChange('hasPostposition');
 
 
   renderWordField() {
@@ -190,19 +179,6 @@ class WordAddForm extends React.Component {
     );
   }
 
-  renderPostpositionField() {
-    return (
-      <div className="col s12 m2 l2">
-        <TextField
-          floatingLabelText={<FormattedMessage id="words.add.postposition" />}
-          value={this.props.word.postposition}
-          fullWidth
-          onChange={(e, value) => this.postpositionChange(value)}
-        />
-      </div>
-    );
-  }
-
   renderVerbGroupSelection() {
     return (
       <div className="col s12 m2 l2">
@@ -247,11 +223,9 @@ class WordAddForm extends React.Component {
             type={this.props.word.type}
             differentAdjectiveForms={this.state.differentAdjectiveForms}
             hasIrregularPlural={this.state.hasIrregularPlural}
-            hasPostposition={this.state.hasPostposition}
             hasPreposition={this.state.hasPreposition}
             toggleDifferentAdjectiveForms={this.toggleDifferentAdjectiveForms}
             toggleHasIrregularPluar={this.toggleHasIrregularPluar}
-            toggleHasPostposition={this.toggleHasPostposition}
             toggleHasPreposition={this.toggleHasPreposition}
           />
         </div>
@@ -274,7 +248,6 @@ class WordAddForm extends React.Component {
           {this.props.word.type === 'noun' ? this.renderGenderSelection() : ''}
           {this.props.word.type === 'verb' ? this.renderVerbGroupSelection() : ''}
           {this.state.hasPreposition ? this.renderPrepositionField() : ''}
-          {this.state.hasPostposition ? this.renderPostpositionField() : ''}
           <div className={`col s12 m${additionalInfoColWidth} l${additionalInfoColWidth}`}>
             <TextField
               floatingLabelText={<FormattedMessage id="words.add.additionalInfo" />}

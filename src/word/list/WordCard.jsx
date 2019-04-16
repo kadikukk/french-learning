@@ -6,7 +6,7 @@ import { grey600 } from 'material-ui/styles/colors';
 
 import {
   FrenchWord, Type, Translation, Plural, Gender,
-  Preposition, Postposition, VerbGroup, AdditionalInfo
+  Preposition, VerbGroup, AdditionalInfo
 } from './WordCardContent';
 
 import './WordCard.css';
@@ -87,7 +87,6 @@ class WordCard extends React.Component {
           <Gender word={this.props.word} />
           <Translation word={this.props.word} />
           <Preposition word={this.props.word} />
-          <Postposition word={this.props.word} />
           <VerbGroup word={this.props.word} />
           <AdditionalInfo word={this.props.word} />
         </CardText>

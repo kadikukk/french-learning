@@ -29,9 +29,6 @@ const AddedWordsTableHeader = () => (
       <FormattedMessage id="addedWords.preposition" />
     </TableHeaderColumn>
     <TableHeaderColumn className="tableRowColumn">
-      <FormattedMessage id="addedWords.postposition" />
-    </TableHeaderColumn>
-    <TableHeaderColumn className="tableRowColumn">
       <FormattedMessage id="addedWords.verbGroup" />
     </TableHeaderColumn>
     <TableHeaderColumn className="tableRowColumn">
