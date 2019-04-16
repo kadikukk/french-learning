@@ -5,6 +5,8 @@ import EditIcon from 'material-ui/svg-icons/image/edit';
 import DeleteIcon from 'material-ui/svg-icons/action/delete';
 import { FormattedMessage } from 'react-intl';
 
+import { deleteSubject } from '../../firebase/functions/FirebaseFunctions';
+
 class Subject extends React.Component {
   constructor(props) {
     super(props);
@@ -75,7 +77,7 @@ class Subject extends React.Component {
       <FlatButton
         label={<FormattedMessage id="general.confirm" />}
         primary
-        onClick={() => this.props.onRemoveSubject(this.props.subject.uid)}
+        onClick={() => deleteSubject(this.props.subject.uid)}
       />
     ];
 

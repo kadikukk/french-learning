@@ -9,6 +9,7 @@ import FormWithHeading from '../util/components/FormWithHeading';
 import { compose } from 'recompose';
 import withAuthorization from '../session/withAuthorization';
 import { isActiveUser } from '../util/AuthUtil';
+import { deleteChapter } from '../firebase/functions/FirebaseFunctions';
 
 class Chapters extends React.Component {
   constructor(props) {
@@ -33,7 +34,7 @@ class Chapters extends React.Component {
   };
 
   handleRemoveChapter = (uid) => {
-    this.props.firebase.chapter(uid).remove();
+    deleteChapter(uid);
   };
 
   handleCreateNewChapter = (e) => {

@@ -97,4 +97,6 @@ class Firebase {
   words = () => this.db.ref('words');
 }
 
-export default Firebase;
+const firebase = new Firebase();
+
+export default firebase;

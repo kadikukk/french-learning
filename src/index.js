@@ -8,13 +8,13 @@ import 'react-tippy/dist/tippy.css';
 import * as serviceWorker from './serviceWorker';
 
 import App from './app/App.jsx';
-import Firebase from './firebase/Firebase';
+import firebase from './firebase/Firebase';
 import FirebaseContext from './firebase/FirebaseContext';
 
 addLocaleData(etLocaleData);
 
 ReactDOM.render(
-  <FirebaseContext.Provider value={new Firebase()}>
+  <FirebaseContext.Provider value={firebase}>
     <App />
   </FirebaseContext.Provider>,
   document.getElementById('content'),
