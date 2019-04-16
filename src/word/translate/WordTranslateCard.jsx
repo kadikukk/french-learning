@@ -4,7 +4,7 @@ import { merge } from 'ramda';
 import { Paper, TextField, SelectField, MenuItem, RaisedButton, IconButton } from 'material-ui';
 import { FormattedMessage } from 'react-intl';
 import ListenWordIcon from 'material-ui/svg-icons/av/volume-up';
-import { grey600 } from 'material-ui/styles/colors';
+import { grey600, lightGreen500 } from 'material-ui/styles/colors';
 
 import FormWithHeading from '../../util/components/FormWithHeading';
 import TextToSpeech from '../../util/TextToSpeech';
@@ -13,7 +13,8 @@ import './WordTranslateCard.css';
 
 const styles = {
   speechButton: { padding: '0px', width: '24px', height: '24px', marginTop: '35px' },
-  speechButtonIcon: { color: grey600 }
+  speechButtonIcon: { color: grey600 },
+  correctAnswerUnderline: { borderColor: lightGreen500, borderBottomWidth: 2 }
 };
 
 const initialState = {
@@ -25,7 +26,6 @@ const initialState = {
     feminine: '',
     gender: '',
     preposition: '',
-    postposition: '',
     verbGroup: ''
   },
   speechEnabled: false
@@ -56,6 +56,10 @@ class WordTranslateCard extends React.Component {
     return this.state.checkRequested && !this.isWordCorrect(word) && this.props.word[word];
   };
 
+  isAnswerCorrect = (word) => {
+    return this.state.checkRequested && this.isWordCorrect(word);
+  };
+
   getClassname = (largeColWidth, smallColWidth) => {
     const largeCol = this.state.speechEnabled ? largeColWidth - 1 : largeColWidth;
     const smallCol = this.state.speechEnabled ? smallColWidth - 1 : smallColWidth;
@@ -81,8 +85,6 @@ class WordTranslateCard extends React.Component {
   genderChange = (value) => this.handleChange('gender', value);
 
   prepositionChange = (word) => this.handleChange('preposition', word);
-
-  postpositionChange = (word) => this.handleChange('postposition', word);
 
   verbGroupChange = (group) => this.handleChange('verbGroup', group);
 
@@ -127,6 +129,7 @@ class WordTranslateCard extends React.Component {
               fullWidth
               onChange={(e, value) => this.frenchWordChange(value)}
               errorText={this.correctAnswer('word')}
+              underlineStyle={this.isAnswerCorrect('word') ? styles.correctAnswerUnderline : {}}
             />
           </div>
           {this.state.speechEnabled ? (
@@ -152,6 +155,7 @@ class WordTranslateCard extends React.Component {
             fullWidth
             onChange={(e, value) => this.masculineFormChange(value)}
             errorText={this.correctAnswer('masculine')}
+            underlineStyle={this.isAnswerCorrect('masculine') ? styles.correctAnswerUnderline : {}}
           />
         </div>
         {this.state.speechEnabled ? (
@@ -172,6 +176,7 @@ class WordTranslateCard extends React.Component {
             fullWidth
             onChange={(e, value) => this.feminineFormChange(value)}
             errorText={this.correctAnswer('feminine')}
+            underlineStyle={this.isAnswerCorrect('feminine') ? styles.correctAnswerUnderline : {}}
           />
         </div>
         {this.state.speechEnabled ? (
@@ -201,6 +206,7 @@ class WordTranslateCard extends React.Component {
           fullWidth
           onChange={(e, value) => this.pluralFormChange(value)}
           errorText={this.correctAnswer('plural')}
+          underlineStyle={this.isAnswerCorrect('plural') ? styles.correctAnswerUnderline : {}}
         />
       </div>
     );
@@ -218,6 +224,7 @@ class WordTranslateCard extends React.Component {
           fullWidth
           onChange={(event, key, payload) => this.genderChange(payload)}
           errorText={this.correctAnswer('gender')}
+          underlineStyle={this.isAnswerCorrect('gender') ? styles.correctAnswerUnderline : {}}
         >
           <MenuItem
             key="m"
@@ -246,23 +253,7 @@ class WordTranslateCard extends React.Component {
           fullWidth
           onChange={(e, value) => this.prepositionChange(value)}
           errorText={this.correctAnswer('preposition')}
-        />
-      </div>
-    );
-  }
-
-  renderPostpositionField() {
-    if (!this.props.word.postposition) {
-      return '';
-    }
-    return (
-      <div className="col s12 m12 l12">
-        <TextField
-          floatingLabelText={<FormattedMessage id="word.translate.postposition" />}
-          value={this.state.word.postposition}
-          fullWidth
-          onChange={(e, value) => this.postpositionChange(value)}
-          errorText={this.correctAnswer('postposition')}
+          underlineStyle={this.isAnswerCorrect('preposition') ? styles.correctAnswerUnderline : {}}
         />
       </div>
     );
@@ -280,6 +271,7 @@ class WordTranslateCard extends React.Component {
           fullWidth
           onChange={(event, key, payload) => this.verbGroupChange(payload)}
           errorText={this.correctAnswer('verbGroup')}
+          underlineStyle={this.isAnswerCorrect('verbGroup') ? styles.correctAnswerUnderline : {}}
         >
           <MenuItem key="1" value={1} primaryText={1} />
           <MenuItem key="2" value={2} primaryText={2} />
@@ -302,7 +294,6 @@ class WordTranslateCard extends React.Component {
                   {this.renderPluralField()}
                   {this.renderGenderSelect()}
                   {this.renderPrepositionField()}
-                  {this.renderPostpositionField()}
                   {this.renderVerbGroupSelect()}
                 </div>
                 <div className="row">
