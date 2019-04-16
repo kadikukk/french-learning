@@ -55,7 +55,7 @@ class FileUpload extends React.Component {
         </Dropzone>
         <div style={{ marginTop: '20px' }}>
           <a
-            href="https://drive.google.com/file/d/1rjVdr97CDiUgBtaSncwzatIiT7xrTes9/view"
+            href="https://drive.google.com/file/d/1ANdUHYa-E202sNiSYNUCgUNrEyLZWyeO/view"
             target="_blank"
             rel="noopener noreferrer"
           >
