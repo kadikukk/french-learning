@@ -99,6 +99,7 @@ const translations = {
   'words.add.preposition': 'Preposition',
   'words.add.gender.masculine': 'm',
   'words.add.gender.feminine': 'f',
+  'words.add.gender.feminineMasculine': 'm/f',
   'words.add.gender.feminine.plural': 'f/pl',
   'words.add.gender.masculine.plural': 'm/pl',
   'words.add.verbGroup': 'Verb group',
