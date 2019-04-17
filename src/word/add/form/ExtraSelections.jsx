@@ -17,7 +17,7 @@ class ExtraSelections extends React.Component {
     );
   }
 
-  renderVerbSelections() {
+  renderPrepositionSelection() {
     return (
       <div className="col s12 m9 l9" style={{ height: '56px', display: 'inline-flex', alignItems: 'flex-end' }}>
         <Checkbox
@@ -54,7 +54,7 @@ class ExtraSelections extends React.Component {
     return (
       <div>
         {this.props.type === 'noun' ? this.renderNounSelections() : ''}
-        {this.props.type === 'verb' ? this.renderVerbSelections() : ''}
+        {['verb', 'other'].includes(this.props.type) ? this.renderPrepositionSelection() : ''}
         {this.props.type === 'adjective' ? this.renderAdjectiveSelections() : ''}
       </div>
     );
