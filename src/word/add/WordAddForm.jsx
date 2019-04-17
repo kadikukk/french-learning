@@ -161,6 +161,16 @@ class WordAddForm extends React.Component {
             value="f"
             primaryText={<FormattedMessage id="words.add.gender.feminine" />}
           />
+          <MenuItem
+            key="m/pl"
+            value="m/pl"
+            primaryText={<FormattedMessage id="words.add.gender.masculine.plural" />}
+          />
+          <MenuItem
+            key="f/pl"
+            value="f/pl"
+            primaryText={<FormattedMessage id="words.add.gender.feminine.plural" />}
+          />
         </SelectField>
       </div>
     );

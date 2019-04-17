@@ -99,6 +99,8 @@ const translations = {
   'words.add.preposition': 'Eessõna',
   'words.add.gender.masculine': 'm',
   'words.add.gender.feminine:': 'f',
+  'words.add.gender.feminine.plural': 'f/pl',
+  'words.add.gender.masculine.plural': 'm/pl',
   'words.add.verbGroup': 'Grupp',
   'words.add.additionalInfo': 'Lisainfo',
   'addedWords.french': 'Prantsusk.',
