@@ -76,7 +76,7 @@ const translations = {
   'words.add.input.oneByOne': 'One by one',
   'words.add.input.file': 'From file',
   'words.add.input.file.message': 'You can modify and add words after uploading the file',
-  'words.add.input.file.example': 'File must have given structure. Look example file. Make sure your file has only one sheet!',
+  'words.add.input.file.example': 'File must have given structure. Make sure your file has only one sheet! Look example file.',
   'words.add.chapter': 'Chapter',
   'words.add.subject': 'Subject',
   'words.add.cardTitle': 'New word',
