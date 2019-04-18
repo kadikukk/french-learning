@@ -49,7 +49,14 @@ class WordTranslateCard extends React.Component {
   };
 
   isWordCorrect = (word) => {
-    return this.props.word[word] === this.state.word[word];
+    if (!this.props.word[word]) {
+      return false;
+    }
+    if (typeof this.props.word[word] !== 'string') {
+      const inputAsNumber = parseInt(this.state.word[word]);
+      return this.props.word[word] === inputAsNumber;
+    }
+    return this.props.word[word].toLowerCase() === this.state.word[word].toLowerCase();
   };
 
   correctAnswer = (word) => {
@@ -235,6 +242,21 @@ class WordTranslateCard extends React.Component {
             key="f"
             value="f"
             primaryText={<FormattedMessage id="words.add.gender.feminine" />}
+          />
+          <MenuItem
+            key="m/f"
+            value="m/f"
+            primaryText={<FormattedMessage id="words.add.gender.feminineMasculine" />}
+          />
+          <MenuItem
+            key="m/pl"
+            value="m/pl"
+            primaryText={<FormattedMessage id="words.add.gender.masculine.plural" />}
+          />
+          <MenuItem
+            key="f/pl"
+            value="f/pl"
+            primaryText={<FormattedMessage id="words.add.gender.feminine.plural" />}
           />
         </SelectField>
       </div>
