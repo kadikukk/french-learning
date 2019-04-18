@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { merge, filter, isEmpty, equals, all, omit, propEq } from 'ramda';
 import { FormattedMessage } from 'react-intl';
-import { Paper, RaisedButton, Stepper, Step, StepLabel } from 'material-ui';
+import { Paper, RaisedButton, Stepper, Step, StepLabel, CircularProgress } from 'material-ui';
 
 import withFirebase from '../../../firebase/withFirebase';
 import FormWithHeading from '../../../util/components/FormWithHeading';
@@ -40,7 +40,7 @@ class WordsAddForm extends React.Component {
       else if (chapterId && !subjectId) {
         this.setState({ chapterId });
       } else if (!chapterId && subjectId)
-        this.setState({ subjectId });
+        this.setState({ subjectId });
     }
   }
 
@@ -104,13 +104,20 @@ class WordsAddForm extends React.Component {
   };
 
   handleAddWordsFromFile = (wordsFromFile) => {
+    this.setState({ wordsUploading: true });
     const updatedWords = wordsFromFile.map((word) => merge(word, {
       chapterId: this.state.chapterId,
       subjectId: this.state.subjectId,
       createdAt: this.props.firebase.serverValue.TIMESTAMP
     }));
 
-    updatedWords.map((word) => this.props.firebase.words().push(word));
+    const updates = {};
+    updatedWords.forEach((word) => {
+      const newPostKey = this.props.firebase.words().push().key;
+      updates[newPostKey] = word;
+    });
+    this.props.firebase.words().update(updates)
+      .then(() => this.setState({ wordsUploading: false }));
   };
 
   handleEditWord = (index) => {
@@ -205,6 +212,11 @@ class WordsAddForm extends React.Component {
 
       return (
         <React.Fragment>
+          {(this.state.wordsUploading || this.props.fetching) ? (
+            <div style={{ width: '100%', margin: 'auto', marginTop: '20px', textAlign: 'center' }}>
+              <CircularProgress size={60} thickness={7} />
+            </div>
+          ) : ''}
           {isEmpty(words) ? '' : (
             <AddedWordsTable
               words={words}
@@ -217,7 +229,7 @@ class WordsAddForm extends React.Component {
           {this.state.selectedInput === 'oneByOne'
             ? this.renderWordAddCard()
             : this.renderFileUpload()}
-          {this.state.selectedInput === 'fromFile' && isFileUploaded
+          {this.state.selectedInput === 'fromFile' && isFileUploaded && !this.state.wordsUploading
             ? this.renderWordAddCard() : ''}
         </React.Fragment>
       );

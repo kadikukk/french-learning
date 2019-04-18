@@ -17,5 +17,5 @@ export const initialState = {
     additionalInfo: ''
   },
   isWordEdit: false,
-  id: -1
+  wordsUploading: false
 };

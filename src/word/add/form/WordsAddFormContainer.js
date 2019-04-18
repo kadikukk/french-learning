@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { sortBy, compose, toLower, prop } from 'ramda';
+import debounce from 'debounce';
 
 import withFirebase from '../../../firebase/withFirebase';
 import WordsAddForm from './WordsAddForm';
@@ -80,32 +81,37 @@ class WordsAddFormContainer extends React.Component {
       });
   };
 
+  handleWordChange = (snapshot) => {
+    if(!snapshot || ! snapshot.val) return;
+    const wordObject = snapshot.val();
+
+    if (wordObject) {
+      const wordList = Object.keys(wordObject).map(key => {
+        // add uid to word
+        if (!wordObject[key].uid) {
+          this.props.firebase.word(key).set({
+            ...wordObject[key],
+            uid: key
+          });
+        }
+        return {
+          ...wordObject[key],
+          uid: key
+        };
+      });
+
+      this.setState({
+        words: wordList
+      });
+    }
+  };
+
+  debouncedHandleWordChange = debounce(this.handleWordChange, 100);
+
   onListenForWords = () => {
     this.props.firebase
       .words()
-      .on('value', (snapshot) => {
-        const wordObject = snapshot.val();
-
-        if (wordObject) {
-          const wordList = Object.keys(wordObject).map(key => {
-            // add uid to word
-            if (!wordObject[key].uid) {
-              this.props.firebase.word(key).set({
-                ...wordObject[key],
-                uid: key
-              });
-            }
-            return {
-              ...wordObject[key],
-              uid: key
-            };
-          });
-
-          this.setState({
-            words: wordList
-          });
-        }
-      });
+      .on('value', this.debouncedHandleWordChange);
   };
 
   render() {
