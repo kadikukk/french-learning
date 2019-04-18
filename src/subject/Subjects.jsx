@@ -27,8 +27,8 @@ const Subjects = (props) => (
               to={`/chapters/${idLabel(subject.chapterId)}/subjects/${idLabel(subject.uid)}/words`}
             >
               <Paper className="subjectPaper">
-                <div style={{ fontSize: '20px', color: '#5e35b1' }}>
-                  <b>{subject.name.toUpperCase()}</b>
+                <div style={{ fontSize: '20px', color: '#5e35b1', margin: '20px', textAlign: 'center' }}>
+                  <b>{subject.name}</b>
                 </div>
               </Paper>
             </Link>
