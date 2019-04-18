@@ -21,7 +21,7 @@ const translations = {
   'menu.chapter.subjects': 'Teemad',
   'home.title': 'YFA - Your French Assistant',
   'home.intro1': 'Parim viis sõnavara omandamiseks!',
-  'home.intro2': 'See rakendus aitab sul õppida prantuse keele sõnavara koos vajalike elementidega, et luua lauseid:',
+  'home.intro2': 'See rakendus aitab sul õppida prantsuse keele sõnavara koos vajalike elementidega, et luua lauseid:',
   'home.point1': 'nimisõnad koos sooga',
   'home.point2': 'omadussõnad nii meessoost kui ka naissoost vormis',
   'home.point3': 'tegusõnad koos pöördkonna ja järgnevate eessõnadega',
