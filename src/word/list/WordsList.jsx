@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { sortBy, prop, pluck, merge, isEmpty, compose, toLower } from 'ramda';
+import { sortBy, prop, pluck, mergeRight, isEmpty, compose, toLower } from 'ramda';
 import { FormattedMessage } from 'react-intl';
 import windowDimensions from 'react-window-dimensions';
 import { Checkbox, RadioButtonGroup, RadioButton, RaisedButton, Paper } from 'material-ui';
@@ -118,7 +118,7 @@ class WordsList extends React.Component {
               onCheck={this.toggleExpandCards}
             />
           </div>
-          <div className="col s3 m2 l2" style={merge(sortTextAlign, { marginTop: '21px' })}>
+          <div className="col s3 m2 l2" style={mergeRight(sortTextAlign, { marginTop: '21px' })}>
             <FormattedMessage id="words.list.sortBy" />
           </div>
           <div className="col s12 m6 l6" style={{ marginTop: '20px' }}>

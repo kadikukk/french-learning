@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { merge, filter, isEmpty, equals, all, omit, propEq } from 'ramda';
+import { mergeRight, filter, isEmpty, equals, all, omit, propEq } from 'ramda';
 import { FormattedMessage } from 'react-intl';
 import { Paper, RaisedButton, Stepper, Step, StepLabel, CircularProgress } from 'material-ui';
 
@@ -71,7 +71,7 @@ class WordsAddForm extends React.Component {
 
   handleWordChange = (property, value) => {
     this.setState((prevState) => ({
-      word: merge(prevState.word, {
+      word: mergeRight(prevState.word, {
         [property]: value
       })
     }));
@@ -92,7 +92,7 @@ class WordsAddForm extends React.Component {
 
   handleCreateNewWord = (e) => {
     e.preventDefault();
-    this.props.firebase.words().push(merge(this.state.word, {
+    this.props.firebase.words().push(mergeRight(this.state.word, {
       chapterId: this.state.chapterId,
       subjectId: this.state.subjectId,
       createdAt: this.props.firebase.serverValue.TIMESTAMP
@@ -105,7 +105,7 @@ class WordsAddForm extends React.Component {
 
   handleAddWordsFromFile = (wordsFromFile) => {
     this.setState({ wordsUploading: true });
-    const updatedWords = wordsFromFile.map((word) => merge(word, {
+    const updatedWords = wordsFromFile.map((word) => mergeRight(word, {
       chapterId: this.state.chapterId,
       subjectId: this.state.subjectId,
       createdAt: this.props.firebase.serverValue.TIMESTAMP
@@ -123,7 +123,7 @@ class WordsAddForm extends React.Component {
   handleEditWord = (index) => {
     const selectedWords = this.selectedChapterAndSubjectWords();
     this.setState({
-      word: merge(initialState.word, selectedWords[index]),
+      word: mergeRight(initialState.word, selectedWords[index]),
       isWordEdit: true
     });
   };

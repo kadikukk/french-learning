@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { merge } from 'ramda';
+import { mergeRight } from 'ramda';
 import { Paper, TextField, SelectField, MenuItem, RaisedButton, IconButton } from 'material-ui';
 import { FormattedMessage } from 'react-intl';
 import ListenWordIcon from 'material-ui/svg-icons/av/volume-up';
@@ -75,7 +75,7 @@ class WordTranslateCard extends React.Component {
 
   handleChange = (property, value) => {
     this.setState(({ word }) => ({
-      word: merge(word, {
+      word: mergeRight(word, {
         [property]: value
       })
     }));
@@ -103,7 +103,7 @@ class WordTranslateCard extends React.Component {
   };
 
   handleClickNextButton = () => {
-    this.setState(merge(initialState, { speechEnabled: 'speechSynthesis' in window }));
+    this.setState(mergeRight(initialState, { speechEnabled: 'speechSynthesis' in window }));
     this.props.handleClickNext();
   }
 
