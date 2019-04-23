@@ -6,6 +6,12 @@
   margin-bottom: 20px;
 }
 
+@media only screen and (max-height: 700px) {
+  .subjectPaper {
+    height: 150px;
+  }
+}
+
 @media only screen and (min-width: 993px) {
   .subjectsPage {
     max-width: 750px;
