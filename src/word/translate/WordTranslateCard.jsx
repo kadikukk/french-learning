@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { mergeRight } from 'ramda';
+import { mergeRight, all, isEmpty, values } from 'ramda';
 import { Paper, TextField, SelectField, MenuItem, RaisedButton, IconButton } from 'material-ui';
 import { FormattedMessage } from 'react-intl';
 import ListenWordIcon from 'material-ui/svg-icons/av/volume-up';
@@ -46,6 +46,10 @@ class WordTranslateCard extends React.Component {
 
   listenWord = (word) => {
     this.speech.speak(this.props.word[word]);
+  };
+
+  isWordUnanswered = () => {
+    return all(isEmpty, values(this.state.word));
   };
 
   isWordCorrect = (word) => {
@@ -96,13 +100,15 @@ class WordTranslateCard extends React.Component {
   verbGroupChange = (group) => this.handleChange('verbGroup', group);
 
 
-  handleClickCheckButton = () => {
+  handleClickCheckButton = (e) => {
+    e.preventDefault();
     this.setState({
       checkRequested: true
     });
   };
 
-  handleClickNextButton = () => {
+  handleClickNextButton = (e) => {
+    e.preventDefault();
     this.setState(mergeRight(initialState, { speechEnabled: 'speechSynthesis' in window }));
     this.props.handleClickNext();
   }
@@ -303,13 +309,45 @@ class WordTranslateCard extends React.Component {
     );
   }
 
+  renderActionButton() {
+    if (this.state.checkRequested) {
+      return (
+        <RaisedButton
+          type="submit"
+          label={<FormattedMessage id="general.next" />}
+          primary
+        />
+      );
+    }
+    if (this.isWordUnanswered()) {
+      return (
+        <RaisedButton
+          type="submit"
+          label={<FormattedMessage id="general.skip" />}
+          primary
+        />
+      );
+    }
+    return (
+      <RaisedButton
+        type="submit"
+        label={<FormattedMessage id="word.translate.check" />}
+        primary
+      />
+    );
+  }
+
   render() {
     return (
       <div className="wordTranslate">
         <div className="row">
           <div className="col s12 m12 l12">
             <Paper>
-              <FormWithHeading title={this.props.word.translation}>
+              <FormWithHeading
+                title={this.props.word.translation}
+                rightContent={this.props.wordIndex + '/' + this.props.numberOfWords}
+                onSubmit={this.state.checkRequested || this.isWordUnanswered() ? this.handleClickNextButton : this.handleClickCheckButton}
+              >
                 {this.renderAdditionalInfo()}
                 <div className="row">
                   {this.renderFrenchFields()}
@@ -325,21 +363,7 @@ class WordTranslateCard extends React.Component {
                       onClick={() => window.history.back()}
                       style={{ marginRight: '10px' }}
                     />
-                    {this.state.checkRequested
-                      ? (
-                        <RaisedButton
-                          label={<FormattedMessage id="general.next" />}
-                          primary
-                          onClick={this.handleClickNextButton}
-                        />
-                      )
-                      : (
-                        <RaisedButton
-                          label={<FormattedMessage id="word.translate.check" />}
-                          primary
-                          onClick={this.handleClickCheckButton}
-                        />
-                      )}
+                    {this.renderActionButton()}
                   </div>
                 </div>
               </FormWithHeading>
@@ -353,6 +377,8 @@ class WordTranslateCard extends React.Component {
 
 WordTranslateCard.propTypes = {
   word: PropTypes.object.isRequired,
+  wordIndex: PropTypes.number.isRequired,
+  numberOfWords: PropTypes.number.isRequired,
   handleClickNext: PropTypes.func.isRequired
 };
 

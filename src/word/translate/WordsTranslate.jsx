@@ -35,6 +35,8 @@ class WordsTranslate extends React.Component {
     return (
       <WordTranslateCard
         word={this.props.words[this.state.wordIndex]}
+        wordIndex={this.state.wordIndex + 1}
+        numberOfWords={this.props.words.length}
         handleClickNext={this.handleClickNext}
       />
     );

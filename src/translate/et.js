@@ -4,6 +4,7 @@ const translations = {
   'general.confirm': 'Kinnita',
   'general.save': 'Salvesta',
   'general.next': 'Järgmine',
+  'general.skip': 'Jäta vahele',
   'general.yes': 'Jah',
   'general.no': 'Ei',
   'appBar.menu': 'Menüü',

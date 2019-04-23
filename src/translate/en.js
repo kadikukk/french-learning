@@ -4,6 +4,7 @@ const translations = {
   'general.confirm': 'Confirm',
   'general.save': 'Save',
   'general.next': 'Next',
+  'general.skip': 'Skip',
   'general.yes': 'Yes',
   'general.no': 'No',
   'appBar.menu': 'Menu',
