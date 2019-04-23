@@ -2,6 +2,12 @@
 
 ### Web application for learning French vocabluary
 
+#### Application is accessible from https://yfa.ut.ee/
+
+-----
+
+#### Steps to follow in order to the run application in the development mode:
+
 To install necessary packages:
 
 	npm install
