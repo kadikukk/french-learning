@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { reject, propEq, isEmpty } from 'ramda';
+import { reject, propEq, isEmpty, concat } from 'ramda';
 import { FormattedMessage } from 'react-intl';
 import { Table, TableHeader, TableBody, Paper, CircularProgress } from 'material-ui';
 import { grey600 } from 'material-ui/styles/colors';
@@ -60,7 +60,7 @@ const AccountsTable = (props) => {
         if (!authUser) {
           return '';
         }
-        const usersList = usersWithoutMe(props.users, authUser);
+        const usersList = concat(usersWithoutMe(props.users, authUser), props.registrations);
 
         return (
           <div style={{ margin: '70px auto' }}>

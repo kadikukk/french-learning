@@ -52,11 +52,6 @@ class Firebase {
           .then(snapshot => {
             const dbUser = snapshot.val();
 
-            // default empty roles
-            if (!dbUser.roles) {
-              dbUser.roles = [];
-            }
-
             // merge auth and db user
             const user = {
               uid: authUser.uid,
@@ -95,6 +90,12 @@ class Firebase {
   word = uid => this.db.ref(`words/${uid}`);
 
   words = () => this.db.ref('words');
+
+  // *** Registration API ***
+
+  registration = uid => this.db.ref(`registrations/${uid}`);
+
+  registrations = () => this.db.ref('registrations');
 }
 
 const firebase = new Firebase();

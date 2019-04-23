@@ -11,7 +11,7 @@ const booleansText = {
 
 const CELL_WIDTH = 14;
 
-const isAdmin = (user) => !!user.roles && user.roles.includes('ADMIN');
+const isAdmin = (user) => user.isAdmin;
 
 const AccountsTableRowCell = ({ content }) => {
   if (content) {
@@ -32,10 +32,10 @@ const AccountsTableRow = (props) => (
       <AccountsTableRowCell content={props.user.email} />
     </TableRowColumn>
     <TableRowColumn className="tableRowColumn">
-      <AccountsTableRowCell content={<FormattedMessage id={booleansText[props.user.active]} />} />
+      <AccountsTableRowCell content={<FormattedMessage id={booleansText[props.user.active || false]} />} />
     </TableRowColumn>
     <TableRowColumn className="tableRowColumn">
-      <AccountsTableRowCell content={<FormattedMessage id={booleansText[isAdmin(props.user)]} />} />
+      <AccountsTableRowCell content={<FormattedMessage id={booleansText[isAdmin(props.user) || false]} />} />
     </TableRowColumn>
     <TableRowColumn className="tableRowColumn" style={{ width: '40%' }}>
       <span style={{ marginRight: '10px' }}>
@@ -49,7 +49,7 @@ const AccountsTableRow = (props) => (
       <span>
         <RaisedButton
           label={<FormattedMessage id="accounts.makeAdministrator" />}
-          disabled={isAdmin(props.user)}
+          disabled={isAdmin(props.user) || !props.user.active}
           onClick={() => props.makeAdministrator(props.user.uid)}
         />
       </span>

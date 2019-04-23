@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { sortBy, compose, toLower, prop, find, propEq, append } from 'ramda';
+import { sortBy, compose, toLower, prop, find, propEq } from 'ramda';
 
 import withFirebase from '../firebase/withFirebase';
 import AccountsTable from './AccountsTable';
@@ -12,33 +12,48 @@ class AccountsTableContainer extends React.Component {
     super(props);
     this.state = {
       users: [],
+      registrations: [],
       fetching: false
     };
   }
 
   componentDidMount() {
     this.onListenForUsers();
+    this.onListenForRegistrations();
   }
 
   componentWillUnmount() {
     this.props.firebase.users().off();
+    this.props.firebase.registrations().off();
   }
 
   getUser = (uid) => find(propEq('uid', uid), this.state.users);
 
   activateUser = (userUid) => {
-    const user = this.getUser(userUid);
-    this.props.firebase.user(userUid).set({
-      ...user,
-      active: true
-    });
+    this.props.firebase
+      .registration(userUid)
+      .on('value', snapshot => {
+        const registration = snapshot.val();
+
+        if (registration) {
+          this.props.firebase.registration(userUid).remove()
+            .then(() => {
+              this.props.firebase.user(userUid).set({
+                name: registration.name,
+                email: registration.email,
+                isAdmin: false,
+                active: true
+              });
+            });
+        }
+      });
   };
 
   makeAdministrator = (userUid) => {
     const user = this.getUser(userUid);
     this.props.firebase.user(userUid).set({
       ...user,
-      roles: append('ADMIN', user.roles || [])
+      isAdmin: true
     });
   };
 
@@ -76,11 +91,40 @@ class AccountsTableContainer extends React.Component {
       });
   }
 
+  onListenForRegistrations() {
+    this.setState({ fetching: true });
+    this.props.firebase
+      .registrations()
+      .on('value', snapshot => {
+        const registrationsObject = snapshot.val();
+
+        if (registrationsObject) {
+          const registrationsList = Object.keys(registrationsObject).map(key => {
+            return {
+              ...registrationsObject[key],
+              uid: key
+            };
+          });
+
+          this.setState({
+            registrations: sortByName(registrationsList),
+            fetching: false
+          });
+        } else {
+          this.setState({
+            registrations: [],
+            fetching: false
+          });
+        }
+      });
+  }
+
   render() {
     return (
       <AccountsTable
         fetching={this.state.fetching}
         users={this.state.users}
+        registrations={this.state.registrations}
         activateUser={this.activateUser}
         makeAdministrator={this.makeAdministrator}
       />

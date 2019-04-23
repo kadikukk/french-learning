@@ -62,11 +62,9 @@ class SignUpForm extends React.Component {
     } else if (equals(this.state.passwordOne, this.state.passwordTwo)) {
       this.props.firebase
         .createUserWithEmailAndPassword(this.state.email, this.state.passwordOne)
-        .then((authUser) => this.props.firebase.user(authUser.user.uid).set({
+        .then((authUser) => this.props.firebase.registration(authUser.user.uid).set({
           name: this.state.name,
-          email: this.state.email,
-          roles: [],
-          active: false
+          email: this.state.email
         }))
         .then(() => {
           this.setState(initialState);
