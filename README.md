@@ -6,7 +6,7 @@
 
 -----
 
-#### Steps to follow in order to the run application in the development mode:
+#### Steps to follow in order to run the application in the development mode:
 
 To install necessary packages:
 
