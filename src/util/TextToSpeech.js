@@ -25,9 +25,12 @@ class TextToSpeech {
     const phrase = new SpeechSynthesisUtterance(text);
     phrase.lang = this.lang;
     phrase.voice = this.getVoice(this.lang);
-    phrase.lang = this.lang;
-    phrase.text = text;
-    this.synth.speak(phrase);
+
+    if (phrase.voice) {
+      phrase.lang = this.lang;
+      phrase.text = text;
+      this.synth.speak(phrase);
+    }
   }
 }
 

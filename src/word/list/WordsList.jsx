@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { sortBy, prop, pluck, mergeRight, isEmpty, compose, toLower } from 'ramda';
+import { sortBy, prop, pluck, mergeRight, isEmpty, compose, toLower, equals } from 'ramda';
 import { FormattedMessage } from 'react-intl';
 import windowDimensions from 'react-window-dimensions';
 import { Checkbox, RadioButtonGroup, RadioButton, RaisedButton, Paper } from 'material-ui';
@@ -27,7 +27,7 @@ class WordsList extends React.Component {
   }
 
   componentDidMount() {
-    if ('speechSynthesis' in window) {
+    if ('speechSynthesis' in window && this.speech.getVoice('fr-FR')) {
       this.setState({ speechEnabled: true });
     }
   }
@@ -37,6 +37,11 @@ class WordsList extends React.Component {
       this.setState((prevState) => ({
         words: this.sortWords(this.props.words, prevState.sortBy)
       }));
+    }
+    if (!equals(prevProps, this.props)) {
+      if ('speechSynthesis' in window && this.speech.getVoice('fr-FR')) {
+        this.setState({ speechEnabled: true });
+      }
     }
   }
 

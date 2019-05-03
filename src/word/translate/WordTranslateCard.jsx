@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { mergeRight, all, isEmpty, values } from 'ramda';
+import { mergeRight, all, isEmpty, values, equals } from 'ramda';
 import { Paper, TextField, SelectField, MenuItem, RaisedButton, IconButton } from 'material-ui';
 import { FormattedMessage } from 'react-intl';
 import ListenWordIcon from 'material-ui/svg-icons/av/volume-up';
@@ -39,8 +39,16 @@ class WordTranslateCard extends React.Component {
   }
 
   componentDidMount() {
-    if ('speechSynthesis' in window) {
+    if ('speechSynthesis' in window && this.speech.getVoice('fr-FR')) {
       this.setState({ speechEnabled: true });
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (!equals(prevProps, this.props)) {
+      if ('speechSynthesis' in window && this.speech.getVoice('fr-FR')) {
+        this.setState({ speechEnabled: true });
+      }
     }
   }
 
@@ -109,7 +117,9 @@ class WordTranslateCard extends React.Component {
 
   handleClickNextButton = (e) => {
     e.preventDefault();
-    this.setState(mergeRight(initialState, { speechEnabled: 'speechSynthesis' in window }));
+    this.setState(mergeRight(initialState, {
+      speechEnabled: 'speechSynthesis' in window && this.speech.getVoice('fr-FR')
+    }));
     this.props.handleClickNext();
   }
 
