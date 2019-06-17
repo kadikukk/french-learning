@@ -21,6 +21,7 @@ import ChapterWordsListContainer from '../word/list/ChapterWordsListContainer.js
 import WordsTranslateContainer from '../word/translate/WordsTranslateContainer';
 import PasswordChangeForm from '../password/PasswordChangeForm';
 import AccountsTableContainer from '../account/AccountsTableContainer';
+import PrivacyPolicy from './PrivacyPolicy.jsx';
 
 import enTranslations from '../translate/en';
 import etTranslations from '../translate/et';
@@ -77,6 +78,7 @@ class App extends React.Component {
                 <Route path="/signin" component={SignInPage} />
                 <Route path="/passwordForget" component={PasswordForgetForm} />
                 <Route path="/account" component={PasswordChangeForm} />
+                <Route path="/privacypolicy" component={PrivacyPolicy} />
                 <Route path="/manage/accounts" component={AccountsTableContainer} />
                 <Route path="/chapters/:id/subjects" exact component={SubjectsContainer} />
                 <Route path="/chapters/:id/words" exact component={ChapterWordsListContainer} />

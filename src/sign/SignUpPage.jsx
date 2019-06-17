@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { compose } from 'recompose';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { isEmpty, equals } from 'ramda';
 import { FormattedMessage } from 'react-intl';
 import { Paper, TextField, RaisedButton, CircularProgress } from 'material-ui';
@@ -136,6 +136,13 @@ class SignUpForm extends React.Component {
                 </div>
               </div>
             )}
+            <div className="row">
+              <div className="col s12 m12 l12">
+                <Link to={'/privacypolicy'}>
+                  <FormattedMessage id="signUp.privacyPolicy" />
+                </Link>
+              </div>
+            </div>
             <div className="row">
               <div className="col s12 m12 l12" style={{ textAlign: 'right' }}>
                 {this.state.fetching && (

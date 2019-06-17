@@ -38,6 +38,7 @@ const translations = {
   'signUp.email': 'Email',
   'signUp.password': 'Password',
   'signUp.confirmPassword': 'Confirm password',
+  'signUp.privacyPolicy': 'Read privacy policy',
   'signUp.submit': 'Sign up',
   'errors.userNotFound': 'There is no user with this email',
   'errors.wrongPassword': 'Entered password is invalid',
